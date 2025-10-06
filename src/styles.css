@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+body { 
+     display: flex;
+         justify-content: center;
+         min-height: 100vh;
+         align-items: center;
+  background-image: url('/img Fondo TrikiTrueke1.jpg'); /* Ruta */
+background-repeat: no-repeat;
+background-position: center;
+background-size:cover ;
+background-attachment: fixed;
+}
+#logo {
+  position: fixed;           /* Fija el logo en la pantalla */
+  top: 20px;                 /* Espacio desde arriba */
+  left: 20px; 
+  size: 10%;               /* Espacio desde la izquierda */
+  width: 10%;               /* Tamaño del logo */
+  height: auto;              /* Mantiene la proporción */
+  z-index: 1000;             /* Asegura que quede encima del contenido */
+  cursor: pointer;           /* (Opcional) cambia el cursor al pasar */
+ filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4)); /* 🔥 Sombra suave */
+
+}
+
