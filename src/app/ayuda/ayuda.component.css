@@ -1,0 +1,152 @@
+/* ---------- Fondo tipo banner superior ---------- */
+.ayuda-banner {
+  background-image: url('/assets/img/fondoayuda.jpg'); /* cambia el nombre si usas otro */
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+}
+
+.banner-overlay {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  width: 80%;
+}
+
+.banner-overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.banner-overlay p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #eee;
+}
+.bodyimg {
+    background: url('/fondoayuda.jpg');
+}
+
+.search-box input {
+  width: 70%;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* ---------- Contenedor general ---------- */
+/* Hace que todo el contenedor tenga posición relativa */
+.contenedor-ayuda {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Imagen de fondo */
+#fondoAyuda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* para que se adapte sin deformarse */
+  z-index: 0;
+  filter: brightness(0.6); /* oscurece un poco para que el texto se lea bien */
+}
+
+/* Contenido encima de la imagen */
+.contenedor-ayuda {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Fondo */
+#fondoAyuda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.6);
+}
+
+/* Contenido encima del fondo */
+.contenido-ayuda {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 4rem;
+}
+
+
+
+/* ---------- Sección de temas ---------- */
+.temas-populares h2,
+.faq h2,
+.contacto h2 {
+  color: #9300f5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.tema-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tema-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+/* ---------- FAQ ---------- */
+.faq .pregunta {
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.faq .pregunta h4 {
+  color: #444;
+}
+
+.contacto {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.contacto ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacto li {
+  margin: 8px 0;
+  color: #333;
+}
