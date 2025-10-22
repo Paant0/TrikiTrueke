@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 /**
  * Descripción: Componente que muestra la pantalla de inicio
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterOutlet,RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

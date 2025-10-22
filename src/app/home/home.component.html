@@ -6,12 +6,14 @@
     <button routerLink="/articulos">Articulos</button>
     <button routerLink="/mensajes">Mensajes</button>
     <button routerLink="/ayuda">Ayuda</button>
-    
+    <input type="text" placeholder="Buscar..." />
+    <button type="submit">🔍</button>
   </div>
   <img class="userLogo" src="Archivos/voy caminando.jpg" alt="Usuario">
 </nav>
 
 <main>
+  <router-outlet></router-outlet>
   <h1>Bienvenido a TrikiTrueke</h1>
   <section id="inicio">
     <h2>La mejor aplicación web de trueques</h2>
