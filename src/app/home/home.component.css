@@ -1,49 +1,44 @@
-body {
-    background-color: #f9f5ed;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
 }
-
-h1,
-h2,
-h3 {
-    color: #4d8e9b;
+.busqueda{
+    justify-content: right;
 }
-
 
 nav {
-    background-color: #e5e1d9;
-    padding: 10px 40px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 
 .LinksNav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex: 1;
+  display: flex;
+  gap: 30px;
 }
 
-nav a {
-    color: #4d8e9b;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
+.btn-fondo {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.btn-fondo:hover {
+  text-decoration: underline;
+  text-decoration-color: #6b2d64;
+  color: #ffffff;
+  background-color: #6b2d64;
+  border-radius: 2px;
+
 }
 
-.userLogo {
+.logo {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -54,6 +49,21 @@ nav a:hover {
     text-align: center;
 }
 
+body {
+    background-color: #000000;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+h1,
+h2,
+h3,
+p {
+    color: #ffffff;
+}
 
 main {
     padding: 40px 20px;
@@ -68,8 +78,8 @@ main {
 }
 
 footer {
-    background-color: #e5e1d9;
-    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+
     text-align: center;
     padding: 20px;
     margin-top: 40px;

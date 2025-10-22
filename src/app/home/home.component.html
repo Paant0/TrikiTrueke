@@ -1,25 +1,33 @@
-<nav>
-  <div class="LinksNav">
-    <button routerLink="/login">Iniciar Sesion</button>
-    <button routerLink="/register">Registrarse</button>
-    <button routerLink="/categorias">Categorias</button>
-    <button routerLink="/articulos">Articulos</button>
-    <button routerLink="/mensajes">Mensajes</button>
-    <button routerLink="/ayuda">Ayuda</button>
+<header>
+  <img src="public/logo.png" alt="logo">
+  <div class="busqueda">
     <input type="text" placeholder="Buscar..." />
     <button type="submit">🔍</button>
   </div>
-  <img class="userLogo" src="Archivos/voy caminando.jpg" alt="Usuario">
+</header>
+
+<nav>
+  <div class="LinksNav">
+    <button class="btn-fondo" routerLink="/login">Iniciar Sesion</button>
+    <button class="btn-fondo" routerLink="/register">Registrarse</button>
+    <button class="btn-fondo" routerLink="/categorias">Categorias</button>
+    <button class="btn-fondo" routerLink="/articulos">Articulos</button>
+    <button class="btn-fondo" routerLink="/mensajes">Mensajes</button>
+    <button class="btn-fondo" routerLink="/ayuda">Ayuda</button>
+  </div>
 </nav>
 
-<main>
-  <router-outlet></router-outlet>
-  <h1>Bienvenido a TrikiTrueke</h1>
-  <section id="inicio">
-    <h2>La mejor aplicación web de trueques</h2>
-    <p>Esta es la sección de bienvenida.</p>
-  </section>
-</main>
+<body>
+
+  <main>
+    <router-outlet></router-outlet>
+    <h1>Bienvenido a TrikiTrueke</h1>
+    <section id="inicio">
+      <h2>La mejor aplicación web de trueques</h2>
+      <p>Esta es la sección de bienvenida.</p>
+    </section>
+  </main>
+</body>
 
 <footer>
   <p>&copy; 2025 Mi Página Web. Todos los derechos reservados.</p>
