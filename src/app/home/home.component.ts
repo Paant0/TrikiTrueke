@@ -20,6 +20,7 @@ export class HomeComponent {
 
   irACategorias(categoria: string) {
     this.router.navigate(['/categorias'], { queryParams: { tipo: categoria } });
+    
   }
 
 }
