@@ -1,6 +1,11 @@
-/* ---------- Fondo tipo banner superior ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .ayuda-banner {
-  background-image: url('/assets/img/fondoayuda.jpg'); /* cambia el nombre si usas otro */
+  background-image: url('/assets/img/fondoayuda.jpg'); 
   background-size: cover;
   background-position: center;
   height: 300px;
@@ -43,8 +48,7 @@
   font-size: 1rem;
 }
 
-/* ---------- Contenedor general ---------- */
-/* Hace que todo el contenedor tenga posición relativa */
+
 .contenedor-ayuda {
   position: relative;
   width: 100%;
@@ -52,19 +56,19 @@
   overflow: hidden;
 }
 
-/* Imagen de fondo */
+
 #fondoAyuda {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* para que se adapte sin deformarse */
+  object-fit: cover;
   z-index: 0;
-  filter: brightness(0.6); /* oscurece un poco para que el texto se lea bien */
+  filter: brightness(0.6); 
 }
 
-/* Contenido encima de la imagen */
+
 .contenedor-ayuda {
   position: relative;
   width: 100%;
@@ -72,7 +76,7 @@
   overflow: hidden;
 }
 
-/* Fondo */
+
 #fondoAyuda {
   position: absolute;
   top: 0;
@@ -84,7 +88,7 @@
   filter: brightness(0.6);
 }
 
-/* Contenido encima del fondo */
+
 .contenido-ayuda {
   position: relative;
   z-index: 1;
@@ -95,7 +99,7 @@
 
 
 
-/* ---------- Sección de temas ---------- */
+
 .temas-populares h2,
 .faq h2,
 .contacto h2 {
@@ -123,7 +127,7 @@
   box-shadow: 0 5px 12px rgba(0,0,0,0.2);
 }
 
-/* ---------- FAQ ---------- */
+
 .faq .pregunta {
   margin-bottom: 15px;
   background: #fff;
