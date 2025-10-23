@@ -87,6 +87,27 @@ main {
   margin: auto;
 }
 
+.producto {
+  border: 2px solid #6b2d64;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  width: 200px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #ffffff;
+}
+
+.producto img {
+  width: 90%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+
+}
+
 .insta {
   bottom: 20px;
   right: 20px;
