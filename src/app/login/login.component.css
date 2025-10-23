@@ -5,8 +5,8 @@
     font-family: 'Montserrat', sans-serif;
 }
 body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+   
+    background: linear-gradient(to right, #e2e2e2, #c008a8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +39,7 @@ body{
     margin: 15px 0 10px;
 }
 .container button {
-    background-color: #512da8;
+    background-color: #c008a8;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -144,9 +144,9 @@ margin: 20px 0;
     border-radius: 0 150px 100px 0;
 }
 .toggle {
-    background-color: #512da8;
+    background-color: #c008a8;
     height: 100%;
-    background: linear-gradient(to right, #5c6bc0, #512da8);
+    background: linear-gradient(to right, #ca6fbe, #c008a8);
     color: #fff;
     position: relative;
     left: -100%;
