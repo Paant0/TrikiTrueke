@@ -21,11 +21,65 @@
 
   <main>
     <router-outlet></router-outlet>
-    <h1>Bienvenido a TrikiTrueke</h1>
-    <section id="inicio">
-      <h2>La mejor aplicación web de trueques</h2>
-      <p>Esta es la sección de bienvenida.</p>
-    </section>
+    <!-- Carrusel de imágenes -->
+    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner rounded-4 shadow">
+        <div class="carousel-item active">
+          <img src="assets/img/carrusel1.jpg" class="d-block w-100" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/img/carrusel2.jpg" class="d-block w-100" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/img/carrusel3.jpg" class="d-block w-100" alt="Imagen 3">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- Categorías -->
+    <div class="row text-center mt-5">
+      <div class="col-md-3 mb-3" (click)="irACategorias('tecnologia')">
+        <div class="card shadow-sm border-0 hover-card">
+          <div class="card-body">
+            <h5>Tecnología</h5>
+            <img src="assets/img/tecnologia.jpg" class="img-fluid rounded" alt="Tecnología">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3" (click)="irACategorias('mascotas')">
+        <div class="card shadow-sm border-0 hover-card">
+          <div class="card-body">
+            <h5>Mascotas</h5>
+            <img src="assets/img/mascotas.jpg" class="img-fluid rounded" alt="Mascotas">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3" (click)="irACategorias('moda')">
+        <div class="card shadow-sm border-0 hover-card">
+          <div class="card-body">
+            <h5>Moda</h5>
+            <img src="assets/img/moda.jpg" class="img-fluid rounded" alt="Moda">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3" (click)="irACategorias('juegos')">
+        <div class="card shadow-sm border-0 hover-card">
+          <div class="card-body">
+            <h5>Juegos</h5>
+            <img src="assets/img/juegos.jpg" class="img-fluid rounded" alt="Juegos">
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
 

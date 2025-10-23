@@ -5,8 +5,9 @@ header {
   padding: 10px 20px;
   background-color: #ffffff;
 }
-.busqueda{
-    justify-content: right;
+
+.busqueda {
+  justify-content: right;
 }
 
 nav {
@@ -39,58 +40,73 @@ nav {
 }
 
 .logo {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-    vertical-align: middle;
-    margin-left: auto;
-    text-align: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-left: auto;
+  text-align: center;
 }
 
 body {
-    background-color: #000000;
-    color: #000000;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #000000;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 
+}
+
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-inner img {
+  height: 400px;
+  object-fit: cover;
 }
 
 h1,
 h2,
 h3,
 p {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 main {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .insta {
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 footer {
-    background-color: #ffffff;
+  background-color: #ffffff;
 
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
 }
 
 @media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
+  nav {
+    flex-direction: column;
+  }
 
-    nav a {
-        margin: 10px 0;
-    }
+  nav a {
+    margin: 10px 0;
+  }
 }
