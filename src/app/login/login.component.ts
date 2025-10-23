@@ -1,22 +1,35 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-standalone: true,
+  standalone: true,
   templateUrl: './login.component.html',
   imports: [RouterLink],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements AfterViewInit {
-  ngAfterViewInit(): void {
-    const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
+  
+  private isBrowser: boolean;
 
-if (registerBtn && container) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    @Inject(DOCUMENT) private document: any
+  ) {
+    // 👇 Esto garantiza que no se use document en el servidor
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
+  ngAfterViewInit(): void {
+    // 👇 ejecuta solo si estamos en el navegador
+    if (!this.isBrowser) return;
+
+    const container = this.document.getElementById('container');
+    const registerBtn = this.document.getElementById('register');
+    const loginBtn = this.document.getElementById('login');
+
+    if (registerBtn && container) {
       registerBtn.addEventListener('click', () => {
         container.classList.add('active');
       });
@@ -27,7 +40,6 @@ if (registerBtn && container) {
         container.classList.remove('active');
       });
     }
-
   }
-
 }
+
