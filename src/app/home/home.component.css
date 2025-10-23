@@ -1,86 +1,112 @@
-body {
-    background-color: #f9f5ed;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+}
 
+.busqueda {
+  justify-content: right;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.LinksNav {
+  display: flex;
+  gap: 30px;
+}
+
+.btn-fondo {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-fondo:hover {
+  text-decoration: underline;
+  text-decoration-color: #6b2d64;
+  color: #ffffff;
+  background-color: #6b2d64;
+  border-radius: 2px;
+
+}
+
+.logo {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-left: auto;
+  text-align: center;
+}
+
+body {
+  background-color: #000000;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+
+}
+
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-inner img {
+  height: 400px;
+  object-fit: cover;
 }
 
 h1,
 h2,
-h3 {
-    color: #4d8e9b;
+h3,
+p {
+  color: #ffffff;
 }
-
-
-nav {
-    background-color: #e5e1d9;
-    padding: 10px 40px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    justify-content: space-between;
-}
-
-.LinksNav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex: 1;
-}
-
-nav a {
-    color: #4d8e9b;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-.userLogo {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-    vertical-align: middle;
-    margin-left: auto;
-    text-align: center;
-}
-
 
 main {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .insta {
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 footer {
-    background-color: #e5e1d9;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
+  background-color: #ffffff;
+
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
 }
 
 @media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
+  nav {
+    flex-direction: column;
+  }
 
-    nav a {
-        margin: 10px 0;
-    }
+  nav a {
+    margin: 10px 0;
+  }
 }

@@ -1,2 +1,61 @@
-<p>login works!</p>
-<h1>oliwiwi</h1>
+<body>
+    
+    <div class="container" id="container">
+        <div class="form-container Crear-cuenta">
+            <form>
+                <h1>Crear Cuenta</h1>
+                <div class="Iconos-Social">
+                   <a href="#" class="icon"><img src="public/icons8-logo-de-google.svg" alt="Google"></a>
+                   <a href="#" class="icon"><img src="public/icons8-facebook-nuevo.svg" alt="facbook"></a>
+                   <a href="#" class="icon"><img src="public/icons8-github.svg" alt="Git hub"></a>
+                   <a href="#" class="icon"><img src="public/icons8-mac-os.svg" alt="Apple"></a>
+                    
+                </div>
+                <span>O usa tu correo para registrarte</span>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit" >Crear</button>
+            </form>
+
+        </div>
+<div class="form-container Iniciar-Sesion">
+    <form>
+       <h1>Iniciar Sesion</h1>
+                <div class="Iconos-Social">
+                    <a href="#" class="icon"><img src="public/icons8-facebook-nuevo.svg" alt="Google"></a>
+                   <a href="#" class="icon"><img src="public/icons8-facebook-nuevo.svg" alt="facbook"></a>
+                   <a href="#" class="icon"><img src="public/icons8-github.svg" alt="Git hub"></a>
+                   <a href="#" class="icon"><img src="public/icons8-mac-os.svg" alt="Apple"></a>
+               
+                </div>
+                <span>O usa tu correo y ontraseña</span>
+               
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+           <a href="#">Olvidaste tu contraseña manito?</a>
+                <button>Iniciar Sesion</button>
+          
+    </form>
+
+</div>
+<div class="toggle-container">
+    <div class="toggle">
+        <div class="toggle-panel toggle-left">
+            <h1>Bienvenido pri</h1>
+            <p>Ingrese sus datos personales para utilizar todas las funciones</p>
+            <button class="hidden" id="login">Inciar Sesion</button>
+
+        </div>
+        <div class="toggle-panel toggle-right">
+        <h1>Hola, amiguito</h1>
+        <p>Registra tus datos personales para utilizar todas las funciones</p>
+        <button class="hidden" id="register">Crear Cuenta</button>
+        </div>
+    </div>
+
+</div>
+    </div>
+    <script src="login.component.ts" ></script>
+</body>
