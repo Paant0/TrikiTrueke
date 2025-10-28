@@ -1,5 +1,5 @@
 <header>
-  <img src="public/logo.png" alt="logo">
+<img src="assets/logo.png" alt="Logo TrikiTrueke" width="150">
   <div class="busqueda">
     <input type="text" placeholder="Buscar..." />
     <button type="submit">🔍</button>
@@ -21,7 +21,7 @@
 
   <main>
     <router-outlet></router-outlet>
-    <!-- Carrusel de imágenes -->
+
     <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
       <div class="carousel-inner rounded-4 shadow">
         <div class="carousel-item active">
@@ -42,44 +42,28 @@
       </button>
     </div>
 
-    <!-- Categorías -->
-    <div class="row text-center mt-5">
-      <div class="col-md-3 mb-3" (click)="irACategorias('tecnologia')">
-        <div class="card shadow-sm border-0 hover-card">
-          <div class="card-body">
-            <h5>Tecnología</h5>
-            <img src="assets/img/tecnologia.jpg" class="img-fluid rounded" alt="Tecnología">
-          </div>
-        </div>
+    <section>
+      <div class="producto" id="producto1">
+        <img src="Archivos/pandequeso.jpg" alt="Pan con queso">
+        <h3>Pan con queso</h3>
+        <small>$10 lukas</small>
       </div>
-
-      <div class="col-md-3 mb-3" (click)="irACategorias('mascotas')">
-        <div class="card shadow-sm border-0 hover-card">
-          <div class="card-body">
-            <h5>Mascotas</h5>
-            <img src="assets/img/mascotas.jpg" class="img-fluid rounded" alt="Mascotas">
-          </div>
-        </div>
+      <div class="producto" id="producto2">
+        <img src="Archivos/arrozconpollo.jpg" alt="Arroz con pollo">
+        <h3>Arroz con pollo</h3>
+        <small>$50 lukas</small>
       </div>
-
-      <div class="col-md-3 mb-3" (click)="irACategorias('moda')">
-        <div class="card shadow-sm border-0 hover-card">
-          <div class="card-body">
-            <h5>Moda</h5>
-            <img src="assets/img/moda.jpg" class="img-fluid rounded" alt="Moda">
-          </div>
-        </div>
+      <div class="producto" id="producto3">
+        <img src="Archivos/lechona.jpg" alt="Lechona">
+        <h3>Lechona</h3>
+        <small>$100 lukas</small>
       </div>
-
-      <div class="col-md-3 mb-3" (click)="irACategorias('juegos')">
-        <div class="card shadow-sm border-0 hover-card">
-          <div class="card-body">
-            <h5>Juegos</h5>
-            <img src="assets/img/juegos.jpg" class="img-fluid rounded" alt="Juegos">
-          </div>
-        </div>
+      <div class="producto" id="producto4">
+        <img src="Archivos/perrocaliente.jpg" alt="Perrito Caliente">
+        <h3>Perrito Caliente</h3>
+        <small>$1 lukas</small>
       </div>
-    </div>
+    </section>
   </main>
 </body>
 
