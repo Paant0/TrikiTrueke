@@ -1,2 +1,29 @@
+<header>
+  <img class="logo" src="assets/logo.png" alt="Logo TrikiTrueke" >
+ 
+  <nav>
+  <div class="LinksNav">
+   <button class="btn-fondo" routerLink="/home" routerLinkActive="activo">Inicio</button>
+      <button class="btn-fondo" routerLink="/login" routerLinkActive="activo">Iniciar Sesión</button>
+      <button class="btn-fondo" routerLink="/categorias" routerLinkActive="activo">Categorías</button>
+      <button class="btn-fondo" routerLink="/articulos" routerLinkActive="activo">Artículos</button>
+      <button class="btn-fondo" routerLink="/mensajes" routerLinkActive="activo">Mensajes</button>
+      <button class="btn-fondo" routerLink="/ayuda" routerLinkActive="activo">Ayuda</button>
+     </div>
+</nav>
+ <div class="busqueda">
+    <input type="text" placeholder="Buscar..." />
+    <button type="submit">🔍</button>
+  </div>
+</header>
 
-<router-outlet></router-outlet>
+
+
+<!-- Aquí se mostrará el contenido que cambia -->
+<main>
+    
+    <router-outlet></router-outlet>
+</main>
+
+
+

@@ -1,72 +1,44 @@
-<header>
-<img src="assets/logo.png" alt="Logo TrikiTrueke" width="150">
-  <div class="busqueda">
-    <input type="text" placeholder="Buscar..." />
-    <button type="submit">🔍</button>
-  </div>
-</header>
-
-<nav>
-  <div class="LinksNav">
-    <button class="btn-fondo" routerLink="/login">Iniciar Sesion</button>
-    <button class="btn-fondo" routerLink="/register">Registrarse</button>
-    <button class="btn-fondo" routerLink="/categorias">Categorias</button>
-    <button class="btn-fondo" routerLink="/articulos">Articulos</button>
-    <button class="btn-fondo" routerLink="/mensajes">Mensajes</button>
-    <button class="btn-fondo" routerLink="/ayuda">Ayuda</button>
-  </div>
-</nav>
-
-<body>
-
-  <main>
-    <router-outlet></router-outlet>
-
-    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-      <div class="carousel-inner rounded-4 shadow">
-        <div class="carousel-item active">
-          <img src="assets/img/carrusel1.jpg" class="d-block w-100" alt="Imagen 1">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/carrusel2.jpg" class="d-block w-100" alt="Imagen 2">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/carrusel3.jpg" class="d-block w-100" alt="Imagen 3">
-        </div>
+<main>
+  <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner rounded-4 shadow">
+      <div class="carousel-item active">
+        <img src="assets/img/carrusel1.jpg" class="d-block w-100" alt="Imagen 1">
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
+      <div class="carousel-item">
+        <img src="assets/img/carrusel2.jpg" class="d-block w-100" alt="Imagen 2">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/img/carrusel3.jpg" class="d-block w-100" alt="Imagen 3">
+      </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
 
-    <section>
-      <div class="producto" id="producto1">
-        <img src="Archivos/pandequeso.jpg" alt="Pan con queso">
-        <h3>Pan con queso</h3>
-        <small>$10 lukas</small>
-      </div>
-      <div class="producto" id="producto2">
-        <img src="Archivos/arrozconpollo.jpg" alt="Arroz con pollo">
-        <h3>Arroz con pollo</h3>
-        <small>$50 lukas</small>
-      </div>
-      <div class="producto" id="producto3">
-        <img src="Archivos/lechona.jpg" alt="Lechona">
-        <h3>Lechona</h3>
-        <small>$100 lukas</small>
-      </div>
-      <div class="producto" id="producto4">
-        <img src="Archivos/perrocaliente.jpg" alt="Perrito Caliente">
-        <h3>Perrito Caliente</h3>
-        <small>$1 lukas</small>
-      </div>
-    </section>
-  </main>
-</body>
-
-<footer>
-  <p>&copy; 2025 Mi Página Web. Todos los derechos reservados.</p>
-</footer>
+  <section>
+    <div class="producto" id="producto1">
+      <img src="Archivos/pandequeso.jpg" alt="Pan con queso">
+      <h3>Pan con queso</h3>
+      <small>$10 lukas</small>
+    </div>
+    <div class="producto" id="producto2">
+      <img src="Archivos/arrozconpollo.jpg" alt="Arroz con pollo">
+      <h3>Arroz con pollo</h3>
+      <small>$50 lukas</small>
+    </div>
+    <div class="producto" id="producto3">
+      <img src="Archivos/lechona.jpg" alt="Lechona">
+      <h3>Lechona</h3>
+      <small>$100 lukas</small>
+    </div>
+    <div class="producto" id="producto4">
+      <img src="Archivos/perrocaliente.jpg" alt="Perrito Caliente">
+      <h3>Perrito Caliente</h3>
+      <small>$1 lukas</small>
+    </div>
+  </section>
+</main>
