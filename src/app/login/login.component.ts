@@ -22,7 +22,7 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // 👇 ejecuta solo si estamos en el navegador
+    //ejecuta solo si estamos en el navegadorng 
     if (!this.isBrowser) return;
 
     const container = this.document.getElementById('container');
