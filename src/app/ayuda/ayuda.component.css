@@ -1,216 +1,18 @@
+/* Reset general */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.ayuda-banner {
-  background-size: cover;
-  background-position: center;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  position: relative;
-}
-
-.banner-overlay {
-  background: rgba(0, 0, 0, 0.55);
-  padding: 40px;
-  border-radius: 15px;
-  text-align: center;
-  width: 80%;
-}
-
-.banner-overlay h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.banner-overlay p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  color: #eee;
-}
-.search-box input {
-  width: 70%;
-  padding: 10px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  text-align: center;
-  font-size: 1rem;
-}
-
-
-.contenedor-ayuda {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-
-#fondoAyuda {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  filter: brightness(0.6); 
-}
-
-
-.contenedor-ayuda {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-
-#fondoAyuda {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  filter: brightness(0.6);
-}
-
-
-.contenido-ayuda {
-  position: relative;
-  z-index: 1;
-  color: white;
-  text-align: center;
-  padding: 4rem;
-}
-
-
-
-
-.temas-populares h2,
-.faq h2,
-.contacto h2 {
-  color: #9300f5;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.temas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.tema-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 7px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tema-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-}
-
-
-.faq .pregunta {
-  margin-bottom: 15px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.faq .pregunta h4 {
-  color: #444;
-}
-
-.contacto {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.contacto ul {
-  list-style: none;
-  padding: 0;
-}
-
-.contacto li {
-  margin: 8px 0;
-  color: #333;
-}
-h2 {
-  color: #4B0082;
-  text-align: center;
-  margin-top: 1.5rem;
-  font-weight: 700;
-}
-.temas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.2rem;
-  padding: 1rem;
-}
-.tema-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.tema-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-.search-box {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.search-box input {
-  width: 90%;
-  max-width: 600px;
-  padding: 0.8rem 1.2rem;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
-}
-.ayuda-wrapper {
-  max-width: 1000px; 
-  margin: 0 auto; 
-  padding: 0 20px; 
-}
-
-.faq, .contacto, .temas-populares {
-  margin-bottom: 2rem;
-}
-
-.pregunta {
-  margin: 1rem 0;
-}
-/* Fondo general */
+/* Fondo general sin color */
 .bodyimg {
-  background: linear-gradient(135deg, #fbd3e9 0%, #bb377d 100%);
-  background-attachment: fixed;
+  background: none;
   font-family: 'Poppins', sans-serif;
   color: #333;
-  margin: 0;
 }
 
-/* Contenedor principal centrado */
+/* Contenedor principal */
 .ayuda-wrapper {
   max-width: 1000px;
   margin: 0 auto;
@@ -232,13 +34,27 @@ h2 {
   margin-bottom: 10px;
 }
 
+.banner-overlay p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #eee;
+}
+
+/* Buscador */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 .search-box input {
-  width: 80%;
+  width: 90%;
   max-width: 600px;
-  padding: 10px;
-  border-radius: 25px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 50px;
   border: none;
   outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-size: 1rem;
 }
 
@@ -261,6 +77,8 @@ h2 {
   padding: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  cursor: pointer;
 }
 
 .tema-card:hover {
@@ -268,7 +86,7 @@ h2 {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* FAQ */
+/* Preguntas frecuentes */
 .faq h2 {
   text-align: center;
   color: #b200ff;
@@ -304,6 +122,216 @@ h2 {
   .search-box input {
     width: 100%;
   }
+
+  .ayuda-banner {
+    padding: 40px 10px;
+  }
+
+  .tema-card h3 {
+    font-size: 1rem;
+  }
+}
+.explicacion {
+  margin-top: 20px;
+  background: #f9f9ff;
+  border-left: 4px solid #b200ff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.explicacion h3 {
+  color: #6b21a8;
+  margin-bottom: 10px;
+}
+
+.explicacion button {
+  margin-top: 10px;
+  background-color: #b200ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.explicacion button:hover {
+  background-color: #7b00c4;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* 🌈 Fondo general morado suave */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+/* 🟣 Contenedor principal centrado */
+.ayuda-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 🪄 Banner */
+.ayuda-banner {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.banner-overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.banner-overlay p {
+  font-size: 1rem;
+  color: #eee;
+  margin-bottom: 20px;
+}
+
+/* 🔍 Buscador */
+.search-box {
+  display: flex;
+  justify-content: center;
+}
+
+.search-box input {
+  width: 90%;
+  max-width: 600px;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 📚 Temas populares */
+.temas-populares h2 {
+  text-align: center;
+  color: #0e0911;
+  margin-bottom: 1.5rem;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.tema-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.tema-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* 💬 Explicación dinámica */
+.explicacion {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  animation: aparecer 0.3s ease-in-out;
+}
+
+.explicacion h3 {
+  color: #7e22ce;
+  margin-bottom: 0.8rem;
+}
+
+.explicacion p {
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.explicacion button {
+  background: #a855f7;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.explicacion button:hover {
+  background: #9333ea;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ❓ Preguntas frecuentes */
+.faq h2 {
+  text-align: center;
+  color: #0e0911;
+  margin-top: 2rem;
+}
+
+.pregunta {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 📞 Contacto */
+.contacto {
+  text-align: center;
+  margin-top: 3rem;
+  color: #0e0911;
+}
+
+.contacto ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacto li {
+  margin: 0.5rem 0;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .search-box input {
+    width: 100%;
+  }
   .ayuda-banner {
     padding: 40px 10px;
   }
@@ -311,5 +339,3 @@ h2 {
     font-size: 1rem;
   }
 }
-
-
