@@ -1,23 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
-import { AyudaComponent } from './ayuda.component';
+@Component({
+  selector: 'app-ayuda',
+  templateUrl: './ayuda.component.html',
+  styleUrls: ['./ayuda.component.css']
+})
+export class AyudaComponent {
+  mostrarExplicacion: string | null = null;
 
-describe('AyudaComponent', () => {
-  let component: AyudaComponent;
-  let fixture: ComponentFixture<AyudaComponent>;
+  toggleExplicacion(seccion: string) {
+    this.mostrarExplicacion = this.mostrarExplicacion === seccion ? null : seccion;
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AyudaComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(AyudaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  cerrarExplicacion() {
+    this.mostrarExplicacion = null;
+  }
+}
