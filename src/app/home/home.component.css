@@ -1,6 +1,6 @@
-body,
+main,
 .page {
-  background: linear-gradient(180deg, #f7e8ff, #fff);
+  background: #f9eeff;
   font-family: 'Poppins', sans-serif;
   color: #333;
   margin: 0;
