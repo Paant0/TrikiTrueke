@@ -7,7 +7,7 @@
 
 /* 🔸 Nuevo contenedor general */
 .login-wrapper {
-  background: linear-gradient(to right, #e2e2e2, #6b2d64);
+  background: linear-gradient(to right, #ffff, #f2ddfd);
   min-height: 100vh;
   display: flex;
   align-items: center;
