@@ -20,9 +20,10 @@ body{
     position: relative;
     overflow: hidden;
     width: 768px;
-    max-width: 100%;
+    max-width: 120%;
     min-height: 480px;
 }
+
 .container p{
     font-size: 14px;
     line-height: 20px;
