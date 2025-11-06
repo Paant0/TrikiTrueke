@@ -9,7 +9,7 @@
 .bodyimg {
   background: none;
   font-family: 'Poppins', sans-serif;
-  color: #333;
+  color: #6b2d64;
 }
 
 /* Contenedor principal */
@@ -18,13 +18,12 @@
   margin: 0 auto;
   padding: 20px;
 }
-
 /* Banner */
 .ayuda-banner {
   text-align: center;
   padding: 60px 20px;
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
+  color: #6b2d64;
+  background-color: #6b2d64;
   border-radius: 20px;
   margin-bottom: 40px;
 }
@@ -37,7 +36,7 @@
 .banner-overlay p {
   font-size: 1rem;
   margin-bottom: 20px;
-  color: #eee;
+  color: #6b2d64;
 }
 
 /* Buscador */
@@ -54,18 +53,24 @@
   border-radius: 50px;
   border: none;
   outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px #933E89;
   font-size: 1rem;
 }
 
 /* Temas populares */
+.temas-populares  {
+  margin-top: 3rem;
+  color: #6b2d64;
+
+}
 .temas-populares h2 {
   text-align: center;
-  color: #b200ff;
+  color: #6b2d64;
   margin-bottom: 1.5rem;
 }
 
 .temas-grid {
+  color: #6b2d64;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
@@ -89,7 +94,7 @@
 /* Preguntas frecuentes */
 .faq h2 {
   text-align: center;
-  color: #b200ff;
+  color: #6b2d64;
   margin-top: 2rem;
 }
 
@@ -105,7 +110,7 @@
 .contacto {
   text-align: center;
   margin-top: 3rem;
-  color: #6b21a8;
+  color: #6b2d64;
 }
 
 .contacto ul {
@@ -134,7 +139,7 @@
 .explicacion {
   margin-top: 20px;
   background: #f9f9ff;
-  border-left: 4px solid #b200ff;
+  border-left: 4px solid #6b2d64;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -143,13 +148,13 @@
 }
 
 .explicacion h3 {
-  color: #6b21a8;
+  color: #933E89;
   margin-bottom: 10px;
 }
 
 .explicacion button {
   margin-top: 10px;
-  background-color: #b200ff;
+  background-color: #6b2d64;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -159,7 +164,7 @@
 }
 
 .explicacion button:hover {
-  background-color: #7b00c4;
+  background-color: #933E89;
 }
 
 @keyframes fadeIn {
@@ -170,9 +175,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 100%);
+  background: #f9eeff;
   font-family: 'Poppins', sans-serif;
-  color: #333;
+  color: #6b2d64;
   padding: 0;
   margin: 0;
 }
@@ -189,7 +194,7 @@
   text-align: center;
   padding: 60px 20px;
   color: white;
-  background: rgba(0, 0, 0, 0.4);
+  background: #6b2d64;
   border-radius: 20px;
   margin-bottom: 40px;
 }
@@ -225,7 +230,7 @@
 /* 📚 Temas populares */
 .temas-populares h2 {
   text-align: center;
-  color: #0e0911;
+  color: #6b2d64;
   margin-bottom: 1.5rem;
 }
 
@@ -261,7 +266,7 @@
 }
 
 .explicacion h3 {
-  color: #7e22ce;
+  color: #6b2d64;
   margin-bottom: 0.8rem;
 }
 
@@ -271,7 +276,7 @@
 }
 
 .explicacion button {
-  background: #a855f7;
+  background: #6b2d64;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -282,7 +287,7 @@
 }
 
 .explicacion button:hover {
-  background: #9333ea;
+  background: #6b2d64;
 }
 
 @keyframes aparecer {
@@ -299,7 +304,7 @@
 /* ❓ Preguntas frecuentes */
 .faq h2 {
   text-align: center;
-  color: #0e0911;
+  color: #6b2d64;
   margin-top: 2rem;
 }
 
@@ -315,7 +320,7 @@
 .contacto {
   text-align: center;
   margin-top: 3rem;
-  color: #0e0911;
+  color: #933E89;
 }
 
 .contacto ul {

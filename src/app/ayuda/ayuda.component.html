@@ -12,36 +12,36 @@
 
   <!-- Temas populares -->
   <section class="temas-populares">
-  <h2>Temas Populares</h2>
-  <div class="temas-grid">
-    <div class="tema-card" (click)="mostrarExplicacion('cuenta')">
-      <h3>🔑 Crear mi cuenta</h3>
-      <p>Aprende cómo registrarte e iniciar sesión fácilmente.</p>
+    <h2>Temas Populares</h2>
+    <div class="temas-grid">
+      <div class="tema-card" (click)="mostrarExplicacion('cuenta')">
+        <h3>🔑 Crear mi cuenta</h3>
+        <p>Aprende cómo registrarte e iniciar sesión fácilmente.</p>
+      </div>
+
+      <div class="tema-card" (click)="mostrarExplicacion('trueque')">
+        <h3>📦 Publicar un trueque</h3>
+        <p>Guía paso a paso para subir tus artículos.</p>
+      </div>
+
+      <div class="tema-card" (click)="mostrarExplicacion('contacto')">
+        <h3>💬 Contactar usuarios</h3>
+        <p>Descubre cómo comunicarte con otros truekers.</p>
+      </div>
+
+      <div class="tema-card" (click)="mostrarExplicacion('seguridad')">
+        <h3>🛡️ Seguridad</h3>
+        <p>Consejos para realizar intercambios de forma segura.</p>
+      </div>
     </div>
 
-    <div class="tema-card" (click)="mostrarExplicacion('trueque')">
-      <h3>📦 Publicar un trueque</h3>
-      <p>Guía paso a paso para subir tus artículos.</p>
+    <!-- Explicación dinámica -->
+    <div class="explicacion" *ngIf="temaSeleccionado">
+      <h3>{{ tituloExplicacion }}</h3>
+      <p>{{ textoExplicacion }}</p>
+      <button (click)="cerrarExplicacion()">Cerrar</button>
     </div>
-
-    <div class="tema-card" (click)="mostrarExplicacion('contacto')">
-      <h3>💬 Contactar usuarios</h3>
-      <p>Descubre cómo comunicarte con otros truekers.</p>
-    </div>
-
-    <div class="tema-card" (click)="mostrarExplicacion('seguridad')">
-      <h3>🛡️ Seguridad</h3>
-      <p>Consejos para realizar intercambios de forma segura.</p>
-    </div>
-  </div>
-
-  <!-- Explicación dinámica -->
-  <div class="explicacion" *ngIf="temaSeleccionado">
-    <h3>{{ tituloExplicacion }}</h3>
-    <p>{{ textoExplicacion }}</p>
-    <button (click)="cerrarExplicacion()">Cerrar</button>
-  </div>
-</section>
+  </section>
 
   <!-- Preguntas frecuentes -->
   <section class="faq">

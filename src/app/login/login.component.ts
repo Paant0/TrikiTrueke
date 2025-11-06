@@ -1,45 +1,36 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   templateUrl: './login.component.html',
-  imports: [RouterLink],
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements AfterViewInit {
-  
-  private isBrowser: boolean;
+export class LoginComponent {
+  constructor(private router: Router) {}
 
-  constructor(
-    @Inject(PLATFORM_ID) platformId: Object,
-    @Inject(DOCUMENT) private document: any
-  ) {
-    // 👇 Esto garantiza que no se use document en el servidor
-    this.isBrowser = isPlatformBrowser(platformId);
+  
+  toggleForm(mode: string) {
+    const container = document.getElementById('container');
+    if (mode === 'register') {
+      container?.classList.add('active');
+    } else {
+      container?.classList.remove('active');
+    }
   }
 
-  ngAfterViewInit(): void {
-    //ejecuta solo si estamos en el navegadorng 
-    if (!this.isBrowser) return;
 
-    const container = this.document.getElementById('container');
-    const registerBtn = this.document.getElementById('register');
-    const loginBtn = this.document.getElementById('login');
+  onRegister(event: Event) {
+    event.preventDefault();
 
-    if (registerBtn && container) {
-      registerBtn.addEventListener('click', () => {
-        container.classList.add('active');
-      });
-    }
+    alert('Cuenta creada exitosamente.\nYa puedes iniciar sesión.');
+    this.toggleForm('login'); 
+  }
 
-    if (loginBtn && container) {
-      loginBtn.addEventListener('click', () => {
-        container.classList.remove('active');
-      });
-    }
+  onLogin(event: Event) {
+    event.preventDefault();
+
+    alert(' Inicio de sesión exitoso.');
+    this.router.navigate(['/home']); 
   }
 }
-

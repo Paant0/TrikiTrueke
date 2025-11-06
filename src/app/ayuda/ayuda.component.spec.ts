@@ -1,23 +1,42 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AyudaComponent } from './ayuda.component';
+@Component({
+  selector: 'app-ayuda',
+  templateUrl: './ayuda.component.html',
+  styleUrls: ['./ayuda.component.css']
+})
+export class AyudaComponent {
 
-describe('AyudaComponent', () => {
-  let component: AyudaComponent;
-  let fixture: ComponentFixture<AyudaComponent>;
+  temaSeleccionado: string | null = null;
+  tituloExplicacion: string = '';
+  textoExplicacion: string = '';
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AyudaComponent]
-    })
-    .compileComponents();
+  explicaciones: any = {
+    cuenta: {
+      titulo: 'Crear mi cuenta',
+      texto: 'Aprende cómo registrarte e iniciar sesión fácilmente.'
+    },
+    trueque: {
+      titulo: 'Publicar un trueque',
+      texto: 'Guía paso a paso para subir tus artículos.'
+    },
+    contacto: {
+      titulo: 'Contactar usuarios',
+      texto: 'Descubre cómo comunicarte con otros truekers.'
+    },
+    seguridad: {
+      titulo: 'Seguridad',
+      texto: 'Consejos para realizar intercambios de forma segura.'
+    }
+  };
 
-    fixture = TestBed.createComponent(AyudaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  mostrarExplicacion(tema: string) {
+    this.temaSeleccionado = tema;
+    this.tituloExplicacion = this.explicaciones[tema].titulo;
+    this.textoExplicacion = this.explicaciones[tema].texto;
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  cerrarExplicacion() {
+    this.temaSeleccionado = null;
+  }
+}
