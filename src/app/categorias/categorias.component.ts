@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-categorias',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet,CommonModule, RouterLink],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })

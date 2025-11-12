@@ -1,1 +1,26 @@
-<p>articulos works!</p>
+<div class="articulos-container">
+
+  <!-- 🏷️ Título dinámico -->
+  <h2 *ngIf="categoria">Artículos de {{ categoria }}</h2>
+  <h2 *ngIf="!categoria">Explora nuestros artículos</h2>
+
+  <!-- 📦 Lista de artículos -->
+  <div class="articulos-grid" *ngIf="articulosFiltrados.length > 0; else sinArticulos">
+    <div class="articulo-card" *ngFor="let articulo of articulosFiltrados">
+      <img [src]="articulo.imagen" [alt]="articulo.nombre" class="articulo-img" />
+      <div class="articulo-info">
+        <h3>{{ articulo.nombre }}</h3>
+        <p>{{ articulo.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ❌ Mensaje si no hay resultados -->
+  <ng-template #sinArticulos>
+    <div class="no-articulos">
+      <p>No hay artículos disponibles en esta categoría.</p>
+      <img src="assets/img/empty.png" alt="Sin artículos" class="empty-img" />
+    </div>
+  </ng-template>
+
+</div>
