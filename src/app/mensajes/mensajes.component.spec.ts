@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 import { Component } from '@angular/core';
 
 interface Contacto {
@@ -67,4 +66,4 @@ export class MensajesComponent {
     }, 1000);
   }
 }
->>>>>>> 775a4bb137e29bc20f33fe07dae33244c3e9240f
+
