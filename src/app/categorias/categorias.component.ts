@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 /**
  * Descripción: Componente que muestra las categorias de los productos
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-categorias',
-  imports: [],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })

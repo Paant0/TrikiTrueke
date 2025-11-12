@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nombre": "Libros",
+    "imagen": "assets/Libros.png",
+    "descripcion": "Intercambia libros usados por nuevas lecturas."
+  },
+  {
+    "id": 2,
+    "nombre": "Mascotas",
+    "imagen": "assets/Mascotas.png",
+    "descripcion": "Encuentra productos y accesorios para tus mascotas."
+  },
+  {
+    "id": 3,
+    "nombre": "Moda",
+    "imagen": "assets/Moda.png",
+    "descripcion": "Ropa, accesorios y más para tu estilo."
+  },
+  {
+    "id": 4,
+    "nombre": "Juegos",
+    "imagen": "assets/Juegos.png",
+    "descripcion": "Intercambia videojuegos, consolas y juguetes."
+  }
+]
