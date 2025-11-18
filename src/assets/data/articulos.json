@@ -2,7 +2,7 @@
   {
     "id": 1,
     "nombre": "Colección de Antigüedades",
-    "categoria": "Antigüedades",
+    "categoria": "Antiguedades",
     "descripcion": "Objetos únicos de colección y decoración clásica.",
     "imagen": "assets/data/img/antiguedades.jpg"
   },
@@ -16,7 +16,7 @@
   {
     "id": 3,
     "nombre": "Ropa para Bebés",
-    "categoria": "Bebés",
+    "categoria": "Bebes",
     "descripcion": "Prendas suaves y cómodas para los más pequeños.",
     "imagen": "assets/data/img/bebes.png"
   },
@@ -30,14 +30,14 @@
   {
     "id": 5,
     "nombre": "Cámaras Fotográficas",
-    "categoria": "Cámaras",
+    "categoria": "Camaras",
     "descripcion": "Cámaras digitales y accesorios para fotografía profesional.",
     "imagen": "assets/data/img/camaras.png"
   },
   {
     "id": 6,
     "nombre": "Material de Construcción",
-    "categoria": "Construcción",
+    "categoria": "Construccion",
     "descripcion": "Herramientas y materiales para proyectos de construcción.",
     "imagen": "assets/data/img/construccion.png"
   },
@@ -72,14 +72,14 @@
   {
     "id": 11,
     "nombre": "Dispositivos Electrónicos",
-    "categoria": "Tecnología",
+    "categoria": "Tecnologia",
     "descripcion": "Celulares, laptops y gadgets inteligentes.",
     "imagen": "assets/data/img/tecnologia.jpg"
   },
   {
     "id": 12,
     "nombre": "Autos y Motos",
-    "categoria": "Vehículos",
+    "categoria": "Vehiculos",
     "descripcion": "Vehículos nuevos y usados en excelente estado.",
     "imagen": "assets/data/img/vehiculos.png"
   }

@@ -40,6 +40,6 @@ export class AyudaComponent {
   }
 
   cerrarExplicacion() {
-    this.temaSeleccionado = null;
+   
   }
 }
