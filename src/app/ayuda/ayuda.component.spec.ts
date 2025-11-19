@@ -37,7 +37,5 @@ export class AyudaComponent {
     this.textoExplicacion = this.explicaciones[tema].texto;
   }
 
-  cerrarExplicacion() {
-    this.temaSeleccionado = null;
-  }
+ 
 }
