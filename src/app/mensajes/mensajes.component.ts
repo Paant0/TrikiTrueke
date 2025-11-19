@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import { FormsModule } from '@angular/forms';
+import io from "socket.io-client";
+import { CommonModule } from '@angular/common';
+
 
 interface Mensaje {
   texto: string;
@@ -9,23 +12,23 @@ interface Mensaje {
 
 @Component({
   selector: 'app-mensajes',
+  standalone: true,
+  imports: [FormsModule, CommonModule],   // 👈 AGREGA ESTO
   templateUrl: './mensajes.component.html',
   styleUrls: ['./mensajes.component.css']
 })
+
 export class MensajesComponent implements OnInit, OnDestroy {
-  private socket!: Socket;
+  private socket: any; // SIN TIPOS → 100% estable siempre
   mensajes: Mensaje[] = [];
   nuevoMensaje: string = '';
-  usuario: string = ''; // cada usuario elige su nombre
+  usuario: string = '';
 
   ngOnInit() {
-    // 👉 Conectarse al servidor Socket.io
     this.socket = io('http://localhost:3000');
 
-    // Asignar nombre aleatorio
     this.usuario = 'Usuario_' + Math.floor(Math.random() * 1000);
 
-    // Escuchar mensajes de otros usuarios
     this.socket.on('mensaje', (data: Mensaje) => {
       this.mensajes.push(data);
     });
@@ -40,12 +43,13 @@ export class MensajesComponent implements OnInit, OnDestroy {
       emisor: this.usuario
     };
 
-    // Enviar al servidor
     this.socket.emit('mensaje', msg);
+    this.mensajes.push(msg);
+
     this.nuevoMensaje = '';
   }
 
   ngOnDestroy() {
-    if (this.socket) this.socket.disconnect();
+    this.socket?.disconnect();
   }
 }

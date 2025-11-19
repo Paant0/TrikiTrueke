@@ -1,75 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
+<main class="flex flex-1 overflow-hidden">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrikiTrueke - Mensajes</title>
-  <link rel="stylesheet" href="mensajes.component.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="Triki.png" />
-</head>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Chats</h2>
+      <span class="badge">20+</span>
+    </div>
 
-<body class="min-h-screen flex flex-col font-sans text-gray-700">
-
-
-
-
-
-  <main class="flex flex-1 overflow-hidden">
-
-
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h2>Chats</h2>
-        <span class="badge">20+</span>
-      </div>
-
-      <div class="contacts">
-        <div class="contact active-chat">
-          <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" class="contact-img" alt="">
-          <div>
-            <h3>Hervin Cajas</h3>
-            <p>Gracias.</p>
-          </div>
-        </div>
-
-        <div class="contact">
-          <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" class="contact-img" alt="">
-          <div>
-            <h3>Kevin Acosta</h3>
-            <p>por favor</p>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-
-    <section class="chat-section">
-      <div class="chat-window" id="chat-window">
-        <div class="message">
-          <p class="sender">Hervin Cajas</p>
-        </div>
-
-        <div class="message right">
-          <p class="sender">kevin Acosta</p>
+    <div class="contacts">
+      <div class="contact active-chat">
+        <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" class="contact-img" alt="">
+        <div>
+          <h3>Hervin Cajas</h3>
+          <p>Gracias.</p>
         </div>
       </div>
 
-
-      <div class="chat-input">
-        <input id="message-input" type="text" placeholder="Escribe un mensaje..." class="input-field" />
-        <button id="send-btn" class="send-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
+      <div class="contact">
+        <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" class="contact-img" alt="">
+        <div>
+          <h3>Kevin Acosta</h3>
+          <p>por favor</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </aside>
 
-  </main>
+  <!-- CHAT -->
+  <section class="chat-section">
 
-  <script src="mensajes.js"></script>
-</body>
+    <div class="chat-window">
+      <!-- Mostrar mensajes dinámicos -->
+      <div *ngFor="let msg of mensajes" class="message" [ngClass]="{ 'right': msg.emisor === usuario }">
+        <p class="sender">{{ msg.emisor }}</p>
+        <div class="chat-bubble">{{ msg.texto }}</div>
+        <small>{{ msg.hora }}</small>
+      </div>
+    </div>
 
-</html>
+    <!-- INPUT -->
+    <div class="chat-input">
+      <input
+        [(ngModel)]="nuevoMensaje"
+        (keyup.enter)="enviarMensaje()"
+        type="text"
+        placeholder="Escribe un mensaje..."
+        class="input-field"
+      />
+
+      <button class="send-btn" (click)="enviarMensaje()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+  </section>
+
+</main>
