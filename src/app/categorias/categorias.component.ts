@@ -16,16 +16,15 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class CategoriasComponent {
  categorias = [
-    { nombre: 'Mascotas', imagen: 'assets/data/img/mascotas.png' },/*ya */
-    { nombre: 'Antiguedades', imagen: 'assets/data/img/antiguedades.jpg' },/*ya */
-    { nombre: 'Moda', imagen: 'assets/data/img/moda.png' },/*ya */
-
-    { nombre: 'Vehiculos', imagen: 'assets/data/img/vehiculos.png' },
-    { nombre: 'Arte', imagen: 'assets/data/img/arte.png' },/*ya */
-    { nombre: 'Juegos', imagen: 'assets/data/img/juegos.png' },/*ya */
-    { nombre: 'bebes', imagen: 'assets/data/img/bebes.png' },/*ya */
-    { nombre: 'Tecnologia', imagen: 'assets/data/img/tecnologia.jpg' },/*ya */
-    { nombre: 'belleza', imagen: 'assets/data/img/belleza.png' },/*ya */
-    { nombre: 'Construccion', imagen: 'assets/data/img/construccion.png' }
+    { nombre: 'Mascotas', imagen: 'assets/data/Mascotas.png' },/*ya */
+    { nombre: 'Antiguedades', imagen: 'assets/data/antiguedades.png' },/*ya */
+    { nombre: 'Moda', imagen: 'assets/data/moda.png' },/*ya */
+    { nombre: 'Vehiculos', imagen: 'assets/data/vehiculos.png' },
+    { nombre: 'Arte', imagen: 'assets/data/arte.png' },/*ya */
+    { nombre: 'Juegos', imagen: 'assets/data/juegos.png' },/*ya */
+    { nombre: 'bebes', imagen: 'assets/data/bebes.png' },/*ya */
+    { nombre: 'Tecnologia', imagen: 'assets/data/tecnologia.png' },/*ya */
+    { nombre: 'belleza', imagen: 'assets/data/belleza.png' },/*ya */
+    { nombre: 'Construccion', imagen: 'assets/data/construccion.png' }
   ];
 }

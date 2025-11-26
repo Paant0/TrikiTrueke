@@ -1,8 +1,82 @@
 <div class="articulos-container">
 
-  <!-- 🏷️ Título dinámico -->
-  <h2 *ngIf="categoria">Artículos de {{ categoria }}</h2>
-  <h2 *ngIf="!categoria">Explora nuestros artículos</h2>
+  <!-- 🏷️ Título y botón -->
+  <div class="header-articulos">
+    <h2 *ngIf="categoria">Artículos de {{ categoria }}</h2>
+    <h2 *ngIf="!categoria">Explora nuestros artículos</h2>
+
+    <button class="btn-publicar"
+      (click)="mostrarFormulario = !mostrarFormulario">
+      {{ mostrarFormulario ? 'Cerrar formulario' : 'Publicar artículo' }}
+    </button>
+  </div>
+
+  <!-- 📝 FORMULARIO DE PUBLICACIÓN -->
+  <div class="formulario-container" *ngIf="mostrarFormulario">
+
+    <div class="image-preview" *ngIf="imagenPreview">
+      <img [src]="imagenPreview">
+    </div>
+
+    <label class="label">Imagen del artículo</label>
+    <input type="file" accept="image/*" (change)="onImageSelected($event)">
+
+    <label class="label">Nombre</label>
+    <input class="input" [(ngModel)]="nuevoArticulo.nombre">
+
+    <label class="label">Descripción</label>
+    <textarea class="textarea" [(ngModel)]="nuevoArticulo.descripcion"></textarea>
+
+    <label class="label">Categoría</label>
+    <select class="select" [(ngModel)]="nuevoArticulo.categoria">
+      <option value="">Seleccione...</option>
+      <option value="ropa">Ropa</option>
+      <option value="tecnologia">Tecnología</option>
+      <option value="accesorios">Accesorios</option>
+      <option value="hogar">Hogar</option>
+      <option value="otros">Otros</option>
+    </select>
+
+    <label class="label">¿Por qué deseas intercambiarlo?</label>
+    <textarea class="textarea" [(ngModel)]="nuevoArticulo.motivo"></textarea>
+
+    <button class="btn-publicar2" (click)="publicarArticulo()">
+      Publicar
+    </button>
+  </div>
+
+  <!-- 📝 FORMULARIO DE EDICIÓN -->
+  <div class="formulario-container" *ngIf="editando">
+    <h3>Editar artículo</h3>
+
+    <div class="image-preview" *ngIf="imagenEditPreview">
+      <img [src]="imagenEditPreview">
+    </div>
+
+    <label class="label">Cambiar imagen</label>
+    <input type="file" accept="image/*" (change)="onEditImageSelected($event)">
+
+    <label class="label">Nombre</label>
+    <input class="input" [(ngModel)]="articuloEditado.nombre">
+
+    <label class="label">Descripción</label>
+    <textarea class="textarea" [(ngModel)]="articuloEditado.descripcion"></textarea>
+
+    <label class="label">Categoría</label>
+    <select class="select" [(ngModel)]="articuloEditado.categoria">
+      <option value="ropa">Ropa</option>
+      <option value="tecnologia">Tecnología</option>
+      <option value="accesorios">Accesorios</option>
+      <option value="hogar">Hogar</option>
+      <option value="otros">Otros</option>
+    </select>
+
+    <label class="label">Motivo</label>
+    <textarea class="textarea" [(ngModel)]="articuloEditado.motivo"></textarea>
+
+    <button class="btn-publicar2" (click)="guardarCambios()">Guardar cambios</button>
+    <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+  </div>
 
   <!-- 📦 Lista de artículos -->
   <div class="articulos-grid" *ngIf="articulosFiltrados.length > 0; else sinArticulos">
@@ -11,6 +85,13 @@
       <div class="articulo-info">
         <h3>{{ articulo.nombre }}</h3>
         <p>{{ articulo.descripcion }}</p>
+        <p class="motivo"><strong>Motivo:</strong> {{ articulo.motivo }}</p>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="acciones-articulo">
+        <button class="btn-editar" (click)="editarArticulo(articulo)">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarArticulo(articulo)">Eliminar</button>
       </div>
     </div>
   </div>
