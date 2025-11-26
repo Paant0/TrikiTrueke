@@ -7,7 +7,7 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'categorias', component: CategoriasComponent },

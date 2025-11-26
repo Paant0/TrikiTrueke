@@ -1,29 +1,26 @@
-<header>
+<header *ngIf="mostrarLayout">
   <img class="logo" src="assets/logo.png" alt="Logo TrikiTrueke" routerLink="/home" routerLinkActive="activo">
 
   <nav>
     <div class="LinksNav">
       <button class="btn-fondo" routerLink="/home" routerLinkActive="activo">Inicio</button>
-      <button class="btn-fondo" routerLink="/login" routerLinkActive="activo">Iniciar Sesión</button>
       <button class="btn-fondo" routerLink="/categorias" routerLinkActive="activo">Categorías</button>
       <button class="btn-fondo" routerLink="/articulos" routerLinkActive="activo">Artículos</button>
       <button class="btn-fondo" routerLink="/mensajes" routerLinkActive="activo">Mensajes</button>
       <button class="btn-fondo" routerLink="/ayuda" routerLinkActive="activo">Ayuda</button>
     </div>
   </nav>
-  
 </header>
 
-
-<!-- Aquí se mostrará el contenido que cambia -->
 <main>
-
   <router-outlet></router-outlet>
 </main>
 
-<footer class="footer">
+<footer class="footer" *ngIf="mostrarLayout">
   <p>© 2025 TrikiTrueke — Todos los derechos reservados</p>
   <div class="social">
-    <a href="https://www.instagram.com/paan.t0"><img src="assets/Instagram.png" alt="Instagram" /></a>
+    <a href="https://www.instagram.com/paan.t0">
+      <img src="assets/Instagram.png" alt="Instagram">
+    </a>
   </div>
 </footer>
