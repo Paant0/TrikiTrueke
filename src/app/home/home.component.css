@@ -44,7 +44,7 @@ main,
   border-radius: 50%;
 }
 
-/* === Inicio === */
+/* Inicio */
 .Inicio {
   display: flex;
   justify-content: space-between;
@@ -131,7 +131,7 @@ main,
   box-shadow: 0 4px 15px rgba(100, 0, 200, 0.1);
 }
 
-/* === CATEGORÍAS === */
+/* CATEGORÍAS */
 .categorias {
   text-align: center;
   padding: 3rem 2rem;

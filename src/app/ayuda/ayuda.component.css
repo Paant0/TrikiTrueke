@@ -18,6 +18,7 @@
   margin: 0 auto;
   padding: 20px;
 }
+
 /* Banner */
 .ayuda-banner {
   text-align: center;
@@ -58,11 +59,12 @@
 }
 
 /* Temas populares */
-.temas-populares  {
+.temas-populares {
   margin-top: 3rem;
   color: #6b2d64;
 
 }
+
 .temas-populares h2 {
   text-align: center;
   color: #6b2d64;
@@ -122,20 +124,6 @@
   margin: 0.5rem 0;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .search-box input {
-    width: 100%;
-  }
-
-  .ayuda-banner {
-    padding: 40px 10px;
-  }
-
-  .tema-card h3 {
-    font-size: 1rem;
-  }
-}
 .explicacion {
   margin-top: 20px;
   background: #f9f9ff;
@@ -167,11 +155,7 @@
   background-color: #933E89;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* 🌈 Fondo general morado suave */
+
 :host {
   display: block;
   min-height: 100vh;
@@ -182,14 +166,14 @@
   margin: 0;
 }
 
-/* 🟣 Contenedor principal centrado */
+/* Contenedor principal */
 .ayuda-wrapper {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* 🪄 Banner */
+/* Banner */
 .ayuda-banner {
   text-align: center;
   padding: 60px 20px;
@@ -210,12 +194,6 @@
   margin-bottom: 20px;
 }
 
-/* 🔍 Buscador */
-.search-box {
-  display: flex;
-  justify-content: center;
-}
-
 .search-box input {
   width: 90%;
   max-width: 600px;
@@ -227,7 +205,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* 📚 Temas populares */
+/*Temas populares */
 .temas-populares h2 {
   text-align: center;
   color: #6b2d64;
@@ -254,7 +232,7 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* 💬 Explicación dinámica */
+/* Explicación */
 .explicacion {
   background: white;
   border-radius: 15px;
@@ -290,18 +268,9 @@
   background: #6b2d64;
 }
 
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-/* ❓ Preguntas frecuentes */
+
+/* Preguntas frecuentes */
 .faq h2 {
   text-align: center;
   color: #6b2d64;
@@ -316,7 +285,7 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 📞 Contacto */
+/* Contacto */
 .contacto {
   text-align: center;
   margin-top: 3rem;
@@ -332,15 +301,41 @@
   margin: 0.5rem 0;
 }
 
-/* 📱 Responsive */
+/* Responsive */
 @media (max-width: 768px) {
   .search-box input {
     width: 100%;
   }
+
   .ayuda-banner {
     padding: 40px 10px;
   }
+
   .tema-card h3 {
     font-size: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

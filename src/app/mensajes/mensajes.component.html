@@ -16,11 +16,11 @@
     </div>
   </aside>
 
-  <!-- CHAT -->
+  <!-- Chat -->
   <section class="chat-section">
 
     <div class="chat-window">
-      <!-- Mostrar mensajes dinámicos -->
+      <!-- Mostrar mensaje -->
       <div *ngFor="let msg of mensajes" class="message" [ngClass]="{ 'right': msg.emisor === usuario }">
         <p class="sender">{{ msg.emisor }}</p>
         <div class="chat-bubble">{{ msg.texto }}</div>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <!-- INPUT -->
+    <!-- Enviar mensaje -->
     <div class="chat-input">
       <input
         [(ngModel)]="nuevoMensaje"

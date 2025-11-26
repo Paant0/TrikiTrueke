@@ -1,25 +1,30 @@
 <div class="articulos-container">
 
-  <!-- 🏷️ Título y botón -->
+  <!-- Titulo y botón -->
   <div class="header-articulos">
     <h2 *ngIf="categoria">Artículos de {{ categoria }}</h2>
     <h2 *ngIf="!categoria">Explora nuestros artículos</h2>
 
-    <button class="btn-publicar"
-      (click)="mostrarFormulario = !mostrarFormulario">
+    <button class="btn-publicar" (click)="mostrarFormulario = !mostrarFormulario">
       {{ mostrarFormulario ? 'Cerrar formulario' : 'Publicar artículo' }}
     </button>
   </div>
 
-  <!-- 📝 FORMULARIO DE PUBLICACIÓN -->
+  <!-- FOrmulario para publicar articulo -->
+
   <div class="formulario-container" *ngIf="mostrarFormulario">
+
+    <label class="label">Imagen del artículo</label>
 
     <div class="image-preview" *ngIf="imagenPreview">
       <img [src]="imagenPreview">
     </div>
 
-    <label class="label">Imagen del artículo</label>
-    <input type="file" accept="image/*" (change)="onImageSelected($event)">
+    <div class="file-upload">
+      <label for="fileInput" class="custom-file-upload">Subir imagen</label>
+
+      <input type="file" id="fileInput" accept="image/*" (change)="onImageSelected($event); onImageSelected($event)">
+    </div>
 
     <label class="label">Nombre</label>
     <input class="input" [(ngModel)]="nuevoArticulo.nombre">
@@ -45,16 +50,20 @@
     </button>
   </div>
 
-  <!-- 📝 FORMULARIO DE EDICIÓN -->
+  <!--Formulario para editar articulo-->
   <div class="formulario-container" *ngIf="editando">
     <h3>Editar artículo</h3>
 
+    <label class="label">Cambiar imagen</label>
     <div class="image-preview" *ngIf="imagenEditPreview">
       <img [src]="imagenEditPreview">
     </div>
+    <div class="file-upload">
+      <label for="fileInputEdit" class="custom-file-upload">Cambiar imagen</label>
 
-    <label class="label">Cambiar imagen</label>
-    <input type="file" accept="image/*" (change)="onEditImageSelected($event)">
+      <input type="file" id="fileInputEdit" accept="image/*"
+        (change)="onEditImageSelected($event); onEditImageSelected($event)">
+    </div>
 
     <label class="label">Nombre</label>
     <input class="input" [(ngModel)]="articuloEditado.nombre">
@@ -78,17 +87,20 @@
     <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
   </div>
 
-  <!-- 📦 Lista de artículos -->
+  <!-- Lista de articulos -->
   <div class="articulos-grid" *ngIf="articulosFiltrados.length > 0; else sinArticulos">
     <div class="articulo-card" *ngFor="let articulo of articulosFiltrados">
       <img [src]="articulo.imagen" [alt]="articulo.nombre" class="articulo-img" />
       <div class="articulo-info">
         <h3>{{ articulo.nombre }}</h3>
         <p>{{ articulo.descripcion }}</p>
-        <p class="motivo"><strong>Motivo:</strong> {{ articulo.motivo }}</p>
+        <p class="motivo">
+          <span class="motivo-label">Motivo:</span> {{ articulo.motivo }}
+        </p>
+
       </div>
 
-      <!-- BOTONES DE ACCIÓN -->
+      <!-- Botones de editar y eliminar articulo -->
       <div class="acciones-articulo">
         <button class="btn-editar" (click)="editarArticulo(articulo)">Editar</button>
         <button class="btn-eliminar" (click)="eliminarArticulo(articulo)">Eliminar</button>
@@ -96,7 +108,7 @@
     </div>
   </div>
 
-  <!-- ❌ Mensaje si no hay resultados -->
+  <!-- si no hay resultados hacer:  -->
   <ng-template #sinArticulos>
     <div class="no-articulos">
       <p>No hay artículos disponibles en esta categoría.</p>
