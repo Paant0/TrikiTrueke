@@ -13,13 +13,13 @@ interface Mensaje {
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [FormsModule, CommonModule],   // 👈 AGREGA ESTO
+  imports: [FormsModule, CommonModule],
   templateUrl: './mensajes.component.html',
   styleUrls: ['./mensajes.component.css']
 })
 
 export class MensajesComponent implements OnInit, OnDestroy {
-  private socket: any; // SIN TIPOS → 100% estable siempre
+  private socket: any;
   mensajes: Mensaje[] = [];
   nuevoMensaje: string = '';
   usuario: string = '';
