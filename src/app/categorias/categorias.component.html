@@ -1,62 +1,8 @@
 <div class="categorias-container">
-  <div class="categoria">
-    <h3>Tecnología:</h3>
-    <img src="assets/img/tecnologia.jpg" alt="Tecnología">
-  </div>
-
-
-  <div class="categoria" routerLink="/articulos" routerLinkActive="activo">
-    <h3>Mascotas:</h3>
-    <img src="assets/img/mascotas.png" alt="Mascotas">
-  </div>
-
-  <div class="categoria">
-    <h3>Moda:</h3>
-    <img src="assets/img/moda.png" alt="Moda">
-  </div>
-
-  <div class="categoria">
-    <h3>Juegos:</h3>
-    <img src="assets/img/juegos.png" alt="Juegos">
-  </div>
-
-  <div class="categoria">
-    <h3>Vehículos:</h3>
-    <img src="assets/img/vehiculos.png" alt="Vehículos">
-  </div>
-
-  <div class="categoria">
-    <h3>Antigüedades:</h3>
-    <img src="assets/img/antiguedades.jpg" alt="Antigüedades">
-  </div>
-
-  <div class="categoria">
-    <h3>Arte:</h3>
-    <img src="assets/img/arte.png" alt="Arte">
-  </div>
-
-  <div class="categoria">
-    <h3>Bebés:</h3>
-    <img src="assets/img/bebes.png" alt="Bebés">
-  </div>
-
-  <div class="categoria">
-    <h3>Belleza:</h3>
-    <img src="assets/img/belleza.png" alt="Belleza">
-  </div>
-
-  <div class="categoria">
-    <h3>Cámaras:</h3>
-    <img src="assets/img/camaras.png" alt="Cámaras">
-  </div>
-
-  <div class="categoria">
-    <h3>Construcción:</h3>
-    <img src="assets/img/construccion.png" alt="Construcción">
-  </div>
-
-  <div class="categoria">
-    <h3>Deportes:</h3>
-    <img src="assets/img/deportes.png" alt="Deportes">
+  <div class="categoria" *ngFor="let categoria of categorias" [routerLink]="['/articulos', categoria.nombre]">
+    <div class="categoria-icono">
+      <img [src]="categoria.imagen" [alt]="categoria.nombre" />
+    </div>
+    <h3>{{ categoria.nombre }}</h3>
   </div>
 </div>

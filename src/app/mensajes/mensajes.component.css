@@ -1,3 +1,9 @@
+main {
+  height: calc(100vh - 80px);
+  display: flex;
+  min-height: 0;
+}
+
 body {
   background: linear-gradient(180deg, #f7e8ff, #fff);
 }
@@ -8,7 +14,7 @@ body {
   align-items: center;
   padding: 1rem 2.5rem;
   background-color: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .logo-container {
@@ -100,7 +106,8 @@ body {
   background-color: #6b2d64;
   color: #FFFF;
 }
-.active-chat p{
+
+.active-chat p {
   background-color: #6b2d64;
   color: #933E89;
 }
@@ -121,13 +128,16 @@ body {
   color: #000000;
   font-size: 0.9rem;
 }
+
 .contact :hover {
   color: #ffffff;
   font-size: 0.9rem;
 }
+
 .contacts p {
   font-size: 0.9rem;
 }
+
 .contacts :hover {
   color: #f9eeff;
   font-size: 0.9rem;
@@ -137,7 +147,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #fff, #f5f0ff);
+  min-height: 0;
 }
 
 .chat-window {
@@ -201,7 +211,7 @@ body {
   background-color: #6b2d64;
   border: none;
   padding: 0.75rem;
-  border-radius: 50%;
+  border-radius: 10px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;

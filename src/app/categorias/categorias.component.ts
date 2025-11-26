@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -9,22 +10,21 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-categorias',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet,CommonModule, RouterLink],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })
 export class CategoriasComponent {
  categorias = [
-    { nombre: 'Mascotas', imagen: 'assets/img/categorias/mascotas.jpg' },
-    { nombre: 'Consolas', imagen: 'assets/img/categorias/consolas.jpg' },
-    { nombre: 'Televisores', imagen: 'assets/img/categorias/televisores.jpg' },
-    { nombre: 'Controles', imagen: 'assets/img/categorias/controles.jpg' },
-    { nombre: 'Motos', imagen: 'assets/img/categorias/motos.jpg' },
-    { nombre: 'Carros', imagen: 'assets/img/categorias/carros.jpg' },
-    { nombre: 'Licuadoras', imagen: 'assets/img/categorias/licuadoras.jpg' },
-    { nombre: 'Niños', imagen: 'assets/img/categorias/niños.jpg' },
-    { nombre: 'IoT', imagen: 'assets/img/categorias/iot.jpg' },
-    { nombre: 'Drones', imagen: 'assets/img/categorias/drones.jpg' },
-    { nombre: 'Parcelas', imagen: 'assets/img/categorias/parcelas.jpg' }
+    { nombre: 'Mascotas', imagen: 'assets/data/Mascotas.png' },/*ya */
+    { nombre: 'Antiguedades', imagen: 'assets/data/antiguedades.png' },/*ya */
+    { nombre: 'Moda', imagen: 'assets/data/moda.png' },/*ya */
+    { nombre: 'Vehiculos', imagen: 'assets/data/vehiculos.png' },
+    { nombre: 'Arte', imagen: 'assets/data/arte.png' },/*ya */
+    { nombre: 'Juegos', imagen: 'assets/data/juegos.png' },/*ya */
+    { nombre: 'bebes', imagen: 'assets/data/bebes.png' },/*ya */
+    { nombre: 'Tecnologia', imagen: 'assets/data/tecnologia.png' },/*ya */
+    { nombre: 'belleza', imagen: 'assets/data/belleza.png' },/*ya */
+    { nombre: 'Construccion', imagen: 'assets/data/construccion.png' }
   ];
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "nombre": "Colección de Antigüedades",
+    "categoria": "Antiguedades",
+    "descripcion": "Objetos únicos de colección y decoración clásica.",
+    "imagen": "assets/data/img/antiguedades.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Pinturas y Esculturas",
+    "categoria": "Arte",
+    "descripcion": "Obras de arte para decorar tu hogar o galería.",
+    "imagen": "assets/data/img/arte.png"
+  },
+  {
+    "id": 3,
+    "nombre": "Ropa para Bebés",
+    "categoria": "Bebes",
+    "descripcion": "Prendas suaves y cómodas para los más pequeños.",
+    "imagen": "assets/data/img/bebes.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Cosméticos y Cuidado Personal",
+    "categoria": "Belleza",
+    "descripcion": "Productos de belleza y bienestar personal.",
+    "imagen": "assets/data/img/belleza.png"
+  },
+  {
+    "id": 5,
+    "nombre": "Cámaras Fotográficas",
+    "categoria": "Camaras",
+    "descripcion": "Cámaras digitales y accesorios para fotografía profesional.",
+    "imagen": "assets/data/img/camaras.png"
+  },
+  {
+    "id": 6,
+    "nombre": "Material de Construcción",
+    "categoria": "Construccion",
+    "descripcion": "Herramientas y materiales para proyectos de construcción.",
+    "imagen": "assets/data/img/construccion.png"
+  },
+  {
+    "id": 7,
+    "nombre": "Balones y Equipos Deportivos",
+    "categoria": "Deportes",
+    "descripcion": "Artículos deportivos para entrenamiento y competencia.",
+    "imagen": "assets/data/img/deportes.png"
+  },
+  {
+    "id": 8,
+    "nombre": "Consolas y Videojuegos",
+    "categoria": "Juegos",
+    "descripcion": "Videojuegos, consolas y accesorios de entretenimiento.",
+    "imagen": "assets/data/img/juegos.png"
+  },
+  {
+    "id": 9,
+    "nombre": "Accesorios para Mascotas",
+    "categoria": "Mascotas",
+    "descripcion": "Comida, juguetes y cuidado para tus mascotas.",
+    "imagen": "assets/data/img/mascotas.png"
+  },
+  {
+    "id": 10,
+    "nombre": "Ropa y Accesorios",
+    "categoria": "Moda",
+    "descripcion": "Últimas tendencias en ropa y accesorios.",
+    "imagen": "assets/data/img/moda.png"
+  },
+  {
+    "id": 11,
+    "nombre": "Dispositivos Electrónicos",
+    "categoria": "Tecnologia",
+    "descripcion": "Celulares, laptops y gadgets inteligentes.",
+    "imagen": "assets/data/img/tecnologia.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Autos y Motos",
+    "categoria": "Vehiculos",
+    "descripcion": "Vehículos nuevos y usados en excelente estado.",
+    "imagen": "assets/data/img/vehiculos.png"
+  }
+]

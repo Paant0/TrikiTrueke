@@ -68,6 +68,47 @@ main,
   margin-bottom: 1.5rem;
 }
 
+.inicio-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 15px 10px;
+}
+
+.Inicio-text1 {
+  text-align: center;
+  max-width: 1200px;
+  padding: 10px;
+}
+
+.Inicio-text1 h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #933E89;
+  margin-bottom: 20px;
+}
+
+.Inicio-text1 p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.cta-btn {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: #7d2bb6;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #5c1d89;
+  transform: translateY(-2px);
+}
+
 .cta-btn {
   background-color: #6b2d64;
   border: none;
