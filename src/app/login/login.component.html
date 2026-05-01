@@ -1,58 +1,147 @@
 <div class="login-wrapper">
   <div class="container" id="container">
-    <!-- Crear cuenta -->
+
+    <!-- CREAR CUENTA -->
     <div class="form-container Crear-cuenta">
       <form (submit)="onRegister($event)">
         <h1>Crear Cuenta</h1>
+
         <div class="Iconos-Social">
-          <a href="#" class="icon"><img src="assets/icons8-logo-de-google.svg" alt="Google" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-github.svg" alt="GitHub" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-mac-os.svg" alt="Apple" /></a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-logo-de-google.svg" alt="Google" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-github.svg" alt="GitHub" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-mac-os.svg" alt="Apple" />
+          </a>
         </div>
 
         <span>O usa tu correo para registrarte</span>
-        <input type="text" placeholder="Nombre" required />
-        <input type="email" placeholder="Correo electrónico" required />
-        <input type="password" placeholder="Contraseña" required />
-        <input type="password" placeholder="Confirmar contraseña" required />
+
+        <!-- Nombre -->
+        <input
+          type="text"
+          placeholder="Nombre"
+          [(ngModel)]="registerData.nombre"
+          name="nombre"
+          required
+        />
+
+        <!-- Correo -->
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          [(ngModel)]="registerData.email"
+          name="email"
+          required
+        />
+
+        <!-- Teléfono -->
+        <input
+          type="text"
+          placeholder="Teléfono"
+          [(ngModel)]="registerData.telefono"
+          name="telefono"
+          required
+        />
+
+        <!-- Contraseña -->
+        <input
+          type="password"
+          placeholder="Contraseña"
+          [(ngModel)]="registerData.clave"
+          name="clave"
+          required
+        />
+
         <button type="submit">Crear</button>
       </form>
     </div>
 
-    <!-- Iniciar sesion -->
+    <!-- INICIAR SESIÓN -->
     <div class="form-container Iniciar-Sesion">
       <form (submit)="onLogin($event)">
-        
+
         <div class="Iconos-Social">
-          <a href="#" class="icon"><img src="assets/icons8-logo-de-google.svg" alt="Google" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-github.svg" alt="GitHub" /></a>
-          <a href="#" class="icon"><img src="assets/icons8-mac-os.svg" alt="Apple" /></a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-logo-de-google.svg" alt="Google" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-github.svg" alt="GitHub" />
+          </a>
+          <a href="#" class="icon">
+            <img src="assets/icons8-mac-os.svg" alt="Apple" />
+          </a>
         </div>
 
         <span>O usa tu correo y contraseña</span>
-        <input type="email" placeholder="Correo electrónico" required />
-        <input type="password" placeholder="Contraseña" required />
+
+        <!-- Email login -->
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          [(ngModel)]="loginData.email"
+          name="loginEmail"
+          required
+        />
+
+        <!-- Password login -->
+        <input
+          type="password"
+          placeholder="Contraseña"
+          [(ngModel)]="loginData.clave"
+          name="loginClave"
+          required
+        />
+
         <a href="#">¿Olvidaste tu contraseña?</a>
+
         <button type="submit">Iniciar Sesión</button>
       </form>
     </div>
 
-    <!-- Panel lateral -->
+    <!-- PANEL LATERAL -->
     <div class="toggle-container">
       <div class="toggle">
+
         <div class="toggle-panel toggle-left">
           <h1>¡Bienvenido!</h1>
-          <p>Ingrese sus datos personales para usar todas las funciones</p>
-          <button class="hidden" (click)="toggleForm('login')">Iniciar Sesión</button>
+          <p>
+            Ingrese sus datos personales para usar todas las funciones
+          </p>
+          <button
+            type="button"
+            class="hidden"
+            (click)="toggleForm('login')"
+          >
+            Iniciar Sesión
+          </button>
         </div>
+
         <div class="toggle-panel toggle-right">
           <h1>Hola, amiguito</h1>
-          <p>Registra tus datos personales para usar todas las funciones</p>
-          <button class="hidden" (click)="toggleForm('register')">Crear Cuenta</button>
+          <p>
+            Registra tus datos personales para usar todas las funciones
+          </p>
+          <button
+            type="button"
+            class="hidden"
+            (click)="toggleForm('register')"
+          >
+            Crear Cuenta
+          </button>
         </div>
+
       </div>
     </div>
+
   </div>
 </div>
