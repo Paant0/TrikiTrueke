@@ -1,22 +1,40 @@
-<header *ngIf="mostrarLayout">
-  <img class="logo" src="assets/logo.png" alt="Logo TrikiTrueke" routerLink="/home" routerLinkActive="activo">
+<div class="app-container" [class.ready]="isReady">
+  <header *ngIf="mostrarLayout && isReady">
+    <img class="logo" src="assets/logo.png" alt="Logo TrikiTrueke" routerLink="/home" routerLinkActive="activo">
 
-  <nav>
-    <div class="LinksNav">
-      <button class="btn-fondo" routerLink="/home" routerLinkActive="activo">Inicio</button>
-      <button class="btn-fondo" routerLink="/categorias" routerLinkActive="activo">Categorías</button>
-      <button class="btn-fondo" routerLink="/articulos" routerLinkActive="activo">Artículos</button>
-      <button class="btn-fondo" routerLink="/mensajes" routerLinkActive="activo">Mensajes</button>
-      <button class="btn-fondo" routerLink="/ayuda" routerLinkActive="activo">Ayuda</button>
-    </div>
-  </nav>
-</header>
+    <nav>
+      <div class="LinksNav">
+        <button class="btn-fondo" routerLink="/home" routerLinkActive="activo">Inicio</button>
+        <button class="btn-fondo" routerLink="/categorias" routerLinkActive="activo">Categorías</button>
+        <button class="btn-fondo" routerLink="/articulos" routerLinkActive="activo">Artículos</button>
+        <button class="btn-fondo" routerLink="/mensajes" routerLinkActive="activo">Mensajes</button>
+        <button class="btn-fondo" routerLink="/ayuda" routerLinkActive="activo">Ayuda</button>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+        <!-- Dropdown de Perfil -->
+        <div class="user-profile" (click)="toggleDropdown()">
+          <span class="user-name">{{ primerNombre }}</span>
+          <img class="avatar" src="assets/avatar.png" alt="Avatar">
+          
+          <div class="dropdown-menu" [class.show]="showDropdown">
+            <div class="dropdown-header">
+              <strong>{{ authService.currentUser?.nombre }}</strong>
+              <small>{{ authService.currentUser?.email }}</small>
+            </div>
+            <hr>
+            <button class="dropdown-item" routerLink="/perfil">Mi Perfil</button>
+            <button class="dropdown-item logout" (click)="logout()">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-<footer class="footer" *ngIf="mostrarLayout">
+  <main *ngIf="isReady">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<footer class="footer" *ngIf="mostrarLayout && isReady">
   <p>© 2025 TrikiTrueke — Todos los derechos reservados</p>
   <div class="social">
     <a href="https://www.instagram.com/paan.t0">

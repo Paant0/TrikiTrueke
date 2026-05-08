@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './Services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,44 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
 
-  mostrarLayout = true;
+  // Empieza en false para que no se vea nada mientras Angular decide la ruta
+  mostrarLayout = false;
+  isReady = false; // Nuevo estado para ocultar TODO el app hasta que el router termine
+  showDropdown = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public authService: AuthService // Cambiado a public para usar en el template
+  ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Si estamos en /login ocultamos header y footer
-        this.mostrarLayout = event.url !== '/login';
+        // Usamos urlAfterRedirects por si el Guard hizo una redirección a /login
+        this.mostrarLayout = !event.urlAfterRedirects.includes('/login');
+        this.isReady = true; // El router ya decidió a dónde ir, podemos mostrar la vista
       }
     });
   }
 
+  get primerNombre(): string {
+    const fullNombre = this.authService.currentUser?.nombre || 'Usuario';
+    return fullNombre.split(' ')[0];
+  }
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  logout() {
+    this.showDropdown = false;
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Error al cerrar sesión', err);
+        // Forzamos redirección aunque falle en el backend
+        this.router.navigate(['/login']);
+      }
+    });
+  }
 }
