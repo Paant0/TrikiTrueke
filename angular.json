@@ -68,7 +68,8 @@
               "buildTarget": "TrikiTrueke:build:production"
             },
             "development": {
-              "buildTarget": "TrikiTrueke:build:development"
+              "buildTarget": "TrikiTrueke:build:development",
+              "proxyConfig": "proxy.conf.js"
             }
           },
           "defaultConfiguration": "development"
