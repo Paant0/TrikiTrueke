@@ -1,38 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../Services/auth.service';
+import { CommonModule } from '@angular/common';
+import { AuthService, LoginRequest, RegisterRequest } from '../Services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  // DATOS LOGIN
-  loginData = {
-    email: '',
-    clave: ''
-  };
+  // ─── Estado del formulario ───────────────────────────────────────────────────
+  loginData: LoginRequest = { email: '', clave: '' };
 
-  // DATOS REGISTRO
-  registerData = {
+  registerData: RegisterRequest = {
     nombre: '',
     email: '',
     telefono: '',
     clave: ''
   };
 
+  // ─── Estados reactivos ───────────────────────────────────────────────────────
+  isLoadingLogin  = signal(false);
+  isLoadingReg    = signal(false);
+  errorLogin      = signal<string | null>(null);
+  errorRegister   = signal<string | null>(null);
+  successRegister = signal<string | null>(null);
+
   constructor(
     private router: Router,
     private authService: AuthService
   ) {}
 
-  toggleForm(mode: string) {
+  // ─── Toggle de paneles ───────────────────────────────────────────────────────
+  toggleForm(mode: 'register' | 'login') {
     const container = document.getElementById('container');
+    // Limpiamos mensajes al cambiar de panel
+    this.errorLogin.set(null);
+    this.errorRegister.set(null);
+    this.successRegister.set(null);
 
     if (mode === 'register') {
       container?.classList.add('active');
@@ -41,36 +50,49 @@ export class LoginComponent {
     }
   }
 
-  onRegister(event: Event) {
+  // ─── Login ────────────────────────────────────────────────────────────────────
+  onLogin(event: Event) {
     event.preventDefault();
+    if (this.isLoadingLogin()) return;
 
-    this.authService.register(this.registerData).subscribe({
-      next: (response) => {
-        alert('Usuario registrado correctamente');
-        console.log(response);
+    this.errorLogin.set(null);
+    this.isLoadingLogin.set(true);
 
-        this.toggleForm('login');
+    this.authService.login(this.loginData).subscribe({
+      next: () => {
+        this.isLoadingLogin.set(false);
+        this.router.navigate(['/home']);
       },
-      error: (error) => {
-        console.log(error);
-        alert('Error al registrar usuario');
+      error: (err) => {
+        this.isLoadingLogin.set(false);
+        const msg = err?.error?.message ?? 'Correo o contraseña incorrectos.';
+        this.errorLogin.set(msg);
+        console.error('Login error:', err);
       }
     });
   }
 
-  onLogin(event: Event) {
+  // ─── Registro ─────────────────────────────────────────────────────────────────
+  onRegister(event: Event) {
     event.preventDefault();
+    if (this.isLoadingReg()) return;
 
-    this.authService.login(this.loginData).subscribe({
-      next: (response) => {
-        alert('Login exitoso');
-        console.log(response);
+    this.errorRegister.set(null);
+    this.successRegister.set(null);
+    this.isLoadingReg.set(true);
 
-        this.router.navigate(['/home']);
+    this.authService.register(this.registerData).subscribe({
+      next: () => {
+        this.isLoadingReg.set(false);
+        this.successRegister.set('¡Cuenta creada! Ahora inicia sesión.');
+        this.registerData = { nombre: '', email: '', telefono: '', clave: '' };
+        setTimeout(() => this.toggleForm('login'), 1800);
       },
-      error: (error) => {
-        console.log(error);
-        alert('Credenciales incorrectas');
+      error: (err) => {
+        this.isLoadingReg.set(false);
+        const msg = err?.error?.message ?? 'Error al crear la cuenta. Inténtalo de nuevo.';
+        this.errorRegister.set(msg);
+        console.error('Register error:', err);
       }
     });
   }

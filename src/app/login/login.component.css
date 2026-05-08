@@ -209,3 +209,55 @@
     z-index: 5;
   }
 }
+
+/* ─── Mensajes de feedback ───────────────────────────────── */
+.msg {
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: center;
+  margin: 4px 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.msg--error {
+  background-color: #fde8e8;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+}
+
+.msg--success {
+  background-color: #e8f8f0;
+  color: #1e7e4a;
+  border: 1px solid #b7e4cc;
+}
+
+/* ─── Spinner de carga ───────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Botón deshabilitado ────────────────────────────────── */
+.container button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
