@@ -7,10 +7,9 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { AuthService } from './Services/auth.service';
 
-// Pausa el renderizado de Angular hasta que el backend responda si hay sesión o no
 function initializeAuth(authService: AuthService) {
   return () => authService.getMe().pipe(
-    catchError(() => of(null)) // Si da error (ej. no está logueado), continúa normal
+    catchError(() => of(null))
   );
 }
 

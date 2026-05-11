@@ -5,28 +5,27 @@ import { map, catchError, of } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 
 /**
- * Guard para rutas de invitado (login/register).
- * - Redirige a /home si ya hay sesión activa (un usuario logueado no debe ver el login).
+ * Protección de rutas para usuarios no logueados.
+ * - Redirige a /home si ya hay sesión activa.
  * - Permite el acceso si NO hay sesión.
  */
 export const guestGuard: CanActivateFn = () => {
-  const auth     = inject(AuthService);
-  const router   = inject(Router);
+  const auth = inject(AuthService);
+  const router = inject(Router);
   const platform = inject(PLATFORM_ID);
 
-  // En SSR, evitamos renderizar la vista para que el cliente no vea un HTML incorrecto (parpadeo)
+  // Renderizado en el cliente para evitar parpadeo
   if (!isPlatformBrowser(platform)) {
     return false;
   }
 
-  // Si ya tenemos el usuario en memoria, redirigir a home
+  // Si ya tenemos el usuario, redirigir a home
   if (auth.isLoggedIn) {
     return router.createUrlTree(['/home']);
   }
 
-  // Verificar con el backend si hay sesión activa
   return auth.getMe().pipe(
-    map(() => router.createUrlTree(['/home'])),  // sesión válida → redirigir
-    catchError(() => of(true))                   // sin sesión → permitir acceso al login
+    map(() => router.createUrlTree(['/home'])),
+    catchError(() => of(true))
   );
 };
