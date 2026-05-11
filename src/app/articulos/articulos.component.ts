@@ -51,7 +51,6 @@ export class ArticulosComponent implements OnInit {
     });
   }
 
-  // 📌 Imagen al publicar
   onImageSelected(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -62,7 +61,6 @@ export class ArticulosComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  // 📌 Publicar
   publicarArticulo() {
     if (!this.nuevoArticulo.nombre || !this.nuevoArticulo.descripcion || !this.nuevoArticulo.categoria) {
       alert('Por favor completa todos los campos obligatorios');
@@ -82,14 +80,12 @@ export class ArticulosComponent implements OnInit {
     this.mostrarFormulario = false;
   }
 
-  // 📌 EDITAR — abrir formulario
   editarArticulo(articulo: any) {
     this.editando = true;
     this.articuloEditado = articulo;
     this.imagenEditPreview = articulo.imagen;
   }
 
-  // 📌 Imagen durante edición
   onEditImageSelected(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -100,21 +96,18 @@ export class ArticulosComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  // 📌 Guardar cambios
   guardarCambios() {
     this.editando = false;
     this.articuloEditado = null;
     this.imagenEditPreview = null;
   }
 
-  // 📌 Cancelar edición
   cancelarEdicion() {
     this.editando = false;
     this.articuloEditado = null;
     this.imagenEditPreview = null;
   }
 
-  // 📌 Eliminar artículo
   eliminarArticulo(articulo: any) {
     if (confirm("¿Seguro que deseas eliminar este artículo?")) {
       this.articulosFiltrados = this.articulosFiltrados.filter(a => a !== articulo);
