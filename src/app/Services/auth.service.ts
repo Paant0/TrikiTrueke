@@ -60,7 +60,7 @@ export class AuthService {
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
       catchError(err => {
-        console.group('❌ Error en registro');
+        console.group('Error en registro');
         console.log('Status:', err.status);
         console.log('Body:', err.error);
         console.groupEnd();

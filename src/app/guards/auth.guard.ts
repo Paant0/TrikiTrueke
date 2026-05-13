@@ -5,26 +5,26 @@ import { map, catchError, of } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 
 /**
- * Guard para rutas protegidas.
- * - Permite el acceso si hay sesión activa con el backend.
+ * Protección de rutas protegidas.
+ * - Permite el acceso si hay sesión activa.
  * - Redirige a /login si no hay sesión.
  */
 export const authGuard: CanActivateFn = () => {
-  const auth     = inject(AuthService);
-  const router   = inject(Router);
+  const auth = inject(AuthService);
+  const router = inject(Router);
   const platform = inject(PLATFORM_ID);
 
-  // En SSR no hay cookies: devolvemos false para no enviar HTML falso al navegador
+  // Renderizado en el cliente para evitar parpadeo
   if (!isPlatformBrowser(platform)) {
     return false;
   }
 
-  // Si ya tenemos el usuario en memoria, acceso directo sin petición
+  // Si ya tenemos el usuario, acceso directo
   if (auth.isLoggedIn) {
     return true;
   }
 
-  // Verificar sesión real con el backend (/api/auth/me)
+  // Verificar sesión con el backend (/api/auth/me)
   return auth.getMe().pipe(
     map(() => true),
     catchError(() => of(router.createUrlTree(['/login'])))
