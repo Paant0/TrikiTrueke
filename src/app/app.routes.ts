@@ -5,6 +5,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { ArticulosComponent } from './articulos/articulos.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'articulos/:categoria', component: ArticulosComponent, canActivate: [authGuard] },
   { path: 'articulos', component: ArticulosComponent, canActivate: [authGuard] },
   { path: 'mensajes', component: MensajesComponent, canActivate: [authGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
   { path: 'ayuda', component: AyudaComponent },
 ];

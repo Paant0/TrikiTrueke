@@ -1,0 +1,58 @@
+<main class="perfil-page">
+	<mat-card class="perfil-hero" appearance="outlined">
+		<div class="perfil-avatar">
+			<mat-icon>account_circle</mat-icon>
+		</div>
+
+		<div class="perfil-copy">
+			<p class="eyebrow">Mi perfil</p>
+			<h1>{{ authService.currentUser?.nombre || 'Usuario' }}</h1>
+			<p class="lead">
+				Gestiona tu información básica y accede rápido a las secciones principales de la plataforma.
+			</p>
+
+			<mat-chip-set>
+				<mat-chip highlighted>{{ authService.currentUser?.email || 'Sin correo' }}</mat-chip>
+				<mat-chip highlighted>{{ authService.currentUser?.telefono || 'Sin teléfono' }}</mat-chip>
+			</mat-chip-set>
+		</div>
+	</mat-card>
+
+	<section class="perfil-grid">
+		<mat-card class="info-card" appearance="outlined">
+			<mat-card-header>
+				<mat-card-title>Información</mat-card-title>
+				<mat-card-subtitle>Datos visibles de tu cuenta</mat-card-subtitle>
+			</mat-card-header>
+
+			<mat-card-content>
+				<div class="info-row">
+					<span>Nombre</span>
+					<strong>{{ authService.currentUser?.nombre || 'No disponible' }}</strong>
+				</div>
+				<div class="info-row">
+					<span>Correo</span>
+					<strong>{{ authService.currentUser?.email || 'No disponible' }}</strong>
+				</div>
+				<div class="info-row">
+					<span>Teléfono</span>
+					<strong>{{ authService.currentUser?.telefono || 'No disponible' }}</strong>
+				</div>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card class="info-card" appearance="outlined">
+			<mat-card-header>
+				<mat-card-title>Accesos rápidos</mat-card-title>
+				<mat-card-subtitle>Ve a las pantallas que más usas</mat-card-subtitle>
+			</mat-card-header>
+
+			<mat-card-content class="action-list">
+				<a *ngFor="let action of quickActions" mat-stroked-button [routerLink]="action.route">
+					<mat-icon>{{ action.icon }}</mat-icon>
+					{{ action.label }}
+				</a>
+			</mat-card-content>
+		</mat-card>
+	</section>
+</main>

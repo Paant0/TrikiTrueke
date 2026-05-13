@@ -3,11 +3,17 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService, LoginRequest, RegisterRequest } from '../Services/auth.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -29,26 +35,12 @@ export class LoginComponent {
   errorLogin      = signal<string | null>(null);
   errorRegister   = signal<string | null>(null);
   successRegister = signal<string | null>(null);
+  selectedTabIndex = 0;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {}
-
-  // ─── Toggle de paneles ───────────────────────────────────────────────────────
-  toggleForm(mode: 'register' | 'login') {
-    const container = document.getElementById('container');
-    // Limpiamos mensajes al cambiar de panel
-    this.errorLogin.set(null);
-    this.errorRegister.set(null);
-    this.successRegister.set(null);
-
-    if (mode === 'register') {
-      container?.classList.add('active');
-    } else {
-      container?.classList.remove('active');
-    }
-  }
 
   // ─── Login ────────────────────────────────────────────────────────────────────
   onLogin(event: Event) {
@@ -86,7 +78,7 @@ export class LoginComponent {
         this.isLoadingReg.set(false);
         this.successRegister.set('¡Cuenta creada! Ahora inicia sesión.');
         this.registerData = { nombre: '', email: '', telefono: '', clave: '' };
-        setTimeout(() => this.toggleForm('login'), 1800);
+        this.selectedTabIndex = 0;
       },
       error: (err) => {
         this.isLoadingReg.set(false);

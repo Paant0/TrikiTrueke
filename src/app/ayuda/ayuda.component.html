@@ -1,69 +1,108 @@
-<div class="ayuda-wrapper">
-  <!-- Banner Principal-->
-  <section class="ayuda-banner">
-    <div class="banner-overlay">
-      <h1>Centro de Ayuda Trikutrueke</h1>
-     
+<div class="ayuda-container">
+  <!-- Hero Banner -->
+  <section class="hero-panel">
+    <div class="hero-content">
+      <h1>Centro de Ayuda</h1>
+      <p>Aquí encontrarás respuestas a todas tus preguntas sobre TrikiTrueke</p>
+      <mat-icon class="hero-icon">help_outline</mat-icon>
     </div>
   </section>
 
   <!-- Temas populares -->
-  <section class="temas-populares">
-    <h2>Temas Populares</h2>
+  <section class="content-section">
+    <h2 class="section-title">Temas Populares</h2>
     <div class="temas-grid">
-      <div class="tema-card" (click)="mostrarExplicacion('cuenta')">
-        <h3>Crear mi cuenta</h3>
-        <p>Aprende cómo registrarte e iniciar sesión fácilmente.</p>
-      </div>
+      <mat-card class="tema-card" (click)="mostrarExplicacion('cuenta')">
+        <mat-card-content>
+          <mat-icon class="tema-icon">person_add</mat-icon>
+          <h3>Crear mi cuenta</h3>
+          <p>Aprende cómo registrarte e iniciar sesión fácilmente.</p>
+        </mat-card-content>
+      </mat-card>
 
-      <div class="tema-card" (click)="mostrarExplicacion('trueque')">
-        <h3>Publicar un trueque</h3>
-        <p>Guía paso a paso para subir tus artículos.</p>
-      </div>
+      <mat-card class="tema-card" (click)="mostrarExplicacion('trueque')">
+        <mat-card-content>
+          <mat-icon class="tema-icon">upload_file</mat-icon>
+          <h3>Publicar un artículo</h3>
+          <p>Guía paso a paso para subir tus artículos.</p>
+        </mat-card-content>
+      </mat-card>
 
-      <div class="tema-card" (click)="mostrarExplicacion('contacto')">
-        <h3>Contactar usuarios</h3>
-        <p>Descubre cómo comunicarte con otros truekers.</p>
-      </div>
+      <mat-card class="tema-card" (click)="mostrarExplicacion('contacto')">
+        <mat-card-content>
+          <mat-icon class="tema-icon">mail_outline</mat-icon>
+          <h3>Contactar usuarios</h3>
+          <p>Descubre cómo comunicarte con otros usuarios.</p>
+        </mat-card-content>
+      </mat-card>
 
-      <div class="tema-card" (click)="mostrarExplicacion('seguridad')">
-        <h3>Seguridad</h3>
-        <p>Consejos para realizar intercambios de forma segura.</p>
-      </div>
+      <mat-card class="tema-card" (click)="mostrarExplicacion('seguridad')">
+        <mat-card-content>
+          <mat-icon class="tema-icon">security</mat-icon>
+          <h3>Seguridad</h3>
+          <p>Consejos para realizar intercambios de forma segura.</p>
+        </mat-card-content>
+      </mat-card>
     </div>
 
     <!-- Explicación dinámica -->
-    <div class="explicacion" *ngIf="temaSeleccionado">
-      <h3>{{ tituloExplicacion }}</h3>
-      <p>{{ textoExplicacion }}</p>
-        </div>
+    <mat-card class="explicacion-card" *ngIf="temaSeleccionado">
+      <mat-card-header>
+        <mat-card-title>{{ tituloExplicacion }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ textoExplicacion }}</p>
+      </mat-card-content>
+    </mat-card>
   </section>
 
   <!-- Preguntas frecuentes -->
-  <section class="faq">
-    <h2>Preguntas Frecuentes</h2>
-    <div class="pregunta">
-      <h4>¿Trikutrueke tiene costo?</h4>
-      <p>No, usar la plataforma es completamente gratuito.</p>
-    </div>
-    <div class="pregunta">
-      <h4>¿Qué hago si un usuario incumple el trueque?</h4>
-      <p>Puedes reportarlo desde su perfil o contactar con soporte.</p>
-    </div>
-    <div class="pregunta">
-      <h4>¿Cómo puedo eliminar mi publicación?</h4>
-      <p>Ve a tu perfil, selecciona el anuncio y elige “Eliminar”.</p>
-    </div>
+  <section class="content-section">
+    <h2 class="section-title">Preguntas Frecuentes</h2>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let faq of faqs" class="faq-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>expand_more</mat-icon>
+            {{ faq.pregunta }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ faq.respuesta }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
   </section>
 
-  <!-- Contacto -->
-  <section class="contacto">
-    <h2>¿Aún necesitas ayuda?</h2>
-    <p>Contáctanos directamente:</p>
-    <ul>
-      <li>soporte&#64;trikutrueke.com</li>
-      <li>Chat en vivo (Lunes a Viernes, 9:00 – 18:00)</li>
-    </ul>
+  <!-- Contacto directo -->
+  <section class="contact-section">
+    <mat-card class="contact-card">
+      <mat-card-header>
+        <mat-card-title>¿Aún necesitas ayuda?</mat-card-title>
+        <mat-card-subtitle>Contáctanos directamente</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="contact-info">
+          <div class="contact-item">
+            <mat-icon>mail</mat-icon>
+            <div>
+              <strong>Correo</strong>
+              <p>soporte&#64;trikitrueke.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <mat-icon>schedule</mat-icon>
+            <div>
+              <strong>Reuniones</strong>
+              <p>Lunes a Viernes, 9:00 – 18:00</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button color="primary">
+          <mat-icon>email</mat-icon>
+          Enviar correo
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </section>
 </div>
-HOLIII :#

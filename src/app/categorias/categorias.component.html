@@ -1,8 +1,51 @@
-<div class="categorias-container">
-  <div class="categoria" *ngFor="let categoria of categorias" [routerLink]="['/articulos', categoria.nombre]">
-    <div class="categoria-icono">
-      <img [src]="categoria.imagen" [alt]="categoria.nombre" />
+<section class="categorias-page">
+  <header class="categorias-hero">
+    <div>
+      <p class="eyebrow">Material Design</p>
+      <h1>Explora por categorías</h1>
+      <p class="lead">
+        Encuentra artículos más rápido con una experiencia visual más limpia y consistente.
+      </p>
     </div>
-    <h3>{{ categoria.nombre }}</h3>
+
+    <button mat-raised-button color="primary" routerLink="/articulos">
+      <mat-icon>local_offer</mat-icon>
+      Ver todos los artículos
+    </button>
+  </header>
+
+  <div class="categorias-grid" *ngIf="categorias.length > 0; else vacio">
+    <mat-card
+      class="categoria-card"
+      *ngFor="let categoria of categorias"
+      [routerLink]="['/articulos', categoria.nombre]"
+      appearance="outlined"
+    >
+      <div class="categoria-icono">
+        <img [src]="categoria.imagen" [alt]="categoria.nombre" />
+      </div>
+
+      <mat-card-content>
+        <h3>{{ categoria.nombre }}</h3>
+        <p>Ver artículos disponibles dentro de esta categoría.</p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button color="primary">
+          Explorar
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-</div>
+
+  <ng-template #vacio>
+    <mat-card class="empty-state" appearance="outlined">
+      <mat-card-content>
+        <mat-icon class="empty-icon">category</mat-icon>
+        <h3>No hay categorías disponibles</h3>
+        <p>Cuando publiquen artículos, aparecerán aquí.</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</section>

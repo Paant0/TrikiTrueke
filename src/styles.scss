@@ -1,0 +1,33 @@
+// Importar tema colors global
+@import '../_theme-colors';
+
+// Importar tema prebuilt de Material
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  color-scheme: light;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  size: 10%;
+  width: 10%;
+  height: auto;
+  z-index: 1000;
+  cursor: pointer;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+}

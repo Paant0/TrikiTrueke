@@ -1,161 +1,150 @@
-<div class="login-wrapper">
-  <div class="container" id="container">
+<div class="login-shell">
+  <section class="login-hero">
+    <p class="eyebrow">TrikiTrueke</p>
+    <h1>Intercambia con una experiencia más clara, rápida y segura.</h1>
+    <p>
+      Entra a tu cuenta o crea una nueva para empezar a descubrir artículos, categorías y mensajes.
+    </p>
 
-    <!-- ═══════════════════════════════════════ CREAR CUENTA ══ -->
-    <div class="form-container Crear-cuenta">
-      <form (submit)="onRegister($event)">
-        <h1>Crear Cuenta</h1>
-
-        <div class="Iconos-Social">
-          <a href="#" class="icon">
-            <img src="assets/icons8-logo-de-google.svg" alt="Google" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-github.svg" alt="GitHub" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-mac-os.svg" alt="Apple" />
-          </a>
-        </div>
-
-        <span>O usa tu correo para registrarte</span>
-
-        <!-- Mensajes de feedback registro -->
-        @if (errorRegister()) {
-          <p class="msg msg--error">⚠️ {{ errorRegister() }}</p>
-        }
-        @if (successRegister()) {
-          <p class="msg msg--success">✅ {{ successRegister() }}</p>
-        }
-
-        <input
-          type="text"
-          placeholder="Nombre completo"
-          [(ngModel)]="registerData.nombre"
-          name="nombre"
-          required
-          [disabled]="isLoadingReg()"
-        />
-
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          [(ngModel)]="registerData.email"
-          name="email"
-          required
-          [disabled]="isLoadingReg()"
-        />
-
-        <input
-          type="text"
-          placeholder="Teléfono"
-          [(ngModel)]="registerData.telefono"
-          name="telefono"
-          required
-          [disabled]="isLoadingReg()"
-        />
-
-        <input
-          type="password"
-          placeholder="Contraseña"
-          [(ngModel)]="registerData.clave"
-          name="clave"
-          required
-          [disabled]="isLoadingReg()"
-        />
-
-        <button type="submit" [disabled]="isLoadingReg()">
-          @if (isLoadingReg()) {
-            <span class="spinner"></span> Creando...
-          } @else {
-            Crear
-          }
-        </button>
-      </form>
-    </div>
-
-    <!-- ═══════════════════════════════════════ INICIAR SESIÓN ══ -->
-    <div class="form-container Iniciar-Sesion">
-      <form (submit)="onLogin($event)">
-        <h1>Iniciar Sesión</h1>
-
-        <div class="Iconos-Social">
-          <a href="#" class="icon">
-            <img src="assets/icons8-logo-de-google.svg" alt="Google" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-facebook-nuevo.svg" alt="Facebook" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-github.svg" alt="GitHub" />
-          </a>
-          <a href="#" class="icon">
-            <img src="assets/icons8-mac-os.svg" alt="Apple" />
-          </a>
-        </div>
-
-        <span>O usa tu correo y contraseña</span>
-
-        <!-- Mensaje de error login -->
-        @if (errorLogin()) {
-          <p class="msg msg--error">⚠️ {{ errorLogin() }}</p>
-        }
-
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          [(ngModel)]="loginData.email"
-          name="loginEmail"
-          required
-          [disabled]="isLoadingLogin()"
-        />
-
-        <input
-          type="password"
-          placeholder="Contraseña"
-          [(ngModel)]="loginData.clave"
-          name="loginClave"
-          required
-          [disabled]="isLoadingLogin()"
-        />
-
-        <a href="#">¿Olvidaste tu contraseña?</a>
-
-        <button type="submit" [disabled]="isLoadingLogin()">
-          @if (isLoadingLogin()) {
-            <span class="spinner"></span> Entrando...
-          } @else {
-            Iniciar Sesión
-          }
-        </button>
-      </form>
-    </div>
-
-    <!-- ═══════════════════════════════════════ PANEL LATERAL ══ -->
-    <div class="toggle-container">
-      <div class="toggle">
-
-        <div class="toggle-panel toggle-left">
-          <h1>¡Bienvenido!</h1>
-          <p>Ingrese sus datos personales para usar todas las funciones</p>
-          <button type="button" class="hidden" (click)="toggleForm('login')">
-            Iniciar Sesión
-          </button>
-        </div>
-
-        <div class="toggle-panel toggle-right">
-          <h1>Hola, amiguito</h1>
-          <p>Registra tus datos personales para usar todas las funciones</p>
-          <button type="button" class="hidden" (click)="toggleForm('register')">
-            Crear Cuenta
-          </button>
-        </div>
-
+    <div class="hero-points">
+      <div class="hero-point">
+        <mat-icon>verified</mat-icon>
+        <span>Sesión segura</span>
+      </div>
+      <div class="hero-point">
+        <mat-icon>shopping_bag</mat-icon>
+        <span>Explora artículos</span>
+      </div>
+      <div class="hero-point">
+        <mat-icon>forum</mat-icon>
+        <span>Contacta fácil</span>
       </div>
     </div>
+  </section>
 
-  </div>
+  <mat-card class="auth-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Bienvenido</mat-card-title>
+      <mat-card-subtitle>Inicia sesión o crea tu cuenta</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedTabIndex = $event" class="auth-tabs">
+        <mat-tab label="Iniciar sesión">
+          <form class="auth-form" (submit)="onLogin($event)">
+            @if (errorLogin()) {
+              <div class="msg msg--error">{{ errorLogin() }}</div>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Correo electrónico</mat-label>
+              <mat-icon matPrefix>mail</mat-icon>
+              <input
+                matInput
+                type="email"
+                [(ngModel)]="loginData.email"
+                name="loginEmail"
+                required
+                [disabled]="isLoadingLogin()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <mat-icon matPrefix>lock</mat-icon>
+              <input
+                matInput
+                type="password"
+                [(ngModel)]="loginData.clave"
+                name="loginClave"
+                required
+                [disabled]="isLoadingLogin()"
+              />
+            </mat-form-field>
+
+            <a class="helper-link" href="#">¿Olvidaste tu contraseña?</a>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="isLoadingLogin()">
+              @if (isLoadingLogin()) {
+                <span class="spinner"></span> Entrando...
+              } @else {
+                Iniciar sesión
+              }
+            </button>
+          </form>
+        </mat-tab>
+
+        <mat-tab label="Crear cuenta">
+          <form class="auth-form" (submit)="onRegister($event)">
+            @if (errorRegister()) {
+              <div class="msg msg--error">{{ errorRegister() }}</div>
+            }
+            @if (successRegister()) {
+              <div class="msg msg--success">{{ successRegister() }}</div>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre completo</mat-label>
+              <mat-icon matPrefix>badge</mat-icon>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="registerData.nombre"
+                name="nombre"
+                required
+                [disabled]="isLoadingReg()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Correo electrónico</mat-label>
+              <mat-icon matPrefix>mail</mat-icon>
+              <input
+                matInput
+                type="email"
+                [(ngModel)]="registerData.email"
+                name="email"
+                required
+                [disabled]="isLoadingReg()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono</mat-label>
+              <mat-icon matPrefix>call</mat-icon>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="registerData.telefono"
+                name="telefono"
+                required
+                [disabled]="isLoadingReg()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <mat-icon matPrefix>lock</mat-icon>
+              <input
+                matInput
+                type="password"
+                [(ngModel)]="registerData.clave"
+                name="clave"
+                required
+                [disabled]="isLoadingReg()"
+              />
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="isLoadingReg()">
+              @if (isLoadingReg()) {
+                <span class="spinner"></span> Creando...
+              } @else {
+                Crear cuenta
+              }
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
 </div>

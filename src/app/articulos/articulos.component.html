@@ -1,120 +1,178 @@
-<div class="articulos-container">
+<main class="articulos-page">
+  <section class="articulos-hero">
+    <div>
+      <p class="eyebrow">Catálogo Material</p>
+      <h1 *ngIf="categoria">Artículos de {{ categoria }}</h1>
+      <h1 *ngIf="!categoria">Explora nuestros artículos</h1>
+      <p class="lead">
+        Navega, publica y gestiona artículos con una interfaz más clara y consistente.
+      </p>
+    </div>
 
-  <!-- Titulo y botón -->
-  <div class="header-articulos">
-    <h2 *ngIf="categoria">Artículos de {{ categoria }}</h2>
-    <h2 *ngIf="!categoria">Explora nuestros artículos</h2>
-
-    <button class="btn-publicar" (click)="mostrarFormulario = !mostrarFormulario">
+    <button mat-raised-button color="primary" (click)="mostrarFormulario = !mostrarFormulario">
+      <mat-icon>{{ mostrarFormulario ? 'close' : 'add' }}</mat-icon>
       {{ mostrarFormulario ? 'Cerrar formulario' : 'Publicar artículo' }}
     </button>
-  </div>
+  </section>
 
-  <!-- FOrmulario para publicar articulo -->
+  <mat-card class="panel-card" *ngIf="mostrarFormulario" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Publicar artículo</mat-card-title>
+      <mat-card-subtitle>Completa la información para mostrarlo en el catálogo</mat-card-subtitle>
+    </mat-card-header>
 
-  <div class="formulario-container" *ngIf="mostrarFormulario">
+    <mat-card-content class="form-grid">
+      <div class="image-column">
+        <div class="image-preview" *ngIf="imagenPreview; else placeholderImage">
+          <img [src]="imagenPreview" alt="Vista previa del artículo" />
+        </div>
 
-    <label class="label">Imagen del artículo</label>
+        <ng-template #placeholderImage>
+          <div class="placeholder-image">
+            <mat-icon>image</mat-icon>
+            <span>Vista previa</span>
+          </div>
+        </ng-template>
 
-    <div class="image-preview" *ngIf="imagenPreview">
-      <img [src]="imagenPreview">
-    </div>
+        <div class="file-upload">
+          <label for="fileInput" class="custom-file-upload">Subir imagen</label>
+          <input type="file" id="fileInput" accept="image/*" (change)="onImageSelected($event)" />
+        </div>
+      </div>
 
-    <div class="file-upload">
-      <label for="fileInput" class="custom-file-upload">Subir imagen</label>
+      <div class="fields-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="nuevoArticulo.nombre" name="nombreNuevo" />
+        </mat-form-field>
 
-      <input type="file" id="fileInput" accept="image/*" (change)="onImageSelected($event); onImageSelected($event)">
-    </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput rows="4" [(ngModel)]="nuevoArticulo.descripcion" name="descripcionNueva"></textarea>
+        </mat-form-field>
 
-    <label class="label">Nombre</label>
-    <input class="input" [(ngModel)]="nuevoArticulo.nombre">
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <mat-select [(ngModel)]="nuevoArticulo.categoria" name="categoriaNueva">
+            <mat-option value="">Seleccione...</mat-option>
+            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item">{{ item }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <label class="label">Descripción</label>
-    <textarea class="textarea" [(ngModel)]="nuevoArticulo.descripcion"></textarea>
+        <mat-form-field appearance="outline">
+          <mat-label>¿Por qué deseas intercambiarlo?</mat-label>
+          <textarea matInput rows="4" [(ngModel)]="nuevoArticulo.motivo" name="motivoNuevo"></textarea>
+        </mat-form-field>
 
-    <label class="label">Categoría</label>
-    <select class="select" [(ngModel)]="nuevoArticulo.categoria">
-      <option value="">Seleccione...</option>
-      <option value="ropa">Ropa</option>
-      <option value="tecnologia">Tecnología</option>
-      <option value="accesorios">Accesorios</option>
-      <option value="hogar">Hogar</option>
-      <option value="otros">Otros</option>
-    </select>
+        <button mat-flat-button color="primary" type="button" (click)="publicarArticulo()">
+          Publicar artículo
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-    <label class="label">¿Por qué deseas intercambiarlo?</label>
-    <textarea class="textarea" [(ngModel)]="nuevoArticulo.motivo"></textarea>
+  <mat-card class="panel-card" *ngIf="editando" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Editar artículo</mat-card-title>
+      <mat-card-subtitle>Actualiza la información sin perder el contexto</mat-card-subtitle>
+    </mat-card-header>
 
-    <button class="btn-publicar2" (click)="publicarArticulo()">
-      Publicar
-    </button>
-  </div>
+    <mat-card-content class="form-grid">
+      <div class="image-column">
+        <div class="image-preview" *ngIf="imagenEditPreview; else editPlaceholderImage">
+          <img [src]="imagenEditPreview" alt="Vista previa de edición" />
+        </div>
 
-  <!--Formulario para editar articulo-->
-  <div class="formulario-container" *ngIf="editando">
-    <h3>Editar artículo</h3>
+        <ng-template #editPlaceholderImage>
+          <div class="placeholder-image">
+            <mat-icon>image</mat-icon>
+            <span>Vista previa</span>
+          </div>
+        </ng-template>
 
-    <label class="label">Cambiar imagen</label>
-    <div class="image-preview" *ngIf="imagenEditPreview">
-      <img [src]="imagenEditPreview">
-    </div>
-    <div class="file-upload">
-      <label for="fileInputEdit" class="custom-file-upload">Cambiar imagen</label>
+        <div class="file-upload">
+          <label for="fileInputEdit" class="custom-file-upload">Cambiar imagen</label>
+          <input type="file" id="fileInputEdit" accept="image/*" (change)="onEditImageSelected($event)" />
+        </div>
+      </div>
 
-      <input type="file" id="fileInputEdit" accept="image/*"
-        (change)="onEditImageSelected($event); onEditImageSelected($event)">
-    </div>
+      <div class="fields-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="articuloEditado.nombre" name="nombreEditado" />
+        </mat-form-field>
 
-    <label class="label">Nombre</label>
-    <input class="input" [(ngModel)]="articuloEditado.nombre">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput rows="4" [(ngModel)]="articuloEditado.descripcion" name="descripcionEditada"></textarea>
+        </mat-form-field>
 
-    <label class="label">Descripción</label>
-    <textarea class="textarea" [(ngModel)]="articuloEditado.descripcion"></textarea>
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <mat-select [(ngModel)]="articuloEditado.categoria" name="categoriaEditada">
+            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item">{{ item }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <label class="label">Categoría</label>
-    <select class="select" [(ngModel)]="articuloEditado.categoria">
-      <option value="ropa">Ropa</option>
-      <option value="tecnologia">Tecnología</option>
-      <option value="accesorios">Accesorios</option>
-      <option value="hogar">Hogar</option>
-      <option value="otros">Otros</option>
-    </select>
+        <mat-form-field appearance="outline">
+          <mat-label>Motivo</mat-label>
+          <textarea matInput rows="4" [(ngModel)]="articuloEditado.motivo" name="motivoEditado"></textarea>
+        </mat-form-field>
 
-    <label class="label">Motivo</label>
-    <textarea class="textarea" [(ngModel)]="articuloEditado.motivo"></textarea>
+        <div class="edit-actions">
+          <button mat-flat-button color="primary" type="button" (click)="guardarCambios()">Guardar cambios</button>
+          <button mat-stroked-button type="button" (click)="cancelarEdicion()">Cancelar</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-    <button class="btn-publicar2" (click)="guardarCambios()">Guardar cambios</button>
-    <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
-  </div>
+  <section class="list-header">
+    <h2>Artículos disponibles</h2>
+    <p>{{ articulosFiltrados.length }} resultados en pantalla</p>
+  </section>
 
-  <!-- Lista de articulos -->
   <div class="articulos-grid" *ngIf="articulosFiltrados.length > 0; else sinArticulos">
-    <div class="articulo-card" *ngFor="let articulo of articulosFiltrados">
-      <img [src]="articulo.imagen" [alt]="articulo.nombre" class="articulo-img" />
-      <div class="articulo-info">
+    <mat-card class="articulo-card" *ngFor="let articulo of articulosFiltrados" appearance="outlined">
+      <div class="articulo-media">
+        <img [src]="articulo.imagen" [alt]="articulo.nombre" class="articulo-img" />
+        <mat-chip class="categoria-chip">{{ articulo.categoria }}</mat-chip>
+      </div>
+
+      <mat-card-content class="articulo-info">
         <h3>{{ articulo.nombre }}</h3>
         <p>{{ articulo.descripcion }}</p>
         <p class="motivo">
           <span class="motivo-label">Motivo:</span> {{ articulo.motivo }}
         </p>
+      </mat-card-content>
 
-      </div>
+      <mat-divider></mat-divider>
 
-      <!-- Botones de editar y eliminar articulo -->
-      <div class="acciones-articulo">
-        <button class="btn-editar" (click)="editarArticulo(articulo)">Editar</button>
-        <button class="btn-eliminar" (click)="eliminarArticulo(articulo)">Eliminar</button>
-          <button class="btn-eliminar" routerLink="/mensajes">Enviar Mensaje</button>
-      </div>
-    </div>
+      <mat-card-actions class="acciones-articulo">
+        <button mat-button color="primary" type="button" (click)="editarArticulo(articulo)">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-button color="warn" type="button" (click)="eliminarArticulo(articulo)">
+          <mat-icon>delete</mat-icon>
+          Eliminar
+        </button>
+        <button mat-stroked-button type="button" routerLink="/mensajes">
+          <mat-icon>chat</mat-icon>
+          Mensaje
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 
-  <!-- si no hay resultados hacer:  -->
   <ng-template #sinArticulos>
-    <div class="no-articulos">
-      <p>No hay artículos disponibles en esta categoría.</p>
-      <img src="assets/img/empty.png" alt="Sin artículos" class="empty-img" />
-    </div>
+    <mat-card class="empty-state" appearance="outlined">
+      <mat-card-content>
+        <mat-icon>inventory_2</mat-icon>
+        <h3>No hay artículos disponibles en esta categoría.</h3>
+        <p>Prueba con otra categoría o publica uno nuevo.</p>
+      </mat-card-content>
+    </mat-card>
   </ng-template>
-
-</div>
+</main>
