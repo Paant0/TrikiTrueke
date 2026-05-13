@@ -1,4 +1,23 @@
 
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  color-scheme: light;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
+}
+
 #logo {
   position: fixed;           /* Fija el logo en la pantalla */
   top: 20px;                 /* Espacio desde arriba */

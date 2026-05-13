@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class CategoriasService {
 
-  private apiUrl = 'http://localhost:8080/api/categorias';
+  private readonly API = '/api/categorias';
 
   constructor(private http: HttpClient) {}
 
   obtenerCategorias(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.API);
   }
 }
