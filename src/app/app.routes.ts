@@ -16,5 +16,5 @@ export const routes: Routes = [
   { path: 'articulos/:categoria', component: ArticulosComponent, canActivate: [authGuard] },
   { path: 'articulos', component: ArticulosComponent, canActivate: [authGuard] },
   { path: 'mensajes', component: MensajesComponent, canActivate: [authGuard] },
-  { path: 'ayuda', component: AyudaComponent }, // Dejo la ayuda pública, o cámbiala si requiere login
+  { path: 'ayuda', component: AyudaComponent },
 ];

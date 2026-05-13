@@ -10,7 +10,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -20,7 +20,7 @@ export class HomeComponent {
 
   irACategorias(categoria: string) {
     this.router.navigate(['/categorias'], { queryParams: { tipo: categoria } });
-    
+
   }
 
 }
