@@ -62,7 +62,7 @@
 }
 
 .hero-point mat-icon {
-  color: #7d2bb6;
+  color: var(--mat-sys-primary);
 }
 
 .auth-card {
@@ -119,7 +119,7 @@ mat-form-field {
 
 .helper-link {
   justify-self: start;
-  color: #7d2bb6;
+  color: var(--mat-sys-primary);
   font-weight: 600;
   text-decoration: none;
 }

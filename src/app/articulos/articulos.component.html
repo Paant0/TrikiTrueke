@@ -1,7 +1,7 @@
 <main class="articulos-page">
   <section class="articulos-hero">
     <div>
-      <p class="eyebrow">Catálogo Material</p>
+      <p class="eyebrow">Catálogo</p>
       <h1 *ngIf="categoria">Artículos de {{ categoria }}</h1>
       <h1 *ngIf="!categoria">Explora nuestros artículos</h1>
       <p class="lead">
@@ -9,7 +9,7 @@
       </p>
     </div>
 
-    <button mat-raised-button color="primary" (click)="mostrarFormulario = !mostrarFormulario">
+    <button mat-flat-button color="primary" (click)="mostrarFormulario = !mostrarFormulario">
       <mat-icon>{{ mostrarFormulario ? 'close' : 'add' }}</mat-icon>
       {{ mostrarFormulario ? 'Cerrar formulario' : 'Publicar artículo' }}
     </button>
@@ -17,7 +17,7 @@
 
   <mat-card class="panel-card" *ngIf="mostrarFormulario" appearance="outlined">
     <mat-card-header>
-      <mat-card-title>Publicar artículo</mat-card-title>
+      <mat-card-title><strong>Publicar artículo</strong></mat-card-title>
       <mat-card-subtitle>Completa la información para mostrarlo en el catálogo</mat-card-subtitle>
     </mat-card-header>
 
@@ -35,7 +35,7 @@
         </ng-template>
 
         <div class="file-upload">
-          <label for="fileInput" class="custom-file-upload">Subir imagen</label>
+          <label for="fileInput" class="custom-file-upload"><mat-icon>file_upload</mat-icon> Subir imagen</label>
           <input type="file" id="fileInput" accept="image/*" (change)="onImageSelected($event)" />
         </div>
       </div>
@@ -91,7 +91,7 @@
         </ng-template>
 
         <div class="file-upload">
-          <label for="fileInputEdit" class="custom-file-upload">Cambiar imagen</label>
+          <label for="fileInputEdit" class="custom-file-upload"><mat-icon>file_upload</mat-icon> Cambiar imagen</label>
           <input type="file" id="fileInputEdit" accept="image/*" (change)="onEditImageSelected($event)" />
         </div>
       </div>
@@ -136,7 +136,7 @@
     <mat-card class="articulo-card" *ngFor="let articulo of articulosFiltrados" appearance="outlined">
       <div class="articulo-media">
         <img [src]="articulo.imagen" [alt]="articulo.nombre" class="articulo-img" />
-        <mat-chip class="categoria-chip">{{ articulo.categoria }}</mat-chip>
+        <mat-chip class="categoria-chip" color="primary">{{ articulo.categoria }}</mat-chip>
       </div>
 
       <mat-card-content class="articulo-info">
@@ -158,7 +158,7 @@
           <mat-icon>delete</mat-icon>
           Eliminar
         </button>
-        <button mat-stroked-button type="button" routerLink="/mensajes">
+        <button mat-flat-button type="button" routerLink="/mensajes">
           <mat-icon>chat</mat-icon>
           Mensaje
         </button>

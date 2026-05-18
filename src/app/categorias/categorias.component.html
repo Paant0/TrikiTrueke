@@ -1,26 +1,23 @@
 <section class="categorias-page">
   <header class="categorias-hero">
     <div>
-      <p class="eyebrow">Material Design</p>
+      <p class="eyebrow">Vista de Categorías</p>
       <h1>Explora por categorías</h1>
       <p class="lead">
         Encuentra artículos más rápido con una experiencia visual más limpia y consistente.
       </p>
     </div>
 
-    <button mat-raised-button color="primary" routerLink="/articulos">
+    <button mat-flat-button color="primary" routerLink="/articulos">
       <mat-icon>local_offer</mat-icon>
       Ver todos los artículos
     </button>
   </header>
 
   <div class="categorias-grid" *ngIf="categorias.length > 0; else vacio">
-    <mat-card
-      class="categoria-card"
-      *ngFor="let categoria of categorias"
-      [routerLink]="['/articulos', categoria.nombre]"
-      appearance="outlined"
-    >
+    <mat-card class="categoria-card" *ngFor="let categoria of categorias"
+      [routerLink]="['/articulos', categoria.nombre]" appearance="outlined" tabindex="0" role="link"
+      [attr.aria-label]="'Ver categoría ' + categoria.nombre">
       <div class="categoria-icono">
         <img [src]="categoria.imagen" [alt]="categoria.nombre" />
       </div>

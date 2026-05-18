@@ -37,7 +37,8 @@ export class CategoriasComponent implements OnInit {
           statusText: error?.statusText,
           url: error?.url,
           message: error?.message,
-          error: error?.error
+          contentType: error?.contentType,
+          rawBody: error?.raw ?? error?.error
         });
       }
 

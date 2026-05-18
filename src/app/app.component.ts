@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -19,6 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

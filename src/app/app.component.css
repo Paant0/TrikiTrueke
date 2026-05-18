@@ -74,6 +74,38 @@
   color: var(--mat-sys-on-primary-container);
 }
 
+.topbar__search-field {
+  min-width: 220px;
+  max-width: 420px;
+  width: min(32vw, 420px);
+  font-size: 0.875rem;
+}
+
+.topbar__search-field mat-icon {
+  color: var(--mat-sys-primary);
+  margin-right: var(--space-2);
+}
+
+/* Modificamos los estilos internos de material (si encapsulation.None o global) 
+ * Si no aplica globalmente, la API de material outline ya se ve bien, pero
+ * ajustamos color de fondo
+ */
+::ng-deep .topbar__search-field .mdc-text-field--outlined {
+  background: color-mix(in srgb, var(--mat-sys-surface) 92%, white);
+  border-radius: 999px;
+  --mdc-outlined-text-field-container-shape: 28px !important;
+}
+
+::ng-deep .topbar__search-field .mdc-notched-outline__leading,
+::ng-deep .topbar__search-field .mdc-notched-outline__notch,
+::ng-deep .topbar__search-field .mdc-notched-outline__trailing {
+  border-color: var(--mat-sys-outline-variant) !important;
+}
+
+::ng-deep .topbar__search-field .mdc-text-field--outlined .mdc-notched-outline {
+  border-radius: 999px;
+}
+
 .topbar__spacer {
   flex: 1 1 auto;
 }
@@ -159,8 +191,13 @@
     padding-block: 0.75rem;
   }
 
+  .topbar__search-field {
+    order: 4;
+    width: 100%;
+    max-width: none;
+  }
+
   .topbar__spacer {
     display: none;
   }
 }
-

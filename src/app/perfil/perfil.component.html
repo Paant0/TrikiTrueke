@@ -46,7 +46,7 @@
 				<mat-card-title>Accesos rápidos</mat-card-title>
 				<mat-card-subtitle>Ve a las pantallas que más usas</mat-card-subtitle>
 			</mat-card-header>
-
+			<mat-divider></mat-divider>
 			<mat-card-content class="action-list">
 				<a *ngFor="let action of quickActions" mat-stroked-button [routerLink]="action.route">
 					<mat-icon>{{ action.icon }}</mat-icon>

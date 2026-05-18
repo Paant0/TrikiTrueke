@@ -16,9 +16,16 @@
         <a mat-button routerLink="/ayuda" routerLinkActive="active-link">Ayuda</a>
       </nav>
 
+      <mat-form-field appearance="outline" class="topbar__search-field" subscriptSizing="dynamic">
+        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+        <input matInput type="search" placeholder="Buscar artículos, categorías..."
+          aria-label="Buscar en la plataforma" />
+      </mat-form-field>
+
       <span class="topbar__spacer"></span>
 
-      <button mat-fab extended [matMenuTriggerFor]="profileMenu" class="profile-trigger" aria-label="Abrir menú de perfil">
+      <button mat-fab extended [matMenuTriggerFor]="profileMenu" class="profile-trigger"
+        aria-label="Abrir menú de perfil">
         <mat-icon>account_circle</mat-icon>
         <span class="profile-trigger__text">
           <strong>{{ primerNombre }}</strong>
@@ -32,8 +39,8 @@
           <mat-icon>person</mat-icon>
           <span>Mi perfil</span>
         </button>
-        <button mat-menu-item (click)="logout()" aria-label="Cerrar sesión">
-          <mat-icon>logout</mat-icon>
+        <button mat-menu-item (click)="logout()" color="error" aria-label="Cerrar sesión">
+          <mat-icon color="warn">logout</mat-icon>
           <span>Cerrar sesión</span>
         </button>
       </mat-menu>
@@ -46,7 +53,7 @@
 </div>
 
 <footer class="footer" *ngIf="mostrarLayout && isReady">
-  <p>© 2025 TrikiTrueke — Todos los derechos reservados</p>
+  <p>© 2026 TrikiTrueke — Todos los derechos reservados</p>
   <div class="social">
     <a href="https://www.instagram.com/paan.t0">
       <img src="assets/Instagram.png" alt="Instagram">

@@ -165,8 +165,7 @@
   position: absolute;
   left: 16px;
   bottom: 16px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #34172f;
+  --mdc-chip-elevated-container-color: #fff;
   font-weight: 600;
 }
 
