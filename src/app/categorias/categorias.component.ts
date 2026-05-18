@@ -8,9 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categorias',
+  standalone: true,
   imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './categorias.component.html',
-  styleUrl: './categorias.component.css'
+  styleUrls: ['./categorias.component.css']
 })
 export class CategoriasComponent implements OnInit {
 
@@ -23,12 +24,22 @@ export class CategoriasComponent implements OnInit {
     this.categoriasService.obtenerCategorias().subscribe({
 
       next: (response) => {
-        console.log(response);
         this.categorias = Array.isArray(response) ? response : (response?.data ?? []);
+        console.info('[CategoriasComponent] Categorías cargadas', {
+          total: this.categorias.length,
+          origen: Array.isArray(response) ? 'array' : 'response.data'
+        });
       },
 
       error: (error) => {
-        console.log(error);
+        console.error('[CategoriasComponent] Falló la carga de categorías', {
+          status: error?.status,
+          statusText: error?.statusText,
+          url: error?.url,
+          message: error?.message,
+          contentType: error?.contentType,
+          rawBody: error?.raw ?? error?.error
+        });
       }
 
     });

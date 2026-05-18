@@ -1,15 +1,14 @@
 <main class="home-page">
-  <section class="hero-panel">
-    <div class="hero-copy">
+  <section class="hero-banner">
+    <div class="hero-content-card">
       <mat-chip class="hero-chip">Mercado de intercambio</mat-chip>
       <h1>Intercambia lo que no usas por algo nuevo.</h1>
       <p>
-        Descubre artículos, categorías y conversaciones en una experiencia más limpia,
-        moderna y rápida.
+        Descubre artículos y categorías en una experiencia más limpia, moderna y rápida.
       </p>
 
       <div class="hero-actions">
-        <button mat-raised-button color="primary" routerLink="/articulos">
+        <button mat-flat-button color="primary" routerLink="/articulos">
           <mat-icon>shopping_bag</mat-icon>
           Explorar artículos
         </button>
@@ -20,50 +19,40 @@
       </div>
 
       <div class="hero-steps">
-        <mat-card class="step-card" *ngFor="let step of steps">
+        <div class="step-pill" *ngFor="let step of steps">
           <mat-icon>check_circle</mat-icon>
           <span>{{ step }}</span>
-        </mat-card>
+        </div>
+      </div>
+      <div class="hero-kpis">
+        <div>
+          <strong>11</strong>
+          <span>Categorías</span>
+        </div>
+        <div>
+          <strong>+120</strong>
+          <span>Publicaciones</span>
+        </div>
+        <div>
+          <strong>24/7</strong>
+          <span>Disponible</span>
+        </div>
       </div>
     </div>
-
-    <mat-card class="hero-visual" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>Resumen rápido</mat-card-title>
-        <mat-card-subtitle>Todo lo que necesitas para comenzar</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div class="visual-stats">
-          <div>
-            <strong>11</strong>
-            <span>Categorías</span>
-          </div>
-          <div>
-            <strong>3</strong>
-            <span>Flujos principales</span>
-          </div>
-          <div>
-            <strong>24/7</strong>
-            <span>Acceso desde cualquier lugar</span>
-          </div>
-        </div>
-
-        <mat-card class="visual-note" appearance="outlined">
-          <mat-icon>lightbulb</mat-icon>
-          <p>
-            Empieza por categorías para encontrar rápido artículos relacionados con lo que buscas.
-          </p>
-        </mat-card>
-      </mat-card-content>
-    </mat-card>
   </section>
 
-  <section class="highlights-grid">
+  <section class="highlights-section">
+    <header class="highlights-header">
+      <h2>Compra, vende e intercambia más rápido</h2>
+      <p>Explora funciones pensadas para que encontrar productos sea simple y seguro.</p>
+    </header>
+
+    <div class="highlights-grid">
     <mat-card class="highlight-card" *ngFor="let item of highlights" appearance="outlined">
       <mat-icon>{{ item.icon }}</mat-icon>
       <h3>{{ item.title }}</h3>
       <p>{{ item.text }}</p>
     </mat-card>
+    </div>
   </section>
 </main>

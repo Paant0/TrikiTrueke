@@ -1,9 +1,10 @@
 <div class="login-shell">
   <section class="login-hero">
+    <img src="assets/favicon.png" alt="TrikiTrueke" [width]="64" [height]="64"/>
     <p class="eyebrow">TrikiTrueke</p>
     <h1>Intercambia con una experiencia más clara, rápida y segura.</h1>
     <p>
-      Entra a tu cuenta o crea una nueva para empezar a descubrir artículos, categorías y mensajes.
+      Entra a tu cuenta o crea una nueva para empezar a descubrir artículos y categorías.
     </p>
 
     <div class="hero-points">
@@ -15,23 +16,26 @@
         <mat-icon>shopping_bag</mat-icon>
         <span>Explora artículos</span>
       </div>
-      <div class="hero-point">
-        <mat-icon>forum</mat-icon>
-        <span>Contacta fácil</span>
-      </div>
     </div>
+
   </section>
 
   <mat-card class="auth-card" appearance="outlined">
     <mat-card-header>
-      <mat-card-title>Bienvenido</mat-card-title>
+      <mat-card-title><strong>Bienvenido</strong></mat-card-title>
       <mat-card-subtitle>Inicia sesión o crea tu cuenta</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedTabIndex = $event" class="auth-tabs">
+      <mat-tab-group
+        [selectedIndex]="selectedTabIndex"
+        (selectedIndexChange)="selectedTabIndex = $event"
+        class="auth-tabs"
+        preserveContent="true"
+        animationDuration="0ms"
+      >
         <mat-tab label="Iniciar sesión">
-          <form class="auth-form" (submit)="onLogin($event)">
+          <form class="auth-form auth-form--login" (submit)="onLogin($event)">
             @if (errorLogin()) {
               <div class="msg msg--error">{{ errorLogin() }}</div>
             }
@@ -64,7 +68,7 @@
 
             <a class="helper-link" href="#">¿Olvidaste tu contraseña?</a>
 
-            <button mat-raised-button color="primary" type="submit" [disabled]="isLoadingLogin()">
+            <button mat-flat-button color="primary" type="submit" [disabled]="isLoadingLogin()">
               @if (isLoadingLogin()) {
                 <span class="spinner"></span> Entrando...
               } @else {
@@ -75,7 +79,7 @@
         </mat-tab>
 
         <mat-tab label="Crear cuenta">
-          <form class="auth-form" (submit)="onRegister($event)">
+          <form class="auth-form auth-form--register" (submit)="onRegister($event)">
             @if (errorRegister()) {
               <div class="msg msg--error">{{ errorRegister() }}</div>
             }
@@ -135,7 +139,7 @@
               />
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit" [disabled]="isLoadingReg()">
+            <button mat-flat-button color="primary" type="submit" [disabled]="isLoadingReg()">
               @if (isLoadingReg()) {
                 <span class="spinner"></span> Creando...
               } @else {

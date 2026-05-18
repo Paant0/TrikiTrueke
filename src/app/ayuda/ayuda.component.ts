@@ -57,7 +57,7 @@ export class AyudaComponent {
 
       case 'contacto':
         this.tituloExplicacion = 'Cómo contactar a otros usuarios';
-        this.textoExplicacion = 'Puedes enviar mensajes directos desde el perfil del usuario o responder a una solicitud de trueque.';
+        this.textoExplicacion = 'Puedes usar el perfil del usuario para revisar su información y coordinar el trueque por los canales disponibles en la plataforma.';
         break;
 
       case 'seguridad':

@@ -62,7 +62,7 @@
 }
 
 .hero-point mat-icon {
-  color: #7d2bb6;
+  color: var(--mat-sys-primary);
 }
 
 .auth-card {
@@ -84,6 +84,11 @@
   display: grid;
   gap: 14px;
   padding: 20px 4px 12px;
+}
+
+/* El segundo tab (registro) necesita más desplazamiento del label en los form-field MDC */
+.auth-form--register {
+  --mat-mdc-form-field-label-transform: translateY(-50%) translateX(calc(1 * (40px + var(--mat-mdc-form-field-label-offset-x, 0px))));
 }
 
 .social-row {
@@ -114,7 +119,7 @@ mat-form-field {
 
 .helper-link {
   justify-self: start;
-  color: #7d2bb6;
+  color: var(--mat-sys-primary);
   font-weight: 600;
   text-decoration: none;
 }
@@ -185,5 +190,22 @@ mat-form-field {
 @media (max-width: 600px) {
   .social-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes ligeros sobre los prefijos MDC reales de Angular Material 19 */
+:host ::ng-deep .auth-form .mat-mdc-form-field-icon-prefix {
+  padding-inline-end: 10px;
+}
+
+:host ::ng-deep .auth-form .mat-mdc-form-field-icon-prefix > .mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+@media (max-width: 480px) {
+  :host ::ng-deep .auth-form .mat-mdc-form-field-icon-prefix {
+    display: none;
   }
 }

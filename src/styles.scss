@@ -1,11 +1,30 @@
 // Importar tema colors global
 @use '@angular/material' as mat;
-@import '../_theme-colors';
+@use '../_theme-colors' as *;
 // Importar tema prebuilt de Material
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: $primary-palette,
+      tertiary: $tertiary-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
 :root {
   color-scheme: light;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* Espaciado */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
 }
 
 html, body {
@@ -15,8 +34,8 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: #fafafa;
-  color: rgba(0, 0, 0, 0.87);
+  background: var(--mat-sys-surface, #fafafa);
+  color: var(--mat-sys-on-surface, rgba(0, 0, 0, 0.87));
 }
 
 #logo {
@@ -29,4 +48,25 @@ body {
   z-index: 1000;
   cursor: pointer;
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Estilos estándar para FAQ / Expansion Panels */
+.faq-panel .mat-mdc-expansion-panel-header {
+  padding: 0 var(--space-3) !important;
+  height: 56px !important;
+}
+
+.faq-panel mat-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.faq-panel mat-panel-title mat-icon {
+  color: var(--mat-sys-primary, #6b2d64);
+}
+
+.faq-panel .mat-mdc-expansion-panel-body {
+  padding: var(--space-3) !important;
 }

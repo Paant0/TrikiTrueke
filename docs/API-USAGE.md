@@ -13,6 +13,8 @@ Este backend usa **Spring Security con sesión HTTP** (`JSESSIONID`), no JWT.
 - Login con sesión: `POST /api/auth/login`
 - Logout: `POST /api/auth/logout`
 - Usuario actual: `GET /api/auth/me`
+- Editar mi usuario: `PUT /api/auth/me`
+- Eliminar mi usuario: `DELETE /api/auth/me`
 
 Para que el navegador envíe/reciba cookie de sesión:
 
@@ -81,21 +83,48 @@ Devuelve el usuario autenticado actual.
 
 Respuesta: `200 OK` con `UsuarioDTO`.
 
+#### `PUT /api/auth/me`
+Actualiza el usuario autenticado actual.
+
+Body (campos opcionales):
+```json
+{
+  "nombre": "Juan Perez Actualizado",
+  "email": "nuevo@mail.com",
+  "telefono": "3009990000",
+  "clave": "NuevaClave123"
+}
+```
+
+Respuesta: `200 OK` con `UsuarioDTO` actualizado.
+
+#### `DELETE /api/auth/me`
+Elimina la cuenta del usuario autenticado actual y cierra su sesión.
+
+Respuesta:
+```json
+{
+  "message": "Usuario eliminado correctamente"
+}
+```
+
 ---
 
 ### Usuarios (`/usuarios`)
 
-#### `POST /usuarios`
-Registro alterno. Responde envuelto en `ApiResponse<UsuarioDTO>`.
+Todos responden envueltos en `ApiResponse`.
 
-#### `POST /usuarios/login`
-Login alterno por servicio de usuario. Responde `ApiResponse<UsuarioDTO>`.
+#### `GET /usuarios`
+Lista usuarios.
 
-Nota: este endpoint valida credenciales pero **no establece contexto de sesión de Spring Security** como `/api/auth/login`.
+#### `GET /usuarios/{id}`
+Obtiene usuario por id.
 
 ---
 
 ### Categorías (`/categorias`) *(requiere sesión autenticada)*
+
+Todos responden envueltos en `ApiResponse`.
 
 #### `GET /categorias`
 Lista categorías.
@@ -110,13 +139,22 @@ Body:
 ```json
 {
   "nombre": "Tecnologia",
-  "descripcion": "Dispositivos y accesorios"
+  "descripcion": "Dispositivos y accesorios",
+  "imagen": "example.png"
 }
 ```
+
+#### `PUT /categorias/{id}`
+Actualiza categoría.
+
+#### `DELETE /categorias/{id}`
+Elimina categoría.
 
 ---
 
 ### Artículos (`/articulos`) *(requiere sesión autenticada)*
+
+Todos responden envueltos en `ApiResponse`.
 
 #### `POST /articulos`
 Crea artículo.
@@ -152,6 +190,8 @@ Elimina artículo.
 
 ### Intercambios (`/intercambios`) *(requiere sesión autenticada)*
 
+Todos responden envueltos en `ApiResponse`.
+
 #### `POST /intercambios`
 Crea intercambio.
 
@@ -182,7 +222,23 @@ Actualiza intercambio.
 #### `DELETE /intercambios/{id}`
 Elimina intercambio.
 
-## 5) Ejemplos frontend
+## 5) Formato de respuestas exitosas
+
+En `usuarios`, `categorias`, `articulos` e `intercambios`, la respuesta usa este formato:
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "message": "Texto",
+  "data": {},
+  "path": "/ruta",
+  "timestamp": "2026-05-13T00:00:00Z"
+}
+```
+
+Nota: algunos endpoints de borrado retornan cuerpo con `status: 204`, pero el HTTP real suele salir como `200` porque no se construye `ResponseEntity.noContent()`.
+## 6) Ejemplos frontend
 
 ### `fetch` con sesión
 
@@ -222,10 +278,18 @@ await api.post("/api/auth/login", {
 const { data } = await api.get("/categorias");
 ```
 
-## 6) Nota de CORS (importante)
+## 7) Nota de CORS (importante)
 
-- `UsuarioController` permite `http://localhost:4200`.
-- `ArticuloController` permite `*`.
-- `AuthController`, `CategoriaController` e `IntercambioController` no tienen `@CrossOrigin`.
+- Hay configuración global CORS para `http://localhost:4200` con métodos y headers `*`.
+- `AuthController` y `GlobalExceptionHandler` también tienen `@CrossOrigin("http://localhost:4200")`.
 
-Si frontend corre en otro origen (ej: `http://localhost:3000`), conviene configurar CORS global en backend para evitar bloqueos del navegador en login y endpoints protegidos.
+Si frontend corre en otro origen (ej: `http://localhost:3000`), debes agregar ese origen en backend.
+
+## 8) Nota de seguridad (estado actual)
+
+La seguridad efectiva es:
+
+- Público: `POST /api/auth/register`, `POST /api/auth/login`.
+- Requiere sesión: el resto de endpoints.
+
+Existe una regla en `SecurityConfig` para `/api/categorias/**`, pero los endpoints reales están en `/categorias/**`, por lo que hoy **no quedan públicos**.

@@ -31,11 +31,6 @@ export class HomeComponent {
       icon: 'sell',
       title: 'Artículos destacados',
       text: 'Encuentra publicaciones con un flujo más limpio y legible.'
-    },
-    {
-      icon: 'forum',
-      title: 'Mensajes rápidos',
-      text: 'Conversa sin perder contexto entre artículos y usuarios.'
     }
   ];
 

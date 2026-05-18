@@ -1,32 +1,50 @@
 <div class="app-container" [class.ready]="isReady">
-  <header *ngIf="mostrarLayout && isReady">
-    <img class="logo" src="assets/logo.png" alt="Logo TrikiTrueke" routerLink="/home" routerLinkActive="activo">
+  <header class="topbar" *ngIf="mostrarLayout && isReady">
+    <mat-toolbar class="topbar__toolbar">
+      <a class="brand" routerLink="/home" aria-label="Ir al inicio">
+        <img class="logo" src="assets/logo.png" alt="" aria-hidden="true">
+        <span class="brand__text">
+          <strong>TrikiTrueke</strong>
+          <small>Intercambios que conectan</small>
+        </span>
+      </a>
 
-    <nav>
-      <div class="LinksNav">
-        <button class="btn-fondo" routerLink="/home" routerLinkActive="activo">Inicio</button>
-        <button class="btn-fondo" routerLink="/categorias" routerLinkActive="activo">Categorías</button>
-        <button class="btn-fondo" routerLink="/articulos" routerLinkActive="activo">Artículos</button>
-        <button class="btn-fondo" routerLink="/mensajes" routerLinkActive="activo">Mensajes</button>
-        <button class="btn-fondo" routerLink="/ayuda" routerLinkActive="activo">Ayuda</button>
+      <nav class="topbar__nav" aria-label="Navegación principal">
+        <a mat-button routerLink="/home" routerLinkActive="active-link">Inicio</a>
+        <a mat-button routerLink="/categorias" routerLinkActive="active-link">Categorías</a>
+        <a mat-button routerLink="/articulos" routerLinkActive="active-link">Artículos</a>
+        <a mat-button routerLink="/ayuda" routerLinkActive="active-link">Ayuda</a>
+      </nav>
 
-        <!-- Dropdown de Perfil -->
-        <div class="user-profile" (click)="toggleDropdown()">
-          <span class="user-name">{{ primerNombre }}</span>
-          <img class="avatar" src="assets/avatar.png" alt="Avatar">
-          
-          <div class="dropdown-menu" [class.show]="showDropdown">
-            <div class="dropdown-header">
-              <strong>{{ authService.currentUser?.nombre }}</strong>
-              <small>{{ authService.currentUser?.email }}</small>
-            </div>
-            <hr>
-            <button class="dropdown-item" routerLink="/perfil">Mi Perfil</button>
-            <button class="dropdown-item logout" (click)="logout()">Cerrar sesión</button>
-          </div>
-        </div>
-      </div>
-    </nav>
+      <mat-form-field appearance="outline" class="topbar__search-field" subscriptSizing="dynamic">
+        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+        <input matInput type="search" placeholder="Buscar artículos, categorías..."
+          aria-label="Buscar en la plataforma" />
+      </mat-form-field>
+
+      <span class="topbar__spacer"></span>
+
+      <button mat-fab extended [matMenuTriggerFor]="profileMenu" class="profile-trigger"
+        aria-label="Abrir menú de perfil">
+        <mat-icon>account_circle</mat-icon>
+        <span class="profile-trigger__text">
+          <strong>{{ primerNombre }}</strong>
+          <small>{{ authService.currentUser?.email }}</small>
+        </span>
+        <mat-icon iconPositionEnd>expand_more</mat-icon>
+      </button>
+
+      <mat-menu #profileMenu="matMenu" xPosition="before">
+        <button mat-menu-item routerLink="/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Mi perfil</span>
+        </button>
+        <button mat-menu-item (click)="logout()" color="error" aria-label="Cerrar sesión">
+          <mat-icon color="warn">logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
   </header>
 
   <main *ngIf="isReady">
@@ -35,7 +53,7 @@
 </div>
 
 <footer class="footer" *ngIf="mostrarLayout && isReady">
-  <p>© 2025 TrikiTrueke — Todos los derechos reservados</p>
+  <p>© 2026 TrikiTrueke — Todos los derechos reservados</p>
   <div class="social">
     <a href="https://www.instagram.com/paan.t0">
       <img src="assets/Instagram.png" alt="Instagram">
