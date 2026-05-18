@@ -1,8 +1,8 @@
 // Importar tema colors global
 @use '@angular/material' as mat;
-@import '../_theme-colors';
+@use '../_theme-colors' as *;
 // Importar tema prebuilt de Material
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 :root {
   color-scheme: light;
   font-family: Roboto, "Helvetica Neue", sans-serif;
