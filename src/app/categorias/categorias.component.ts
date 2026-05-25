@@ -25,10 +25,6 @@ export class CategoriasComponent implements OnInit {
 
       next: (response) => {
         this.categorias = Array.isArray(response) ? response : (response?.data ?? []);
-        console.info('[CategoriasComponent] Categorías cargadas', {
-          total: this.categorias.length,
-          origen: Array.isArray(response) ? 'array' : 'response.data'
-        });
       },
 
       error: (error) => {

@@ -1,0 +1,186 @@
+<main class="mis-articulos-page">
+  <section class="mis-articulos-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Mi espacio</p>
+      <h1>Mis artículos</h1>
+      <p class="lead">
+        Revisa tus publicaciones, controla su estado y administra tu inventario desde un solo lugar.
+      </p>
+    </div>
+
+    <div class="hero-stats" *ngIf="usuario; else sinUsuario">
+      <div class="stat-card">
+        <strong>{{ totalArticulos }}</strong>
+        <span>Publicaciones</span>
+      </div>
+      <div class="stat-card">
+        <strong>{{ articulosDisponibles }}</strong>
+        <span>Disponibles</span>
+      </div>
+      <div class="stat-card">
+        <strong>{{ articulosIntercambiados }}</strong>
+        <span>Intercambiados</span>
+      </div>
+    </div>
+
+    <ng-template #sinUsuario>
+      <div class="hero-note">
+        No pudimos identificar tu sesión. Vuelve a iniciar sesión para ver tus artículos.
+      </div>
+    </ng-template>
+  </section>
+
+  <section class="summary-bar" *ngIf="usuario">
+    <mat-card appearance="outlined" class="summary-card">
+      <mat-card-content>
+        <mat-icon>badge</mat-icon>
+        <div>
+          <span>Publicando como</span>
+          <strong>{{ usuario.nombre }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="summary-card">
+      <mat-card-content>
+        <mat-icon>schedule</mat-icon>
+        <div>
+          <span>En espera</span>
+          <strong>{{ articulosEnEspera }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="estado-carga" *ngIf="cargando">
+    <mat-card appearance="outlined" class="empty-card">
+      <mat-card-content>
+        <mat-icon>hourglass_top</mat-icon>
+        <h2>Cargando tus artículos</h2>
+        <p>Estamos recuperando tus publicaciones para mostrarlas aquí.</p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="estado-error" *ngIf="!cargando && error">
+    <mat-card appearance="outlined" class="empty-card">
+      <mat-card-content>
+        <mat-icon>error_outline</mat-icon>
+        <h2>No pudimos cargar tus artículos</h2>
+        <p>{{ error }}</p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="mis-articulos-grid" *ngIf="!cargando && !error && misArticulos.length > 0; else vacio">
+    <mat-card class="articulo-card" *ngFor="let articulo of misArticulos" appearance="outlined">
+      <div class="articulo-media">
+        <img [src]="articulo.imagen ? articulo.imagen : 'assets/placeholder.webp'" [alt]="articulo.nombre" />
+        <mat-chip class="estado-chip">{{ articulo.estado || 'Sin estado' }}</mat-chip>
+      </div>
+
+      <mat-card-content class="articulo-body">
+        <p class="categoria">{{ articulo.categoria || 'Sin categoría' }}</p>
+        <h3>{{ articulo.nombre }}</h3>
+        <p class="descripcion">{{ articulo.descripcion }}</p>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-actions class="articulo-actions">
+        <button mat-button color="primary" *ngIf="true" type="button" (click)="editarArticulo(articulo)">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-button color="warn" type="button" (click)="eliminarArticulo(articulo)">
+          <mat-icon>delete</mat-icon>
+          Eliminar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+
+  <!-- Modal template para editar artículo -->
+  <ng-template #editDialog>
+    <mat-card class="panel-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Editar artículo</mat-card-title>
+        <mat-card-subtitle>Actualiza la información sin perder el contexto</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="form-grid">
+        <div class="image-column">
+          <div class="image-preview" *ngIf="imagenEditPreview; else editPlaceholderImage">
+            <img [src]="imagenEditPreview" alt="Vista previa de edición" />
+          </div>
+
+          <ng-template #editPlaceholderImage>
+            <div class="placeholder-image">
+              <mat-icon>image</mat-icon>
+              <span>Vista previa</span>
+            </div>
+          </ng-template>
+
+          <div class="file-upload">
+            <input #fileInputEditModal type="file" id="fileInputEditModal" accept="image/*" class="hidden-file-input" (change)="onEditImageSelected($event)" />
+            <button mat-stroked-button color="primary" type="button" class="custom-file-upload" (click)="fileInputEditModal.click()">
+              <mat-icon>file_upload</mat-icon>
+              Cambiar imagen
+            </button>
+          </div>
+          <div class="upload-status">
+            <p *ngIf="isUploadingEditImage">Subiendo imagen...</p>
+            <p class="upload-error" *ngIf="editUploadError">{{ editUploadError }}</p>
+          </div>
+        </div>
+
+        <div class="fields-column">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="articuloEditado.nombre" name="nombreEditadoModal" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput rows="4" [(ngModel)]="articuloEditado.descripcion" name="descripcionEditadaModal"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Categoría</mat-label>
+            <mat-select [(ngModel)]="articuloEditado.categoriaId" name="categoriaEditadaModal">
+              <mat-option *ngFor="let item of categoriasDisponibles" [value]="item.id">{{ item.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="articuloEditado.estado" name="estadoEditadoModal">
+              <mat-option value="Disponible">Disponible</mat-option>
+              <mat-option value="En espera">En espera</mat-option>
+              <mat-option value="Intercambiado">Intercambiado</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-dialog-actions align="end">
+            <button mat-flat-button color="primary" type="button" (click)="guardarCambiosModal()">Guardar cambios</button>
+            <button mat-stroked-button type="button" (click)="cancelarEdicionModal()">Cancelar</button>
+          </mat-dialog-actions>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+
+  <ng-template #vacio>
+    <mat-card appearance="outlined" class="empty-card">
+      <mat-card-content>
+        <mat-icon>inventory_2</mat-icon>
+        <h2>No tienes artículos publicados</h2>
+        <p>Cuando publiques algo, aparecerá aquí para que puedas seguirlo desde tu panel personal.</p>
+        <button mat-flat-button color="primary" routerLink="/articulos">
+          <mat-icon>add</mat-icon>
+          Publicar artículo
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</main>

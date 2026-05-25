@@ -162,11 +162,11 @@ Crea artículo.
 Body:
 ```json
 {
-  "titulo": "iPhone 11",
+  "nombre": "iPhone 11",
   "descripcion": "Buen estado",
   "usuarioId": "681bf76f6805083ea0ae1b9a",
   "categoriaId": "681bf7846805083ea0ae1b9b",
-  "fotos": ["https://.../foto1.jpg"]
+  "imagen": "https://.../foto1.jpg"
 }
 ```
 
@@ -176,6 +176,9 @@ Notas:
 
 #### `GET /articulos`
 Lista artículos.
+
+#### `GET /articulos/mis`
+Lista artículos del usuario autenticado (tomado desde la sesión).
 
 #### `GET /articulos/{id}`
 Obtiene artículo por id.
@@ -213,6 +216,9 @@ Notas:
 #### `GET /intercambios`
 Lista intercambios.
 
+#### `GET /intercambios/mis`
+Lista intercambios donde el usuario autenticado participa (como `usuarioOfrece` o `usuarioRecibe`).
+
 #### `GET /intercambios/{id}`
 Obtiene intercambio por id.
 
@@ -221,6 +227,15 @@ Actualiza intercambio.
 
 #### `DELETE /intercambios/{id}`
 Elimina intercambio.
+
+#### `PUT /intercambios/{id}/aceptar`
+Acepta intercambio. Solo puede hacerlo el usuario autenticado que coincide con `usuarioRecibe`.
+
+#### `PUT /intercambios/{id}/rechazar`
+Rechaza intercambio. Solo puede hacerlo el usuario autenticado que coincide con `usuarioRecibe`.
+
+#### `DELETE /intercambios/{id}/cancelar`
+Cancela intercambio. Solo puede hacerlo el usuario autenticado que coincide con `usuarioOfrece` y si el intercambio está en estado `PENDIENTE`.
 
 ## 5) Formato de respuestas exitosas
 

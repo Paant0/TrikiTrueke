@@ -1,0 +1,63 @@
+<mat-card class="panel-card">
+  <mat-card-header>
+    <mat-card-title id="dialog-title">Editar artículo</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="form-grid">
+    <div class="image-column">
+      <div class="image-preview" *ngIf="imagenPreview; else placeholder">
+        <img [src]="imagenPreview" alt="Vista previa" />
+      </div>
+      <ng-template #placeholder>
+        <div class="placeholder-image"><mat-icon>image</mat-icon><span>Vista previa</span></div>
+      </ng-template>
+
+      <div class="file-upload">
+        <input #fileInputEditDialog type="file" accept="image/*" class="hidden-file-input" (change)="onFileSelected($event)" />
+        <button mat-stroked-button color="primary" type="button" class="custom-file-upload" (click)="fileInputEditDialog.click()">
+          <mat-icon>file_upload</mat-icon>
+          Cambiar imagen
+        </button>
+      </div>
+      <p *ngIf="isUploading">Subiendo imagen...</p>
+      <p class="upload-error" *ngIf="uploadError">{{ uploadError }}</p>
+    </div>
+
+    <div class="fields-column">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="articulo.nombre" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput rows="4" [(ngModel)]="articulo.descripcion"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select [(ngModel)]="articulo.categoriaId">
+          <mat-option value="">Selecciona una categoría</mat-option>
+          <mat-option *ngFor="let categoria of categoriasDisponibles" [value]="categoria.id">
+            {{ categoria.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="articulo.estado">
+          <mat-option value="DISPONIBLE">Disponible</mat-option>
+          <mat-option value="EN_ESPERA">En espera</mat-option>
+          <mat-option value="INTERCAMBIADO">Intercambiado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="dialog-actions">
+    <button mat-stroked-button (click)="cancel()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="isUploading">Guardar cambios</button>
+  </mat-card-actions>
+</mat-card>

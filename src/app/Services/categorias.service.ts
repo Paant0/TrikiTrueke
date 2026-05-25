@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { extractData, isEmptyData } from './http-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -19,33 +20,11 @@ export class CategoriasService {
       observe: 'response'
     }).pipe(
       map((resp: any) => {
-        const contentType = resp.headers?.get?.('content-type') || '';
-        const bodyText = resp.body ?? '';
-
-        const looksLikeJson = contentType.includes('application/json') || /^\s*(\{|\[)/.test(bodyText);
-
-        if (looksLikeJson) {
-          try {
-            return JSON.parse(bodyText);
-          } catch (err) {
-            throw {
-              status: resp.status,
-              statusText: resp.statusText,
-              url: resp.url,
-              message: 'Respuesta JSON inválida',
-              raw: bodyText
-            };
-          }
+        const data = extractData(resp);
+        if (isEmptyData(data)) {
+          console.warn('[CategoriasService] obtenerCategorias: data vacía o nula', { data });
         }
-
-        throw {
-          status: resp.status,
-          statusText: resp.statusText,
-          url: resp.url,
-          message: 'Respuesta inesperada (no JSON)',
-          contentType,
-          raw: bodyText
-        };
+        return data;
       }),
       catchError(err => throwError(() => err))
     );
