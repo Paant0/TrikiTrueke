@@ -4,14 +4,8 @@ import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { ArticulosService } from '../Services/articulos.service';
 import { CategoriasService } from '../Services/categorias.service';
-import { CloudinaryService } from '../Services/cloudinary.service';
 import { AuthService, UsuarioDTO } from '../Services/auth.service';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { TemplateRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -24,12 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [
     CommonModule,
     RouterLink,
-    // formularios y controles usados por el modal
-    FormsModule,
     MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
@@ -44,14 +33,8 @@ export class MisArticulosComponent implements OnInit {
   misArticulos: any[] = [];
   cargando = true;
   error = '';
-  @ViewChild('editDialog') editDialog!: TemplateRef<any>;
-  private editDialogRef: MatDialogRef<any> | null = null;
-  articuloEditado: any = null;
-  imagenEditPreview: string | ArrayBuffer | null = null;
 
   categoriasDisponibles: any[] = [];
-  isUploadingEditImage = false;
-  editUploadError = '';
 
   constructor(
     private articulosService: ArticulosService,
@@ -59,7 +42,6 @@ export class MisArticulosComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: object,
     private dialog: MatDialog,
     private categoriasService: CategoriasService,
-    private cloudinaryService: CloudinaryService,
   ) {}
 
   async editarArticulo(articulo: any) {
@@ -91,86 +73,6 @@ export class MisArticulosComponent implements OnInit {
     });
   }
 
-  guardarCambiosModal() {
-    if (!this.articuloEditado) return;
-    const payload = {
-      id: this.articuloEditado.id,
-      nombre: this.articuloEditado.nombre,
-      descripcion: this.articuloEditado.descripcion,
-      imagen: this.articuloEditado.imagen,
-      estado: this.articuloEditado.estado,
-      categoriaId: this.articuloEditado.categoriaId ?? this.articuloEditado.categoria,
-      usuarioId: this.obtenerIdUsuarioActual() ?? this.articuloEditado.usuarioId ?? this.articuloEditado.usuario?.id
-    };
-
-    this.articulosService.editarArticulo(this.articuloEditado.id, payload).subscribe({
-      next: () => {
-        alert('Artículo actualizado');
-        if (this.editDialogRef) this.editDialogRef.close();
-        this.misArticulos = this.misArticulos.map(item =>
-          item.id === this.articuloEditado.id
-            ? { ...item, ...payload, usuarioId: item.usuarioId }
-            : item
-        );
-      },
-      error: (err) => {
-        console.error('Error al guardar cambios (modal)', err);
-        alert('Error al guardar');
-      }
-    });
-  }
-
-  private resolverCategoriaId(articulo: any): string {
-    const candidatoDirecto = articulo?.categoriaId ?? articulo?.categoria?.id ?? null;
-    if (candidatoDirecto) {
-      return String(candidatoDirecto).trim();
-    }
-
-    const categoriaTexto = String(articulo?.categoria || '').trim().toLowerCase();
-    if (!categoriaTexto) {
-      return '';
-    }
-
-    const coincidencia = this.categoriasDisponibles.find((categoria: any) => {
-      const nombre = String(categoria?.nombre || '').trim().toLowerCase();
-      const id = String(categoria?.id || '').trim().toLowerCase();
-      return nombre === categoriaTexto || id === categoriaTexto;
-    });
-
-    return String(coincidencia?.id ?? '').trim();
-  }
-
-  cancelarEdicionModal() {
-    if (this.editDialogRef) this.editDialogRef.close();
-    this.articuloEditado = null;
-    this.imagenEditPreview = null;
-  }
-
-  onEditImageSelected(event: any) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => { this.imagenEditPreview = reader.result; };
-    reader.readAsDataURL(file);
-
-    this.isUploadingEditImage = true;
-    this.editUploadError = '';
-
-    this.cloudinaryService.uploadImage(file).subscribe({
-      next: (imageUrl) => {
-        if (this.articuloEditado) this.articuloEditado.imagen = imageUrl;
-        this.imagenEditPreview = imageUrl;
-        this.isUploadingEditImage = false;
-      },
-      error: (err) => {
-        console.error('Cloudinary upload error', err);
-        this.editUploadError = 'No se pudo subir la imagen. Intenta de nuevo.';
-        this.isUploadingEditImage = false;
-      }
-    });
-  }
-
   ngOnInit(): void {
     this.usuario = this.obtenerUsuarioActual();
 
@@ -191,7 +93,7 @@ export class MisArticulosComponent implements OnInit {
     } else {
       this.cargarMisArticulos();
     }
-    // cargar categorías para el select en el modal
+    // cargar categorías para el editor
     this.cargarCategorias();
   }
 
@@ -229,16 +131,36 @@ export class MisArticulosComponent implements OnInit {
     this.error = '';
     this.articulosService.obtenerMisArticulos().subscribe({
       next: (data) => {
-        const lista = Array.isArray(data) ? data : (data?.data ?? []);
-        // artículos (mis) obtenidos
-        this.misArticulos = lista;
-        this.cargando = false;
+        const lista = this.normalizarListaArticulos(data);
+
+        if (lista.length > 0) {
+          this.misArticulos = lista;
+          this.cargando = false;
+          return;
+        }
+
+        this.cargarMisArticulosDesdeCatalogo();
       },
       error: (err) => {
-        this.error = err?.error?.message ?? 'No se pudieron cargar tus artículos.';
+        this.cargarMisArticulosDesdeCatalogo(err?.error?.message ?? 'No se pudieron cargar tus artículos.');
+      }
+    });
+  }
+
+  private cargarMisArticulosDesdeCatalogo(mensajeError?: string): void {
+    this.articulosService.obtenerArticulos().subscribe({
+      next: (data) => {
+        const lista = this.normalizarListaArticulos(data);
+        this.misArticulos = this.usuario
+          ? lista.filter(articulo => this.perteneceAlUsuario(articulo))
+          : lista;
+        this.error = '';
+        this.cargando = false;
+      },
+      error: () => {
+        this.error = mensajeError ?? 'No se pudieron cargar tus artículos.';
         this.misArticulos = [];
         this.cargando = false;
-        // error cargando mis artículos
       }
     });
   }
@@ -366,6 +288,22 @@ export class MisArticulosComponent implements OnInit {
     // no pertenece al usuario
 
     return false;
+  }
+
+  private normalizarListaArticulos(data: any): any[] {
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    if (Array.isArray(data?.data)) {
+      return data.data;
+    }
+
+    if (Array.isArray(data?.articulos)) {
+      return data.articulos;
+    }
+
+    return [];
   }
 
   private contarPorEstado(estadoObjetivo: string): number {

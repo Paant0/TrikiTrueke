@@ -206,12 +206,6 @@
   margin-right: 6px;
 }
 
-.edit-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
 .empty-state {
   margin-top: 10px;
   border-radius: 24px;

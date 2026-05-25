@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { ArticulosService } from '../Services/articulos.service';
 import { CategoriasService } from '../Services/categorias.service';
 import { CloudinaryService } from '../Services/cloudinary.service';
-// dialog moved to MisArticulosComponent
 
 @Component({
   selector: 'app-articulos',
@@ -46,8 +44,6 @@ export class ArticulosComponent implements OnInit {
   categoriasDisponibles: any[] = [];
   isUploadingImage = false;
   uploadError = '';
-  isUploadingEditImage = false;
-  editUploadError = '';
 
   nuevoArticulo = {
     nombre: '',
@@ -57,16 +53,11 @@ export class ArticulosComponent implements OnInit {
     imagen: ''
   };
 
-  editando = false;
-  articuloEditado: any = null;
-  imagenEditPreview: string | ArrayBuffer | null = null;
-
   constructor(
     private route: ActivatedRoute,
     private articulosService: ArticulosService,
     private categoriasService: CategoriasService,
     private cloudinaryService: CloudinaryService,
-    @Inject(PLATFORM_ID) private platformId: object,
   ) { }
 
   ngOnInit(): void {
@@ -75,31 +66,6 @@ export class ArticulosComponent implements OnInit {
       this.cargarArticulos();
       this.cargarCategorias();
     });
-  }
-
-  private obtenerUsuarioActual() {
-    if (isPlatformBrowser(this.platformId)) {
-      const usuarioGuardado = localStorage.getItem('usuario');
-      if (usuarioGuardado) {
-        try { return JSON.parse(usuarioGuardado); } catch { }
-      }
-    }
-    return null;
-  }
-
-  puedoModificar(articulo: any): boolean {
-    const usuario = this.obtenerUsuarioActual() || (this as any).authService?.currentUser;
-    const usuarioId = usuario?.id?.toString?.()?.trim?.();
-    if (!usuarioId) return false;
-
-    const candidatos = [
-      articulo?.usuarioId,
-      articulo?.usuario?.id,
-      articulo?.autorId,
-      articulo?.userId
-    ].filter(Boolean).map((v: any) => String(v).trim());
-
-    return candidatos.includes(usuarioId);
   }
 
   cargarArticulos() {
@@ -158,47 +124,6 @@ export class ArticulosComponent implements OnInit {
       },
       error: () => { alert('Error al publicar'); }
     });
-  }
-
-  editarArticulo(articulo: any) {
-    this.editando = true;
-    this.articuloEditado = { ...articulo };
-    this.imagenEditPreview = articulo.imagen;
-  }
-
-  onEditImageSelected(event: any) {
-    const file = event?.target?.files?.[0];
-    if (!file || !this.articuloEditado) return;
-
-    const reader = new FileReader();
-    reader.onload = () => { this.imagenEditPreview = reader.result; };
-    reader.readAsDataURL(file);
-
-    this.isUploadingEditImage = true;
-    this.editUploadError = '';
-
-    this.cloudinaryService.uploadImage(file).subscribe({
-      next: (imageUrl) => {
-        if (this.articuloEditado) this.articuloEditado.imagen = imageUrl;
-        this.imagenEditPreview = imageUrl;
-        this.isUploadingEditImage = false;
-      },
-      error: () => { this.editUploadError = 'No se pudo subir la imagen. Intenta de nuevo.'; this.isUploadingEditImage = false; }
-    });
-  }
-
-  guardarCambios() {
-    if (!this.articuloEditado) return;
-    this.articulosService.editarArticulo(this.articuloEditado.id, this.articuloEditado).subscribe({
-      next: () => { alert('Artículo actualizado'); this.editando = false; this.cargarArticulos(); },
-      error: () => { alert('Error al editar'); }
-    });
-  }
-
-  cancelarEdicion() {
-    this.editando = false;
-    this.articuloEditado = null;
-    this.imagenEditPreview = null;
   }
 
   eliminarArticulo(articulo: any) {
