@@ -30,17 +30,17 @@ export class LoginComponent {
   };
 
   // ─── Estados reactivos ───────────────────────────────────────────────────────
-  isLoadingLogin  = signal(false);
-  isLoadingReg    = signal(false);
-  errorLogin      = signal<string | null>(null);
-  errorRegister   = signal<string | null>(null);
+  isLoadingLogin = signal(false);
+  isLoadingReg = signal(false);
+  errorLogin = signal<string | null>(null);
+  errorRegister = signal<string | null>(null);
   successRegister = signal<string | null>(null);
   selectedTabIndex = 0;
 
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   // ─── Login ────────────────────────────────────────────────────────────────────
   onLogin(event: Event) {
@@ -51,17 +51,25 @@ export class LoginComponent {
     this.isLoadingLogin.set(true);
 
     this.authService.login(this.loginData).subscribe({
-      next: () => {
-        this.isLoadingLogin.set(false);
-        this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        this.isLoadingLogin.set(false);
-        const msg = err?.error?.message ?? 'Correo o contraseña incorrectos.';
-        this.errorLogin.set(msg);
-        console.error('Login error:', err);
-      }
-    });
+
+  next: (response) => {
+    this.isLoadingLogin.set(false);
+    localStorage.setItem(
+      'usuario',
+      JSON.stringify(response)
+    );
+    this.router.navigate(['/home']);
+  },
+  error: (err) => {
+    this.isLoadingLogin.set(false);
+    const msg =
+      err?.error?.message
+      ??
+      'Correo o contraseña incorrectos.';
+    this.errorLogin.set(msg);
+    console.error('Login error:', err);
+  }
+});
   }
 
   // ─── Registro ─────────────────────────────────────────────────────────────────

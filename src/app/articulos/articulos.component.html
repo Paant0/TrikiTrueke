@@ -38,6 +38,10 @@
           <label for="fileInput" class="custom-file-upload"><mat-icon>file_upload</mat-icon> Subir imagen</label>
           <input type="file" id="fileInput" accept="image/*" (change)="onImageSelected($event)" />
         </div>
+        <div class="upload-status">
+          <p *ngIf="isUploadingImage">Subiendo imagen...</p>
+          <p class="upload-error" *ngIf="uploadError">{{ uploadError }}</p>
+        </div>
       </div>
 
       <div class="fields-column">
@@ -53,19 +57,18 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Categoría</mat-label>
-          <mat-select [(ngModel)]="nuevoArticulo.categoria" name="categoriaNueva">
+          <mat-select [(ngModel)]="nuevoArticulo.categoriaId" name="categoriaNueva">
             <mat-option value="">Seleccione...</mat-option>
-            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item">{{ item }}</mat-option>
+            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item.id">
+
+              {{ item.nombre }}
+
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>¿Por qué deseas intercambiarlo?</mat-label>
-          <textarea matInput rows="4" [(ngModel)]="nuevoArticulo.motivo" name="motivoNuevo"></textarea>
-        </mat-form-field>
-
-        <button mat-flat-button color="primary" type="button" (click)="publicarArticulo()">
-          Publicar artículo
+        <button mat-flat-button color="primary" type="button" (click)="publicarArticulo()" [disabled]="isUploadingImage">
+          {{ isUploadingImage ? 'Subiendo imagen...' : 'Publicar artículo' }}
         </button>
       </div>
     </mat-card-content>
@@ -94,6 +97,10 @@
           <label for="fileInputEdit" class="custom-file-upload"><mat-icon>file_upload</mat-icon> Cambiar imagen</label>
           <input type="file" id="fileInputEdit" accept="image/*" (change)="onEditImageSelected($event)" />
         </div>
+        <div class="upload-status">
+          <p *ngIf="isUploadingEditImage">Subiendo imagen...</p>
+          <p class="upload-error" *ngIf="editUploadError">{{ editUploadError }}</p>
+        </div>
       </div>
 
       <div class="fields-column">
@@ -110,13 +117,21 @@
         <mat-form-field appearance="outline">
           <mat-label>Categoría</mat-label>
           <mat-select [(ngModel)]="articuloEditado.categoria" name="categoriaEditada">
-            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item">{{ item }}</mat-option>
+            <mat-option *ngFor="let item of categoriasDisponibles" [value]="item.id">
+
+              {{ item.nombre }}
+
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Motivo</mat-label>
-          <textarea matInput rows="4" [(ngModel)]="articuloEditado.motivo" name="motivoEditado"></textarea>
+          <mat-label>Estado</mat-label>
+          <mat-select [(ngModel)]="articuloEditado.estado" name="estadoEditado">
+            <mat-option value="Disponible">Disponible</mat-option>
+            <mat-option value="En espera">En espera</mat-option>
+            <mat-option value="Intercambiado">Intercambiado</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <div class="edit-actions">
@@ -142,8 +157,8 @@
       <mat-card-content class="articulo-info">
         <h3>{{ articulo.nombre }}</h3>
         <p>{{ articulo.descripcion }}</p>
-        <p class="motivo">
-          <span class="motivo-label">Motivo:</span> {{ articulo.motivo }}
+        <p class="estado">
+          <span class="estado-label">Estado:</span> {{ articulo.estado }}
         </p>
       </mat-card-content>
 
