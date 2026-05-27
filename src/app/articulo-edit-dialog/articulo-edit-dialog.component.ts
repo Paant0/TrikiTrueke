@@ -67,15 +67,13 @@ export class ArticuloEditDialogComponent {
   }
 
   private resolverCategoriaId(articulo: any): any {
-    const candidatoDirecto = articulo?.categoriaId ?? articulo?.categoria?.id ?? null;
-    if (candidatoDirecto) {
-      return String(candidatoDirecto).trim();
-    }
+    // Intentar extraer un id directamente (soporta strings, numbers y objetos tipo ObjectId)
+    const direct = this.extraerId(articulo?.categoriaId ?? articulo?.categoria?.id ?? articulo?.categoria?._id ?? articulo?.categoria ?? null);
+    if (direct) return direct;
 
-    const categoriaTexto = String(articulo?.categoria || '').trim().toLowerCase();
-    if (!categoriaTexto) {
-      return '';
-    }
+    // Si no hay id, comparar por nombre o texto de categoría
+    const categoriaTexto = String(articulo?.categoria?.nombre ?? articulo?.categoria ?? '').trim().toLowerCase();
+    if (!categoriaTexto) return '';
 
     const coincidencia = this.categoriasDisponibles.find((categoria: any) => {
       const nombre = String(categoria?.nombre || '').trim().toLowerCase();
@@ -83,7 +81,7 @@ export class ArticuloEditDialogComponent {
       return nombre === categoriaTexto || id === categoriaTexto;
     });
 
-    return String(coincidencia?.id ?? articulo?.categoria ?? '').trim();
+    return String(coincidencia?.id ?? '').trim();
   }
 
   onFileSelected(event: any) {
