@@ -16,11 +16,57 @@
         <a mat-button routerLink="/ayuda" routerLinkActive="active-link">Ayuda</a>
       </nav>
 
-      <mat-form-field appearance="outline" class="topbar__search-field" subscriptSizing="dynamic">
-        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
-        <input matInput type="search" placeholder="Buscar artículos, categorías..."
-          aria-label="Buscar en la plataforma" />
-      </mat-form-field>
+      <div class="topbar__search-shell">
+        <mat-form-field appearance="outline" class="topbar__search-field" subscriptSizing="dynamic">
+          <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+          <input
+            #searchInput
+            matInput
+            type="search"
+            placeholder="Buscar artículos, categorías..."
+            aria-label="Buscar en la plataforma"
+            [value]="searchQuery"
+            (focus)="focusSearch()"
+            (input)="onSearchInput(searchInput.value)"
+          />
+          <button
+            *ngIf="searchQuery"
+            mat-icon-button
+            matSuffix
+            type="button"
+            aria-label="Limpiar búsqueda"
+            (click)="clearSearch()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <section class="search-results" *ngIf="searchOpen && (searchLoading || searchQuery.trim().length >= 2)">
+          <div class="search-results__header">
+            <span *ngIf="searchLoading">Buscando...</span>
+            <span *ngIf="!searchLoading">Resultados</span>
+          </div>
+
+          <button
+            class="search-result"
+            type="button"
+            *ngFor="let articulo of searchResults"
+            (mousedown)="$event.preventDefault()"
+            (click)="selectSearchResult(articulo.id)"
+          >
+            <img class="search-result__img" [src]="articulo.imagen ? articulo.imagen : 'assets/placeholder.webp'" [alt]="articulo.nombre" />
+            <div class="search-result__body">
+              <strong>{{ articulo.nombre }}</strong>
+              <span>{{ obtenerNombreUsuarioResultado(articulo) }} · {{ articulo.categoria }}</span>
+            </div>
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+
+          <div class="search-results__empty" *ngIf="!searchLoading && searchQuery.trim().length >= 2 && searchResults.length === 0">
+            No hay resultados para "{{ searchQuery }}"
+          </div>
+        </section>
+      </div>
 
       <span class="topbar__spacer"></span>
 

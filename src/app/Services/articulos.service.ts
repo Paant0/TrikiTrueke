@@ -35,6 +35,31 @@ export class ArticulosService {
     );
   }
 
+  buscarArticulos(nombre: string): Observable<any> {
+    const termino = (nombre || '').trim();
+    if (!termino) {
+      return new Observable((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
+
+    return this.http.get(`${this.apiUrl}/buscar?nombre=${encodeURIComponent(termino)}`, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response'
+    }).pipe(
+      map((resp: any) => {
+        const data = extractData(resp);
+        if (Array.isArray(data)) {
+          return data.map((a: any) => this.normalizeArticulo(a));
+        }
+        return this.normalizeArticulo(data);
+      }),
+      catchError(err => throwError(() => err))
+    );
+  }
+
   obtenerMisArticulos(): Observable<any> {
     const url = `${this.apiUrl}/mis`;
     return this.http.get(url, {

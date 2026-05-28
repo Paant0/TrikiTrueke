@@ -58,6 +58,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class ArticuloDetalleComponent implements OnInit {
   articulo: any = null;
   loading = true;
+  private searchToken = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,14 +70,26 @@ export class ArticuloDetalleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (!id) {
-      this.router.navigate(['/articulos']);
-      return;
-    }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (!id) {
+        this.router.navigate(['/articulos']);
+        return;
+      }
+
+      this.loadArticulo(id);
+    });
+  }
+
+  private loadArticulo(id: string): void {
+    const token = ++this.searchToken;
+    this.loading = true;
+    this.articulo = null;
 
     this.articulosService.obtenerArticulo(id).subscribe({
       next: (data) => {
+        if (token !== this.searchToken) return;
+
         const articulo = data?.data ?? data ?? null;
         if (!articulo) {
           this.loading = false;
@@ -93,41 +106,43 @@ export class ArticuloDetalleComponent implements OnInit {
           return;
         }
 
-        // intentar obtener usuario por id si viene en el artículo
-            const rawUsuarioId = articulo?.usuarioId ?? articulo?.usuario ?? articulo?.usuario?.id ?? null;
-            let usuarioId: string | null = null;
-            if (rawUsuarioId) {
-              if (typeof rawUsuarioId === 'object') {
-                usuarioId = rawUsuarioId.id ?? rawUsuarioId._id ?? rawUsuarioId.oid ?? rawUsuarioId.uuid ?? null;
-              } else {
-                usuarioId = String(rawUsuarioId);
-              }
-            }
+        const rawUsuarioId = articulo?.usuarioId ?? articulo?.usuario ?? articulo?.usuario?.id ?? null;
+        let usuarioId: string | null = null;
+        if (rawUsuarioId) {
+          if (typeof rawUsuarioId === 'object') {
+            usuarioId = rawUsuarioId.id ?? rawUsuarioId._id ?? rawUsuarioId.oid ?? rawUsuarioId.uuid ?? null;
+          } else {
+            usuarioId = String(rawUsuarioId);
+          }
+        }
 
         if (usuarioId) {
           this.usuariosService.obtenerUsuario(String(usuarioId)).subscribe({
             next: (usuario) => {
+              if (token !== this.searchToken) return;
+
               console.debug('[ArticuloDetalle] usuario obtenido por id:', usuario);
               const nombre = usuario?.nombre ?? usuario?.data?.nombre ?? null;
               if (nombre) {
                 this.articulo = { ...this.articulo, usuarioNombre: nombre };
               } else {
-                // fallback a lista completa
-                this.cargarNombreUsuarioDesdeListado(id, articulo);
+                this.cargarNombreUsuarioDesdeListado(id, articulo, token);
+                return;
               }
               this.loading = false;
             },
             error: () => {
-              this.cargarNombreUsuarioDesdeListado(id, articulo);
+              if (token !== this.searchToken) return;
+              this.cargarNombreUsuarioDesdeListado(id, articulo, token);
             }
           });
           return;
         }
 
-        // fallback: cargar desde listado si no hay id de usuario
-        this.cargarNombreUsuarioDesdeListado(id, articulo);
+        this.cargarNombreUsuarioDesdeListado(id, articulo, token);
       },
       error: () => {
+        if (token !== this.searchToken) return;
         this.loading = false;
         this.snackBar.open('No se pudo cargar el artículo', '', { duration: 3000 });
         this.router.navigate(['/articulos']);
@@ -135,9 +150,11 @@ export class ArticuloDetalleComponent implements OnInit {
     });
   }
 
-  private cargarNombreUsuarioDesdeListado(id: string, articulo: any): void {
+  private cargarNombreUsuarioDesdeListado(id: string, articulo: any, token?: number): void {
     this.articulosService.obtenerArticulos().subscribe({
       next: (response) => {
+        if (token !== undefined && token !== this.searchToken) return;
+
         const lista = Array.isArray(response) ? response : (response?.data ?? []);
         const coincidencia = lista.find((item: any) => String(item?.id) === String(id));
 
