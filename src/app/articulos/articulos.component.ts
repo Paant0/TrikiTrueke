@@ -11,6 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SolicitarIntercambioDialog } from './solicitar-intercambio.dialog';
 import { ArticulosService } from '../Services/articulos.service';
 import { CategoriasService } from '../Services/categorias.service';
 import { CloudinaryService } from '../Services/cloudinary.service';
@@ -29,7 +32,9 @@ import { CloudinaryService } from '../Services/cloudinary.service';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   templateUrl: './articulos.component.html',
   styleUrls: ['./articulos.component.css']
@@ -58,6 +63,8 @@ export class ArticulosComponent implements OnInit {
     private articulosService: ArticulosService,
     private categoriasService: CategoriasService,
     private cloudinaryService: CloudinaryService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +87,35 @@ export class ArticulosComponent implements OnInit {
       },
       error: () => { }
     });
+  }
+
+  obtenerNombreUsuario(articulo: any): string {
+    const candidato = articulo?.usuario ?? articulo?.autor ?? articulo?.owner ?? articulo?.createdBy ?? articulo?.usuarioId;
+    const nombre = this.extraerNombreUsuario(candidato)
+      || articulo?.usuarioNombre
+      || articulo?.nombreUsuario
+      || articulo?.autorNombre
+      || articulo?.ownerNombre
+      || articulo?.createdByNombre
+      || 'Usuario';
+
+    return String(nombre).trim() || 'Usuario';
+  }
+
+  private extraerNombreUsuario(valor: any): string {
+    if (!valor) return '';
+    if (typeof valor === 'string') return valor;
+    if (typeof valor === 'object') {
+      return valor.nombre
+        || valor.nombreCompleto
+        || valor.fullName
+        || valor.name
+        || valor.username
+        || valor.email
+        || '';
+    }
+
+    return '';
   }
 
   onImageSelected(event: any) {
@@ -131,6 +167,19 @@ export class ArticulosComponent implements OnInit {
     this.articulosService.eliminarArticulo(articulo.id).subscribe({
       next: () => { alert('Artículo eliminado'); this.cargarArticulos(); },
       error: () => { alert('Error al eliminar'); }
+    });
+  }
+
+  abrirSolicitud(articulo: any) {
+    const ref = this.dialog.open(SolicitarIntercambioDialog, {
+      width: '420px',
+      data: { articulo }
+    });
+
+    ref.afterClosed().subscribe(result => {
+      if (result === 'ok') {
+        this.snackBar.open('Solicitud enviada', '', { duration: 3000 });
+      }
     });
   }
 

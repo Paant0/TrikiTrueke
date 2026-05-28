@@ -167,11 +167,35 @@
   background: rgba(255, 255, 255, 0.92);
   color: #34172f;
   font-weight: 600;
+  padding: 6px;
+  border-radius: 25px;
+  border: 2px solid rgba(107, 45, 100, 0.52);
 }
 
 .articulo-info {
   padding-top: 16px;
   text-align: left;
+}
+
+.articulo-autor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  color: #7c5e8a;
+  font-size: 0.85rem;
+}
+
+.articulo-autor mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  color: #7d2bb6;
+}
+
+.articulo-autor strong {
+  color: #34172f;
+  font-weight: 700;
 }
 
 .articulo-info h3 {

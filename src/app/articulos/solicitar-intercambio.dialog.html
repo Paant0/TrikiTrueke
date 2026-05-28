@@ -1,0 +1,83 @@
+<h2 mat-dialog-title>Solicitar intercambio</h2>
+<mat-dialog-content class="exchange-dialog">
+  <p class="exchange-dialog__intro">
+    Este flujo siempre cruza <strong>dos usuarios distintos</strong> y <strong>dos artículos distintos</strong>.
+  </p>
+
+  <div class="exchange-summary">
+    <mat-card class="exchange-summary__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><mat-icon>person</mat-icon> Tú ofreces</mat-card-title>
+        <mat-card-subtitle>{{ usuarioActualNombre }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Artículo propio</mat-label>
+          <mat-select [(ngModel)]="seleccionadoId" [disabled]="cargandoMisArticulos || !!errorLocal">
+            <mat-option *ngFor="let a of misArticulos" [value]="extractId(a)">
+              {{ extractNombre(a) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p class="exchange-summary__meta" *ngIf="seleccionadoId">
+          Producto ofrecido: <strong>{{ articuloOfrecidoNombre || 'Selecciona uno' }}</strong>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="exchange-summary__arrow">
+      <mat-icon>swap_horiz</mat-icon>
+    </div>
+
+    <mat-card class="exchange-summary__card exchange-summary__card--target" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><mat-icon>storefront</mat-icon> Recibes de</mat-card-title>
+        <mat-card-subtitle>{{ articuloRecibidoAutorNombre }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="exchange-summary__target-title">{{ articuloRecibidoNombre }}</p>
+        <p class="exchange-summary__meta">
+          Este artículo pertenece a un usuario diferente y será el objeto que recibes en la solicitud.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="exchange-summary__info" appearance="outlined">
+    <mat-card-content>
+      <div class="exchange-summary__pairs">
+        <div>
+          <span class="exchange-summary__label">Usuario que ofrece</span>
+          <strong>{{ usuarioActualNombre }}</strong>
+        </div>
+        <div>
+          <span class="exchange-summary__label">Usuario que recibe</span>
+          <strong>{{ articuloRecibidoAutorNombre }}</strong>
+        </div>
+        <div>
+          <span class="exchange-summary__label">Artículo ofrecido</span>
+          <strong>{{ articuloOfrecidoNombre || 'Selecciona uno' }}</strong>
+        </div>
+        <div>
+          <span class="exchange-summary__label">Artículo recibido</span>
+          <strong>{{ articuloRecibidoNombre }}</strong>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-form-field appearance="outline" class="exchange-dialog__message">
+    <mat-label>Mensaje opcional</mat-label>
+    <input matInput [(ngModel)]="mensaje" placeholder="Propuesta, detalle o condición del intercambio">
+  </mat-form-field>
+
+  <p class="exchange-dialog__error" *ngIf="errorLocal">{{ errorLocal }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="exchange-dialog__actions">
+  <button mat-button (click)="cancelar()" [disabled]="isSending">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="enviar()" [disabled]="!puedeEnviar">
+    {{ isSending ? 'Enviando...' : 'Enviar solicitud' }}
+  </button>
+</mat-dialog-actions>

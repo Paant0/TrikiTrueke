@@ -10,9 +10,22 @@ export class IntercambiosService {
 
   constructor(private http: HttpClient) {}
 
-  crearIntercambio(payload: { articuloOfrecido: string; articuloRecibido: string }): Observable<any> {
+  // Crear intercambio - payload requerido por backend
+  crearIntercambio(payload: { articuloOfrecido: string; articuloRecibido: string; usuarioOfrece: string; usuarioRecibe: string }): Observable<any> {
     return this.http.post(this.apiUrl, payload, { withCredentials: true }).pipe(
       map((resp: any) => resp),
+      catchError(err => throwError(() => err))
+    );
+  }
+
+  // Alias para compatibilidad con llamadas previas
+  solicitar(payload: { articuloOfrecido: string; articuloRecibido: string; usuarioOfrece: string; usuarioRecibe: string }) {
+    return this.crearIntercambio(payload);
+  }
+
+  listar(): Observable<any> {
+    return this.http.get(this.apiUrl, { withCredentials: true }).pipe(
+      map((r: any) => r),
       catchError(err => throwError(() => err))
     );
   }
@@ -31,21 +44,21 @@ export class IntercambiosService {
 
   aceptarIntercambio(id: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/aceptar`, {}, { withCredentials: true }).pipe(
-      map((r:any) => r),
+      map((r: any) => r),
       catchError(err => throwError(() => err))
     );
   }
 
   rechazarIntercambio(id: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/rechazar`, {}, { withCredentials: true }).pipe(
-      map((r:any) => r),
+      map((r: any) => r),
       catchError(err => throwError(() => err))
     );
   }
 
   cancelarIntercambio(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, { withCredentials: true }).pipe(
-      map((r:any) => r),
+      map((r: any) => r),
       catchError(err => throwError(() => err))
     );
   }

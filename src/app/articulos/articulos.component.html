@@ -80,13 +80,18 @@
   </section>
 
   <div class="articulos-grid" *ngIf="articulosFiltrados.length > 0; else sinArticulos">
-    <mat-card class="articulo-card" *ngFor="let articulo of articulosFiltrados" appearance="outlined">
+    <mat-card class="articulo-card" *ngFor="let articulo of articulosFiltrados" appearance="outlined" [routerLink]="['/articulos', articulo.id]">
       <div class="articulo-media">
         <img [src]="articulo.imagen ? articulo.imagen : 'assets/placeholder.webp'" [alt]="articulo.nombre" class="articulo-img" />
-        <mat-chip class="categoria-chip" color="primary">{{ articulo.categoria }}</mat-chip>
+        <mat-basic-chip class="categoria-chip" color="accent">{{ articulo.categoria }}</mat-basic-chip>
       </div>
 
       <mat-card-content class="articulo-info">
+        <p class="articulo-autor">
+          <mat-icon>person</mat-icon>
+          <span>Publicado por</span>
+          <strong>{{ obtenerNombreUsuario(articulo) }}</strong>
+        </p>
         <h3>{{ articulo.nombre }}</h3>
         <p>{{ articulo.descripcion }}</p>
         <p class="estado">
@@ -97,7 +102,7 @@
       <mat-divider></mat-divider>
 
       <mat-card-actions class="acciones-articulo">
-        <button mat-flat-button type="button" routerLink="/mensajes">
+        <button mat-flat-button type="button" (click)="$event.stopPropagation(); abrirSolicitud(articulo)">
           <mat-icon>chat</mat-icon>
           Solicitar intercambio
         </button>

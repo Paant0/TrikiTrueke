@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './Services/auth.service';
@@ -28,11 +29,12 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   // Empieza en false para que no se vea nada mientras Angular decide la ruta
   mostrarLayout = false;
   isReady = false; // Nuevo estado para ocultar TODO el app hasta que el router termine
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(
     private router: Router,
@@ -44,6 +46,16 @@ export class AppComponent {
         this.mostrarLayout = !event.urlAfterRedirects.includes('/login');
         this.isReady = true; // El router ya decidió a dónde ir, podemos mostrar la vista
       }
+    });
+  }
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.authService.initSession().subscribe({
+      next: () => {},
+      error: (err) => console.warn('initSession failed', err)
     });
   }
 

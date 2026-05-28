@@ -1,0 +1,105 @@
+.exchange-dialog {
+  display: grid;
+  gap: 16px;
+}
+
+.exchange-dialog__intro {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.exchange-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.exchange-summary__card,
+.exchange-summary__info {
+  border-radius: 20px;
+  background: var(--mat-sys-surface);
+}
+
+.exchange-summary__card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.exchange-summary__card mat-card-content {
+  display: grid;
+  gap: 12px;
+}
+
+.exchange-summary__target-title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+}
+
+.exchange-summary__meta {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.92rem;
+}
+
+.exchange-summary__arrow {
+  display: grid;
+  place-items: center;
+  color: var(--mat-sys-primary);
+}
+
+.exchange-summary__arrow mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.exchange-summary__pairs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.exchange-summary__pairs > div {
+  display: grid;
+  gap: 4px;
+}
+
+.exchange-summary__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.exchange-dialog__message {
+  width: 100%;
+}
+
+.exchange-dialog__error {
+  margin: 0;
+  color: var(--mat-sys-error);
+  font-weight: 600;
+}
+
+.exchange-dialog__actions {
+  padding-top: 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .exchange-summary,
+  .exchange-summary__pairs {
+    grid-template-columns: 1fr;
+  }
+
+  .exchange-summary__arrow {
+    transform: rotate(90deg);
+  }
+}
