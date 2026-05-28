@@ -154,9 +154,12 @@
   position: absolute;
   left: 14px;
   bottom: 14px;
-  background: color-mix(in srgb, var(--mat-sys-surface) 88%, transparent);
-  color: var(--mat-sys-on-surface);
+  background: rgba(255, 255, 255, 0.92);
+  color: #34172f;
   font-weight: 600;
+  padding: 6px;
+  border-radius: 25px;
+  border: 2px solid rgba(107, 45, 100, 0.52);
 }
 
 .articulo-body {

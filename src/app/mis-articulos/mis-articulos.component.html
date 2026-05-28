@@ -76,7 +76,7 @@
     <mat-card class="articulo-card" *ngFor="let articulo of misArticulos" appearance="outlined">
       <div class="articulo-media">
         <img [src]="articulo.imagen ? articulo.imagen : 'assets/placeholder.webp'" [alt]="articulo.nombre" />
-        <mat-chip class="estado-chip">{{ articulo.estado || 'Sin estado' }}</mat-chip>
+        <mat-basic-chip class="estado-chip">{{ articulo.estado || 'Sin estado' }}</mat-basic-chip>
       </div>
 
       <mat-card-content class="articulo-body">

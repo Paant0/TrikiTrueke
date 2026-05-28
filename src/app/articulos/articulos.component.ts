@@ -13,10 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { SolicitarIntercambioDialog } from './solicitar-intercambio.dialog';
 import { ArticulosService } from '../Services/articulos.service';
 import { CategoriasService } from '../Services/categorias.service';
 import { CloudinaryService } from '../Services/cloudinary.service';
+import { UsuariosService } from '../Services/usuarios.service';
 
 @Component({
   selector: 'app-articulos',
@@ -49,6 +52,7 @@ export class ArticulosComponent implements OnInit {
   categoriasDisponibles: any[] = [];
   isUploadingImage = false;
   uploadError = '';
+  nombresUsuarios: Record<string, string> = {};
 
   nuevoArticulo = {
     nombre: '',
@@ -63,6 +67,7 @@ export class ArticulosComponent implements OnInit {
     private articulosService: ArticulosService,
     private categoriasService: CategoriasService,
     private cloudinaryService: CloudinaryService,
+    private usuariosService: UsuariosService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) { }
@@ -78,28 +83,34 @@ export class ArticulosComponent implements OnInit {
   cargarArticulos() {
     this.articulosService.obtenerArticulos().subscribe({
       next: (response) => {
+        console.debug('[ArticulosComponent] obtenerArticulos response:', response);
         const lista = Array.isArray(response) ? response : (response?.data ?? []);
+        if (Array.isArray(lista) && lista.length > 0) {
+          console.debug('[ArticulosComponent] primer articulo ejemplo:', lista[0]);
+        }
         if (this.categoria) {
           this.articulosFiltrados = lista.filter((a: any) => String(a.categoria || '').toLowerCase() === this.categoria.toLowerCase());
         } else {
           this.articulosFiltrados = lista;
         }
+
+        this.precargarNombresUsuarios(this.articulosFiltrados);
       },
       error: () => { }
     });
   }
 
   obtenerNombreUsuario(articulo: any): string {
-    const candidato = articulo?.usuario ?? articulo?.autor ?? articulo?.owner ?? articulo?.createdBy ?? articulo?.usuarioId;
-    const nombre = this.extraerNombreUsuario(candidato)
-      || articulo?.usuarioNombre
-      || articulo?.nombreUsuario
-      || articulo?.autorNombre
-      || articulo?.ownerNombre
-      || articulo?.createdByNombre
-      || 'Usuario';
+    const nombreNormalizado = articulo?.usuarioNombre ?? articulo?.nombreUsuario ?? articulo?.autorNombre ?? articulo?.ownerNombre ?? articulo?.createdByNombre;
 
-    return String(nombre).trim() || 'Usuario';
+    if (nombreNormalizado) return String(nombreNormalizado).trim();
+
+    const usuarioId = this.extraerIdUsuario(articulo?.usuarioId ?? articulo?.usuario ?? articulo?.autor ?? articulo?.owner ?? articulo?.createdBy);
+    if (usuarioId && this.nombresUsuarios[usuarioId]) {
+      return this.nombresUsuarios[usuarioId];
+    }
+
+    return 'Usuario';
   }
 
   private extraerNombreUsuario(valor: any): string {
@@ -116,6 +127,45 @@ export class ArticulosComponent implements OnInit {
     }
 
     return '';
+  }
+
+  private extraerIdUsuario(valor: any): string {
+    if (!valor) return '';
+    if (typeof valor === 'string' || typeof valor === 'number') return String(valor).trim();
+    if (typeof valor === 'object') {
+      const posible = valor.id ?? valor._id ?? valor.oid ?? valor.uuid ?? '';
+      return String(posible).trim();
+    }
+    return '';
+  }
+
+  private precargarNombresUsuarios(articulos: any[]): void {
+    const ids = Array.from(
+      new Set(
+        articulos
+          .map((articulo: any) => this.extraerIdUsuario(articulo?.usuarioId ?? articulo?.usuario ?? articulo?.autor ?? articulo?.owner ?? articulo?.createdBy))
+          .filter((id: string) => !!id && !this.nombresUsuarios[id])
+      )
+    );
+
+    if (ids.length === 0) {
+      return;
+    }
+
+    forkJoin(
+      ids.map((id) =>
+        this.usuariosService.obtenerUsuario(id).pipe(
+          map((usuario: any) => ({ id, nombre: usuario?.nombre ?? usuario?.data?.nombre ?? '' })),
+          catchError(() => of({ id, nombre: '' }))
+        )
+      )
+    ).subscribe((resultados) => {
+      resultados.forEach(({ id, nombre }) => {
+        if (nombre) {
+          this.nombresUsuarios[id] = nombre;
+        }
+      });
+    });
   }
 
   onImageSelected(event: any) {

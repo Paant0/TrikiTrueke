@@ -16,10 +16,10 @@
 
   <div class="categorias-grid" *ngIf="categorias.length > 0; else vacio">
     <mat-card class="categoria-card" *ngFor="let categoria of categorias"
-      [routerLink]="['/articulos', categoria.nombre]" appearance="outlined" tabindex="0" role="link"
+      [routerLink]="['/articulos','categoria', categoria.nombre]" appearance="outlined" tabindex="0" role="link"
       [attr.aria-label]="'Ver categoría ' + categoria.nombre">
       <div class="categoria-icono">
-        <img [src]="categoria.imagen" [alt]="categoria.nombre" />
+        <img [src]="categoria.imagen || 'assets/icons8-category-100.png'" [alt]="categoria.nombre" />
       </div>
 
       <mat-card-content>

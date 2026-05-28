@@ -86,6 +86,7 @@ export class ArticuloDetalleComponent implements OnInit {
         }
 
         this.articulo = articulo;
+        console.debug('[ArticuloDetalle] articulo recibido:', articulo);
 
         if (this.tieneNombreUsuario(articulo)) {
           this.loading = false;
@@ -93,10 +94,20 @@ export class ArticuloDetalleComponent implements OnInit {
         }
 
         // intentar obtener usuario por id si viene en el artículo
-        const usuarioId = articulo?.usuarioId || articulo?.usuario?.id || articulo?.usuario;
+            const rawUsuarioId = articulo?.usuarioId ?? articulo?.usuario ?? articulo?.usuario?.id ?? null;
+            let usuarioId: string | null = null;
+            if (rawUsuarioId) {
+              if (typeof rawUsuarioId === 'object') {
+                usuarioId = rawUsuarioId.id ?? rawUsuarioId._id ?? rawUsuarioId.oid ?? rawUsuarioId.uuid ?? null;
+              } else {
+                usuarioId = String(rawUsuarioId);
+              }
+            }
+
         if (usuarioId) {
           this.usuariosService.obtenerUsuario(String(usuarioId)).subscribe({
             next: (usuario) => {
+              console.debug('[ArticuloDetalle] usuario obtenido por id:', usuario);
               const nombre = usuario?.nombre ?? usuario?.data?.nombre ?? null;
               if (nombre) {
                 this.articulo = { ...this.articulo, usuarioNombre: nombre };

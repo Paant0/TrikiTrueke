@@ -35,6 +35,25 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  initSession(): Observable<UsuarioDTO | null> {
+    if (this.currentUserSubject.value) {
+      return new Observable<UsuarioDTO | null>((subscriber) => {
+        subscriber.next(this.currentUserSubject.value);
+        subscriber.complete();
+      });
+    }
+
+    return this.getMe().pipe(
+      catchError(() => {
+        this.currentUserSubject.next(null);
+        return new Observable<UsuarioDTO | null>((subscriber) => {
+          subscriber.next(null);
+          subscriber.complete();
+        });
+      })
+    );
+  }
+
   get currentUser(): UsuarioDTO | null {
     return this.currentUserSubject.value;
   }
