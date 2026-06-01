@@ -5,6 +5,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticuloDetalleComponent } from './articulos/articulo-detalle.component';
 import { MisArticulosComponent } from './mis-articulos/mis-articulos.component';
+import { MisIntercambiosComponent } from './mis-intercambios/mis-intercambios.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { authGuard } from './guards/auth.guard';
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
   { path: 'categorias', component: CategoriasComponent, canActivate: [authGuard] },
   { path: 'mis-articulos', component: MisArticulosComponent, canActivate: [authGuard] },
+  { path: 'mis-intercambios', component: MisIntercambiosComponent, canActivate: [authGuard] },
   { path: 'articulos/categoria/:categoria', component: ArticulosComponent, canActivate: [authGuard] },
   { path: 'articulos/:id', component: ArticuloDetalleComponent, canActivate: [authGuard] },
   { path: 'articulos', component: ArticulosComponent, canActivate: [authGuard] },

@@ -1,0 +1,198 @@
+<main class="intercambios-page">
+  <section class="intercambios-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Mi espacio</p>
+      <h1>Mis intercambios</h1>
+      <p class="lead">
+        Revisa las solicitudes que recibiste y las que enviaste. Solo puedes aceptar o rechazar las que te llegaron.
+      </p>
+    </div>
+
+    <div class="hero-stats" *ngIf="usuario; else sinUsuario">
+      <div class="stat-card">
+        <strong>{{ totalRecibidos }}</strong>
+        <span>Recibidos</span>
+      </div>
+      <div class="stat-card">
+        <strong>{{ totalEnviados }}</strong>
+        <span>Enviados</span>
+      </div>
+      <div class="stat-card">
+        <strong>{{ totalPendientes }}</strong>
+        <span>Pendientes</span>
+      </div>
+    </div>
+
+    <ng-template #sinUsuario>
+      <div class="hero-note">
+        No pudimos identificar tu sesión. Vuelve a iniciar sesión para ver tus intercambios.
+      </div>
+    </ng-template>
+  </section>
+
+  <section class="summary-bar" *ngIf="usuario">
+    <mat-card appearance="outlined" class="summary-card">
+      <mat-card-content>
+        <mat-icon>badge</mat-icon>
+        <div>
+          <span>Sesión activa</span>
+          <strong>{{ primerNombre }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="summary-card">
+      <mat-card-content>
+        <mat-icon>pending_actions</mat-icon>
+        <div>
+          <span>Accionables</span>
+          <strong>{{ cantidadAccionables }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="estado-carga" *ngIf="cargando">
+    <mat-card appearance="outlined" class="empty-card">
+      <mat-card-content>
+        <mat-spinner diameter="34"></mat-spinner>
+        <h2>Cargando tus intercambios</h2>
+        <p>Estamos recuperando tus movimientos para mostrarlos aquí.</p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="estado-error" *ngIf="!cargando && error">
+    <mat-card appearance="outlined" class="empty-card">
+      <mat-card-content>
+        <mat-icon>error_outline</mat-icon>
+        <h2>No pudimos cargar tus intercambios</h2>
+        <p>{{ error }}</p>
+        <button mat-flat-button color="primary" type="button" (click)="recargar()">
+          <mat-icon>refresh</mat-icon>
+          Reintentar
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <section class="panel-group" *ngIf="!cargando && !error">
+    <article class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Recibidos</p>
+          <h2>Solicitudes dirigidas a ti</h2>
+        </div>
+        <mat-chip-set>
+          <mat-chip>{{ totalRecibidos }}</mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <div class="intercambios-grid" *ngIf="intercambiosRecibidos.length > 0; else vacioRecibidos">
+        <mat-card class="intercambio-card" appearance="outlined" *ngFor="let intercambio of intercambiosRecibidos">
+          <mat-card-content>
+            <div class="card-topline">
+              <mat-chip-set>
+                <mat-chip [ngClass]="'estado estado--' + intercambio.estado.toLowerCase()">{{ estadoEtiqueta(intercambio.estado) }}</mat-chip>
+              </mat-chip-set>
+              <span class="card-date" *ngIf="intercambio.creadoEn">{{ intercambio.creadoEn | date:'short' }}</span>
+            </div>
+
+            <h3>{{ intercambio.articuloOfrecidoNombre }} <span>por</span> {{ intercambio.articuloRecibidoNombre }}</h3>
+            <p class="meta">De {{ intercambio.contraparteNombre }} hacia tu cuenta</p>
+
+            <mat-divider></mat-divider>
+
+            <div class="card-actions" *ngIf="intercambio.puedeAceptar || intercambio.puedeRechazar; else estadoSinAccion">
+              <button mat-flat-button color="primary" type="button" (click)="aceptar(intercambio)">
+                <mat-icon>check</mat-icon>
+                Aceptar
+              </button>
+              <button mat-stroked-button color="warn" type="button" (click)="rechazar(intercambio)">
+                <mat-icon>close</mat-icon>
+                Rechazar
+              </button>
+            </div>
+
+            <ng-template #estadoSinAccion>
+              <div class="card-actions card-actions--muted">
+                <span>Sin acciones disponibles</span>
+              </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <ng-template #vacioRecibidos>
+        <mat-card appearance="outlined" class="empty-card empty-card--panel">
+          <mat-card-content>
+            <mat-icon>inbox</mat-icon>
+            <h2>No tienes intercambios recibidos</h2>
+            <p>Cuando alguien te proponga un intercambio, aparecerá aquí para que lo revises.</p>
+            <button mat-flat-button color="primary" type="button" (click)="irAArticulos()">
+              <mat-icon>search</mat-icon>
+              Explorar artículos
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
+    </article>
+
+    <article class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Enviados</p>
+          <h2>Solicitudes hechas por ti</h2>
+        </div>
+        <mat-chip-set>
+          <mat-chip>{{ totalEnviados }}</mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <div class="intercambios-grid" *ngIf="intercambiosEnviados.length > 0; else vacioEnviados">
+        <mat-card class="intercambio-card" appearance="outlined" *ngFor="let intercambio of intercambiosEnviados">
+          <mat-card-content>
+            <div class="card-topline">
+              <mat-chip-set>
+                <mat-chip [ngClass]="'estado estado--' + intercambio.estado.toLowerCase()">{{ estadoEtiqueta(intercambio.estado) }}</mat-chip>
+              </mat-chip-set>
+              <span class="card-date" *ngIf="intercambio.creadoEn">{{ intercambio.creadoEn | date:'short' }}</span>
+            </div>
+
+            <h3>{{ intercambio.articuloOfrecidoNombre }} <span>por</span> {{ intercambio.articuloRecibidoNombre }}</h3>
+            <p class="meta">Enviado a {{ intercambio.contraparteNombre }}</p>
+
+            <mat-divider></mat-divider>
+
+            <div class="card-actions" *ngIf="intercambio.puedeCancelar; else estadoSinAccionEnviado">
+              <button mat-stroked-button color="warn" type="button" (click)="cancelar(intercambio)">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+              </button>
+            </div>
+
+            <ng-template #estadoSinAccionEnviado>
+              <div class="card-actions card-actions--muted">
+                <span>Sin acciones disponibles</span>
+              </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <ng-template #vacioEnviados>
+        <mat-card appearance="outlined" class="empty-card empty-card--panel">
+          <mat-card-content>
+            <mat-icon>send</mat-icon>
+            <h2>No has enviado intercambios</h2>
+            <p>Las propuestas que hagas desde los artículos aparecerán aquí para que puedas seguir su estado.</p>
+            <button mat-flat-button color="primary" type="button" (click)="irAArticulos()">
+              <mat-icon>add</mat-icon>
+              Buscar artículos
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
+    </article>
+  </section>
+</main>
